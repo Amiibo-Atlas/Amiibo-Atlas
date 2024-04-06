@@ -8,11 +8,17 @@ const NavbarContainer = styled.div`
 `;
 const NavbarUL = styled.ul`
   background-color: #a08aa0;
+  display: flex;
+  flex-direction: column;
+  @media (min-width: 587px) {
+    flex-direction: row;
+  }
 `;
 
 const NavbarLi = styled.li`
   list-style-type: none;
-  color: red;
+  color: white;
+  padding: 0.5rem;
 `;
 
 function Navbar() {
