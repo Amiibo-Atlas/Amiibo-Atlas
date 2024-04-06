@@ -6,7 +6,7 @@ const FooterContainer = styled.div`
   flex-wrap: wrap;
 `;
 const FooterUL = styled.ul`
-  background-color: #eae6ea;
+  background-color: #978097;
   display: flex;
   flex-direction: column;
   @media (min-width: 587px) {
