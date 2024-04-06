@@ -10,6 +10,8 @@ const NavbarUL = styled.ul`
   background-color: #a08aa0;
   display: flex;
   flex-direction: column;
+  padding-left: 1rem;
+  margin: 0;
   @media (min-width: 587px) {
     flex-direction: row;
   }
@@ -18,21 +20,30 @@ const NavbarUL = styled.ul`
 const NavbarLi = styled.li`
   list-style-type: none;
   color: white;
-  padding: 0.5rem;
+  align-self: flex-start;
+  flex-grow: 1;
+  font-size: 2rem;
+  a.active {
+    background-color: #d1cbcb;
+  }
+  @media (min-width: 587px) {
+    align-self: center;
+  }
 `;
 
 function Navbar() {
   return (
     <NavbarContainer>
       <NavbarUL>
+        <NavbarLi>Amiibo Atlas</NavbarLi>
         <NavbarLi>
-          <NavLink to="https://google.com">Dummy Link</NavLink>
+          <NavLink to="#">Dummy Link</NavLink>
         </NavbarLi>
         <NavbarLi>
-          <NavLink to="https://GitHub.com">Dummy Link</NavLink>
+          <NavLink to="#">Dummy Link</NavLink>
         </NavbarLi>
         <NavbarLi>
-          <NavLink to="https://LinkedIn.com">Dummy Link</NavLink>
+          <NavLink to="#">Dummy Link</NavLink>
         </NavbarLi>
       </NavbarUL>
     </NavbarContainer>

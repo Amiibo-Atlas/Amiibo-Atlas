@@ -9,6 +9,7 @@ const FooterUL = styled.ul`
   background-color: #978097;
   display: flex;
   flex-direction: column;
+  margin: 0;
   @media (min-width: 587px) {
     flex-direction: row;
     justify-content: center;
