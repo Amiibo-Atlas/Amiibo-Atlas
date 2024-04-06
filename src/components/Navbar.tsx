@@ -39,13 +39,13 @@ function Navbar() {
           <NavLink to="/">Amiibo Atlas</NavLink>
         </NavbarLi>
         <NavbarLi>
-          <NavLink to="/search">Search</NavLink>
+          <NavLink to="/#">Search</NavLink>
         </NavbarLi>
         <NavbarLi>
-          <NavLink to="#">Dummy Link</NavLink>
+          <NavLink to="/#">Temp page</NavLink>
         </NavbarLi>
         <NavbarLi>
-          <NavLink to="#">Dummy Link</NavLink>
+          <NavLink to="/#">Login</NavLink>
         </NavbarLi>
       </NavbarUL>
     </NavbarContainer>
