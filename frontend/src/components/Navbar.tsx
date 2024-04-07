@@ -44,9 +44,6 @@ function Navbar({ user }) {
         <NavbarLi>
           <NavLink to="/#">Temp page</NavLink>
         </NavbarLi>
-        <NavbarLi>
-          <NavLink to="/#">Login</NavLink>
-        </NavbarLi>
         <NavbarLi>{user.picture && <img src={user.picture}></img>}</NavbarLi>
       </NavbarUL>
     </NavbarContainer>

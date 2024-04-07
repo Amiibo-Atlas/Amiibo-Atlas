@@ -22,7 +22,7 @@ export default function Root() {
       <Container>
         <Navbar user={user} />
         <h1>Ignore this layout. Just setting basic things up.</h1>
-        <Login onUserChange={setUser} />
+        {Object.keys(user).length !== 0 ? null : <Login setUser={setUser} />}
         <AlignFooter>
           <Footer />
         </AlignFooter>
