@@ -1,6 +1,9 @@
 import { NavLink } from "react-router-dom";
 import styled from "@emotion/styled";
 
+import { GoogleLogin } from "@react-oauth/google";
+import { jwtDecode } from "jwt-decode";
+
 const NavbarContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -46,6 +49,25 @@ function Navbar() {
         </NavbarLi>
         <NavbarLi>
           <NavLink to="/#">Login</NavLink>
+        </NavbarLi>
+        <NavbarLi>
+          <GoogleLogin
+            onSuccess={(credentialResponse) => {
+              console.log(credentialResponse);
+              const decodeCredentials = jwtDecode(
+                credentialResponse.credential
+              );
+              // Come back to, not finished. Need to take content and implement retrieved information into state.
+              console.log("EMAIL: ", decodeCredentials.email);
+              console.log("NAME: ", decodeCredentials.name);
+              console.log("PICTURE: ", decodeCredentials.picture);
+              console.log("GIVEN NAME: ", decodeCredentials.given_name);
+              // Come back to, not finished. Need to take content and implement retrieved information into state.
+            }}
+            onError={() => {
+              console.log("Login Failed");
+            }}
+          />
         </NavbarLi>
       </NavbarUL>
     </NavbarContainer>

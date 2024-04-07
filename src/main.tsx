@@ -1,10 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import Root from "./components/root.tsx";
+
 import Theme from "./assets/theme.ts";
 import { Global } from "@emotion/react";
 
+import { GoogleOAuthProvider } from "@react-oauth/google";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
+const googleOAuthID = import.meta.env.VITE_GOOGLEOAUTH_CLIENT_ID;
 
 const router = createBrowserRouter([
   {
@@ -15,7 +19,10 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <Global styles={Theme()} />
-    <RouterProvider router={router} />
+    <GoogleOAuthProvider clientId={googleOAuthID}>
+      <Global styles={Theme()} />
+      <RouterProvider router={router} />
+    </GoogleOAuthProvider>
+    ;
   </React.StrictMode>
 );
