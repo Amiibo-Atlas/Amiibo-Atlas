@@ -2,6 +2,10 @@ import Navbar from "./Navbar";
 import Footer from "./Footer";
 import styled from "@emotion/styled";
 
+import Login from "./Login";
+
+import { useState } from "react";
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -12,11 +16,13 @@ const AlignFooter = styled.div`
   margin-top: auto;
 `;
 export default function Root() {
+  const [user, setUser] = useState({});
   return (
     <>
       <Container>
-        <Navbar />
+        <Navbar user={user} />
         <h1>Ignore this layout. Just setting basic things up.</h1>
+        <Login onUserChange={setUser} />
         <AlignFooter>
           <Footer />
         </AlignFooter>

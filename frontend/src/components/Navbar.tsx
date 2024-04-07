@@ -31,7 +31,7 @@ const NavbarLi = styled.li`
   }
 `;
 
-function Navbar() {
+function Navbar({ user }) {
   return (
     <NavbarContainer>
       <NavbarUL>
@@ -47,6 +47,7 @@ function Navbar() {
         <NavbarLi>
           <NavLink to="/#">Login</NavLink>
         </NavbarLi>
+        <NavbarLi>{user.picture && <img src={user.picture}></img>}</NavbarLi>
       </NavbarUL>
     </NavbarContainer>
   );

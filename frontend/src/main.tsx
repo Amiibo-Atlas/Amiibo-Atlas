@@ -5,8 +5,8 @@ import Root from "./components/root.tsx";
 import Theme from "./assets/theme.ts";
 import { Global } from "@emotion/react";
 
-import { GoogleOAuthProvider } from "@react-oauth/google";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 const googleOAuthID = import.meta.env.VITE_GOOGLEOAUTH_CLIENT_ID;
 
@@ -23,6 +23,5 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <Global styles={Theme()} />
       <RouterProvider router={router} />
     </GoogleOAuthProvider>
-    ;
   </React.StrictMode>
 );
