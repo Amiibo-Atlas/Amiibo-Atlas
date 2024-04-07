@@ -35,15 +35,17 @@ function Navbar() {
   return (
     <NavbarContainer>
       <NavbarUL>
-        <NavbarLi>Amiibo Atlas</NavbarLi>
         <NavbarLi>
-          <NavLink to="#">Dummy Link</NavLink>
+          <NavLink to="/">Amiibo Atlas</NavLink>
         </NavbarLi>
         <NavbarLi>
-          <NavLink to="#">Dummy Link</NavLink>
+          <NavLink to="/#">Search</NavLink>
         </NavbarLi>
         <NavbarLi>
-          <NavLink to="#">Dummy Link</NavLink>
+          <NavLink to="/#">Temp page</NavLink>
+        </NavbarLi>
+        <NavbarLi>
+          <NavLink to="/#">Login</NavLink>
         </NavbarLi>
       </NavbarUL>
     </NavbarContainer>
