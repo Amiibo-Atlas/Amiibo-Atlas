@@ -21,7 +21,7 @@ export default function Root() {
         <>
             <Container>
                 <Navbar user={user} />
-                <h1>Ignore this layout. Just setting basic things up. Testing husky...</h1>
+                <h1>Ignore this layout. Just setting basic things up. Develop is now the default branch</h1>
                 {Object.keys(user).length !== 0 ? null : <Login setUser={setUser} />}
                 <AlignFooter>
                     <Footer />
