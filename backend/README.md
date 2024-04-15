@@ -1,3 +1,0 @@
-# BACKEND
-
-## SQL (PostgreSQL / MySQL)
