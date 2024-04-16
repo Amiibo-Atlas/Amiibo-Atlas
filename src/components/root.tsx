@@ -1,3 +1,6 @@
+import { Outlet } from 'react-router-dom';
+import { ReactNode } from 'react';
+
 import Navbar from './Navbar';
 import Footer from './Footer';
 import styled from '@emotion/styled';
@@ -15,14 +18,14 @@ const Container = styled.div`
 const AlignFooter = styled.div`
     margin-top: auto;
 `;
-export default function Root() {
+export default function Root({ children }: { children?: ReactNode }) {
     const [user, setUser] = useState({});
     return (
         <>
             <Container>
                 <Navbar user={user} />
-                <h1>Ignore this layout. Just setting basic things up. Develop is now the default branch</h1>
-                {Object.keys(user).length !== 0 ? null : <Login setUser={setUser} />}
+                {/* {Object.keys(user).length !== 0 ? null : <Login setUser={setUser} />} */}
+                {children || <Outlet />}
                 <AlignFooter>
                     <Footer />
                 </AlignFooter>
