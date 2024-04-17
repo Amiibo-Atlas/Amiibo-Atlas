@@ -9,12 +9,14 @@ function recentAmiibo(date) {
     return releaseDate >= oneYearAgo;
 }
 
-export default function GetAmiibo() {
+export default function GetRecentAmiibo() {
+    const API = import.meta.env.VITE_API_URL;
+    console.log('API is...: ', API);
     const { isLoading, error, data } = useQuery({
         queryKey: ['data'],
         queryFn: async () => {
             try {
-                const response = await axios.get(`https://www.amiiboapi.com/api/amiibo/`);
+                const response = await axios.get(`${API}`);
 
                 const recentRelease = response.data.amiibo.filter((amiibo) => {
                     const releases = amiibo.release;
