@@ -46,7 +46,7 @@ export default function AmiiboCard({ data }) {
     return (
         <Wrapper>
             {data?.map((amiibo) => (
-                <Card>
+                <Card key={`${amiibo.gameSeries}-${amiibo.name}}`}>
                     <CardInfo>
                         <p>{amiibo.name}</p>
                     </CardInfo>
