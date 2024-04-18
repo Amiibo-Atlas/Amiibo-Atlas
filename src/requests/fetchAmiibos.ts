@@ -3,6 +3,9 @@ import { useQuery } from '@tanstack/react-query';
 
 export async function fetchAmiibos(API: string) {
     const response = await axios.get(`${API}`);
+    if (response.status < 200 || response.status >= 400) {
+        throw new Error(response.statusText);
+    }
     return response.data.amiibo;
 }
 
