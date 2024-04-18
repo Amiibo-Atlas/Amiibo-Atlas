@@ -1,5 +1,5 @@
 import filterRecentReleases from '../requests/filterRecentReleases';
-import GetAmiibo from '../requests/fetchAmiiboData';
+import GetAmiibo from '../requests/fetchAmiibos';
 import AmiiboCard from '../components/AmiiboCard';
 
 export default function Home() {
