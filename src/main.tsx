@@ -15,6 +15,9 @@ import { Global } from '@emotion/react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+const queryClient = new QueryClient();
+
 const googleOAuthID = import.meta.env.VITE_GOOGLEOAUTH_CLIENT_ID;
 
 const router = createBrowserRouter([
@@ -35,8 +38,10 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
         <GoogleOAuthProvider clientId={googleOAuthID}>
-            <Global styles={Theme()} />
-            <RouterProvider router={router} />
+            <QueryClientProvider client={queryClient}>
+                <Global styles={Theme()} />
+                <RouterProvider router={router} />
+            </QueryClientProvider>
         </GoogleOAuthProvider>
     </React.StrictMode>
 );
