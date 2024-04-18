@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
 
-export async function fetchAmiibos(API: string) {
+export async function fetchAmiiboList(API: string) {
     const response = await axios.get(`${API}`);
     if (response.status < 200 || response.status >= 400) {
         throw new Error(response.statusText);
@@ -14,7 +14,7 @@ export default function GetAmiibo() {
         queryKey: ['data'],
         queryFn: async () => {
             try {
-                const amiibos = await fetchAmiibos(import.meta.env.VITE_API_URL);
+                const amiibos = await fetchAmiiboList(import.meta.env.VITE_API_URL);
                 return amiibos;
             } catch (e) {
                 console.error('Error...: ', e);

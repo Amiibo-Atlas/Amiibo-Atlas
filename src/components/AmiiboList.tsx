@@ -1,6 +1,6 @@
 // Components
 import Card from './Card';
-import { fetchAmiibos } from '../requests/fetchAmiibos';
+import { fetchAmiiboList } from '../requests/fetchAmiiboList';
 
 // Dependencies
 import { useQuery } from '@tanstack/react-query';
@@ -13,16 +13,16 @@ const PageContainer = styled.div`
     margin: 0 auto;
 `;
 
-const TitleContainer = styled.div`
+const Breadcrumb = styled.nav`
+    padding: 1rem 0;
+`;
+
+const TopSection = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: start;
     align-items: center;
     margin: 2rem 0;
-`;
-
-const BreadcrumbNav = styled.nav`
-    padding: 1rem 0;
 `;
 
 const Title = styled.h1`
@@ -112,8 +112,9 @@ function AmiiboList() {
     const { isLoading, error, data } = useQuery({
         queryKey: ['amiibos'],
         queryFn: async () => {
+            // Just for testing purposes. I don't want to fetch all the amiibos
             const fullUrl = `${import.meta.env.VITE_API_URL}?amiiboSeries=Legend Of Zelda`;
-            const amiibos = await fetchAmiibos(fullUrl);
+            const amiibos = await fetchAmiiboList(fullUrl);
             return amiibos;
         },
     });
@@ -126,13 +127,13 @@ function AmiiboList() {
 
     return (
         <PageContainer>
-            <TitleContainer>
-                <BreadcrumbNav>
-                    <a href="#">Home</a> / Amiibos
-                </BreadcrumbNav>
+            <Breadcrumb>
+                <a href="/">Home</a> / Amiibos
+            </Breadcrumb>
+            <TopSection>
                 <Title>Amiibos</Title>
                 <p>{data.length} results</p>
-            </TitleContainer>
+            </TopSection>
 
             {data && (
                 <MainSection>
