@@ -5,8 +5,6 @@ import Navbar from './Navbar';
 import Footer from './Footer';
 import styled from '@emotion/styled';
 
-import Login from './Login';
-
 import { useState } from 'react';
 
 const Container = styled.div`
@@ -18,6 +16,8 @@ const Container = styled.div`
 const AlignFooter = styled.div`
     margin-top: auto;
 `;
+
+// Define function that is parent theme for remainder of application.
 export default function Root({ children }: { children?: ReactNode }) {
     const [user, setUser] = useState({});
     return (
