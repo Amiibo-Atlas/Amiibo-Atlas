@@ -39,7 +39,7 @@ function Navbar({ user }) {
                     <NavLink to="/">Amiibo Atlas</NavLink>
                 </NavbarLi>
                 <NavbarLi>
-                    <NavLink to="/#">Search</NavLink>
+                    <NavLink to="/amiibos">Amiibos Page</NavLink>
                 </NavbarLi>
                 <NavbarLi>
                     <NavLink to="/#">Temp page</NavLink>
