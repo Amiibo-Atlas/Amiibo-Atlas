@@ -42,6 +42,7 @@ const CardInfo = styled.div`
     width: 100%;
 `;
 
+// Function Component that is modular and can take data based on amiibo data from the API it is sent.
 export default function AmiiboCard({ data }) {
     return (
         <Wrapper>
