@@ -50,6 +50,7 @@ const GridContainer = styled.div`
 `;
 
 // Mock Data
+// I'll read through the API documentation later to see what kind of filterings are available
 const filters = [
     {
         id: 1,
@@ -111,18 +112,17 @@ function AmiiboList() {
     const { isLoading, error, data } = useQuery({
         queryKey: ['amiibos'],
         queryFn: async () => {
-            try {
-                const fullUrl = `${import.meta.env.VITE_API_URL}?amiiboSeries=Legend Of Zelda`;
-                const amiibos = await fetchAmiibos(fullUrl);
-                return amiibos;
-            } catch (e) {
-                console.error('Error...: ', e);
-            }
+            const fullUrl = `${import.meta.env.VITE_API_URL}?amiiboSeries=Legend Of Zelda`;
+            const amiibos = await fetchAmiibos(fullUrl);
+            return amiibos;
         },
     });
 
+    /*Future Task*/
+    // Can be made more cleaner by extracting the loading, error, and data checks into a separate component to reuse across the app
     if (isLoading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
+    if (data.length === 0) return <p>No data found</p>;
 
     return (
         <PageContainer>
@@ -131,31 +131,34 @@ function AmiiboList() {
                     <a href="#">Home</a> / Amiibos
                 </BreadcrumbNav>
                 <Title>Amiibos</Title>
+                <p>{data.length} results</p>
             </TitleContainer>
 
-            <MainSection>
-                <FilterSection>
-                    <h2>Filters</h2>
-                    {filters?.map((filter) => (
-                        <div key={filter.id}>
-                            <h3>{filter.name}</h3>
-                            {filter.options.map((option) => (
-                                <div key={option.key}>
-                                    <input type="checkbox" value={option.name} />
-                                    <label htmlFor={`${filter.id}-${option.name}`}>
-                                        {option.name}
-                                    </label>
-                                </div>
-                            ))}
-                        </div>
-                    ))}
-                </FilterSection>
-                <GridContainer>
-                    {data?.map((amiibo) => (
-                        <Card key={`${amiibo.tail}-${amiibo.head}`} amiibo={amiibo} />
-                    ))}
-                </GridContainer>
-            </MainSection>
+            {data && (
+                <MainSection>
+                    <FilterSection>
+                        <h2>Filters</h2>
+                        {filters?.map((filter) => (
+                            <div key={filter.id}>
+                                <h3>{filter.name}</h3>
+                                {filter.options.map((option) => (
+                                    <div key={option.key}>
+                                        <input type="checkbox" value={option.name} />
+                                        <label htmlFor={`${filter.id}-${option.name}`}>
+                                            {option.name}
+                                        </label>
+                                    </div>
+                                ))}
+                            </div>
+                        ))}
+                    </FilterSection>
+                    <GridContainer>
+                        {data.map((amiibo) => (
+                            <Card key={`${amiibo.tail}-${amiibo.head}`} amiibo={amiibo} />
+                        ))}
+                    </GridContainer>
+                </MainSection>
+            )}
         </PageContainer>
     );
 }
