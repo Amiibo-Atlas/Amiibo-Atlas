@@ -1,21 +1,8 @@
-// const googleOAuthID = import.meta.env.VITE_GOOGLEOAUTH_CLIENT_ID;
+import React from 'react'
 
-import { GoogleLogin } from '@react-oauth/google';
-import { jwtDecode } from 'jwt-decode';
-
-function Login({ setUser }) {
+function Login() {
     return (
-        <GoogleLogin
-            onSuccess={(credentialResponse) => {
-                console.log('Encrypted: ', credentialResponse);
-                const decodedUserObj = jwtDecode(credentialResponse.credential);
-                console.log('Decoded: ', decodedUserObj);
-                setUser(decodedUserObj);
-            }}
-            onError={() => {
-                console.log('Login Failed');
-            }}
-        />
+        <div>Add Title and Login Button</div>
     );
 }
 export default Login;
