@@ -4,20 +4,6 @@ import { FiShare } from "react-icons/fi";
 import styled from '@emotion/styled';
 import Popup from '../components/WishlistPopup';
 
-
-// test for now 
-// ideally, we should be able to get the amiibo object
-// interface Amiibo {
-
-// }
-
-// const amiibo = "mario";
-
-
-// to display each wishlist entry in a list 
-// https://www.guvi.in/blog/how-to-render-an-array-of-objects-in-react/#:~:text=JavaScript%20map()-,To%20render%20an%20array%20of%20objects%2Fitems%20in%20React%2C%20we,item%20in%20the%20given%20array.
-
-// placeholder wishlist until backend is implemented
  // used for placeholder amiibo information. 
  interface Amiibo {
   character: string;
