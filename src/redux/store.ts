@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { amiiboCardReducer } from './amiiboCardSlice';
+import { recentAmiiboReducer } from './recentAmiiboSlice';
 
 export const store = configureStore({
     reducer: {
-        amiiboCard: amiiboCardReducer,
+        recentAmiiboCard: recentAmiiboReducer,
     },
 });
 

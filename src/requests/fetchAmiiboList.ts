@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
-import { settingAmiibo } from '../redux/amiiboCardSlice';
+import { settingAmiibo } from '../redux/recentAmiiboSlice';
 import store from '../redux/store';
 import filterRecentReleases from './filterRecentReleases';
 

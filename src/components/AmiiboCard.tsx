@@ -46,7 +46,7 @@ const CardInfo = styled.div`
 `;
 
 export default function AmiiboCard() {
-    const amiiboData = useAppSelector((state) => state.amiiboCard.amiibos);
+    const amiiboData = useAppSelector((state) => state.recentAmiiboCard.amiibos);
     return (
         <Wrapper>
             {amiiboData.map((amiibo: Amiibo) => (
