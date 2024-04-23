@@ -1,5 +1,5 @@
 import filterRecentReleases from '../requests/filterRecentReleases';
-import GetAmiibo from '../requests/fetchAmiiboData';
+import GetAmiibo from '../requests/fetchAmiiboList';
 import AmiiboCard from '../components/AmiiboCard';
 
 // Deconstruct data from TanStack fucntion 'GetAmiibo', utilize its state management for checking for data (isLoading, data, error), render conditionally.
