@@ -1,3 +1,6 @@
+import { Amiibo } from '../interfaces/amiiboInterface';
+import { useAppSelector } from '../redux/hooks';
+
 import styled from '@emotion/styled';
 
 const Wrapper = styled.div`
@@ -42,12 +45,12 @@ const CardInfo = styled.div`
     width: 100%;
 `;
 
-// Function Component that is modular and can take data based on amiibo data from the API it is sent.
-export default function AmiiboCard({ data }) {
+export default function AmiiboCard() {
+    const amiiboData = useAppSelector((state) => state.amiiboCard.amiibos);
     return (
         <Wrapper>
-            {data?.map((amiibo) => (
-                <Card key={`${amiibo.gameSeries}-${amiibo.name}}`}>
+            {amiiboData.map((amiibo: Amiibo) => (
+                <Card key={`${amiibo.gameSeries}-${amiibo.name}`}>
                     <CardInfo>
                         <p>{amiibo.name}</p>
                     </CardInfo>
