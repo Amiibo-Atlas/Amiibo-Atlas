@@ -1,26 +1,27 @@
 import React, { useState } from 'react';
-import { doSignInUserWithEmailAndPassword } from '../features/auth/Auth';
+import { doCreateUserWithEmailAndPassword } from '../features/auth/Auth';
+import { Navigate, useNavigate } from 'react-router-dom';
 
-function Login() {
-    // TODO: login state
-    //const { userLoggedIn } = useAuth();
+function Register() {
+    const navigate = useNavigate();
 
     const [email, setEmail] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [isSigningIn, setIsSigningIn] = useState(false);
+    const [isRegistering, setIsRegistering] = useState(false);
 
     const onSubmit = async (e) => {
         e.preventDefault();
-        if (!isSigningIn) {
-            setIsSigningIn(true);
-            await doSignInUserWithEmailAndPassword(email, password);
+        if (!isRegistering) {
+            setIsRegistering(true);
+            await doCreateUserWithEmailAndPassword(email, password);
         }
+        navigate('/');
     };
 
     return (
         <div>
-            <h2>Login</h2>
+            <h2>Signup</h2>
             <form onSubmit={onSubmit}>
                 <div>
                     <label>Email:</label>
@@ -61,10 +62,10 @@ function Login() {
                         }}
                     />
                 </div>
-                <button type="submit">Login</button>
+                <button type="submit">Signup</button>
             </form>
         </div>
     );
 }
 
-export default Login;
+export default Register;
