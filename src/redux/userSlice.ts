@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { Amiibo } from '../interfaces/amiiboInterface';
 
 export const userSlice = createSlice({
@@ -10,7 +10,7 @@ export const userSlice = createSlice({
             state.email = email;
             state.wishlist = wishlist;
         },
-        addAmiiboWishlist: (state, action) => {
+        addAmiiboWishlist: (state, action: PayloadAction<Amiibo>) => {
             const amiiboAdd = action.payload;
             state.wishlist.push(amiiboAdd as Amiibo);
         },
