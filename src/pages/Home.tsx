@@ -11,13 +11,14 @@ export default function Home() {
     if (error) return <p>{error.message}</p>;
 
     const recentRelease = filterRecentReleases(data);
+    console.log(recentRelease);
 
     return (
         <>
             <h1>Amiibo Atlas</h1>
             <img src="src/assets/amiibo.png" />
             <h2> New Releases | See all</h2>
-            <AmiiboCard data={recentRelease} />
+            <AmiiboCard />
         </>
     );
 }
