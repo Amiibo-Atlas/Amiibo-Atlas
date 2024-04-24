@@ -17,6 +17,7 @@ import { Provider } from 'react-redux';
 import store from './redux/store.ts';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import WishlistPage from './pages/WishlistPage.tsx';
 const queryClient = new QueryClient();
 
 const googleOAuthID = import.meta.env.VITE_GOOGLEOAUTH_CLIENT_ID;
@@ -31,6 +32,7 @@ const router = createBrowserRouter([
             { path: 'compare', element: <Compare /> },
             { path: 'signup', element: <Signup /> },
             { path: 'login', element: <LoginPage /> },
+            { path: 'wishlist', element: <WishlistPage /> },
         ],
     },
 ]);

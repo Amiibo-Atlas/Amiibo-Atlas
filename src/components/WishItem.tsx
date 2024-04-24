@@ -17,6 +17,7 @@ interface Amiibo {
 
 interface WishProps {
     amiiboWish: Amiibo;
+    onRemove: (amiibo: Amiibo) => void;
 }
 
 const WishBox = styled.div`
@@ -79,9 +80,12 @@ const RemoveButton = styled.button`
     position: absolute;
 `;
 
-const WishItem = ({ amiiboWish }: WishProps) => {
-    const removeItem = async (wish: Amiibo) => {
-        console.log('prev wishlist: ' + JSON.stringify(wish));
+const WishItem = ({ amiiboWish, onRemove }: WishProps) => {
+    // const removeItem = async (wish: Amiibo) => {
+    //     console.log('prev wishlist: ' + JSON.stringify(wish));
+    // };
+    const handleAddToWishlist = () => {
+        onRemove(amiiboWish);
     };
 
     return (
@@ -98,7 +102,7 @@ const WishItem = ({ amiiboWish }: WishProps) => {
                 </a>
             </div>
             <div className="wishlist-add-button">
-                <RemoveButton id="remove-button" onClick={() => removeItem(amiiboWish)}>
+                <RemoveButton id="remove-button" onClick={handleAddToWishlist}>
                     <FaHeart />
                 </RemoveButton>
             </div>
