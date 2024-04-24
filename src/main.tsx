@@ -13,6 +13,8 @@ import { Global } from '@emotion/react';
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import { Provider } from 'react-redux';
+import store from './redux/store.ts';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 const queryClient = new QueryClient();
@@ -35,11 +37,13 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
-        <GoogleOAuthProvider clientId={googleOAuthID}>
-            <QueryClientProvider client={queryClient}>
-                <Global styles={Theme()} />
-                <RouterProvider router={router} />
-            </QueryClientProvider>
-        </GoogleOAuthProvider>
+        <Provider store={store}>
+            <GoogleOAuthProvider clientId={googleOAuthID}>
+                <QueryClientProvider client={queryClient}>
+                    <Global styles={Theme()} />
+                    <RouterProvider router={router} />
+                </QueryClientProvider>
+            </GoogleOAuthProvider>
+        </Provider>
     </React.StrictMode>
 );

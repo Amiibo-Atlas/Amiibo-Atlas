@@ -1,5 +1,5 @@
- import { FaHeart } from "react-icons/fa";
-import { RiInformation2Fill } from "react-icons/ri";
+import { FaHeart } from 'react-icons/fa';
+import { RiInformation2Fill } from 'react-icons/ri';
 import styled from '@emotion/styled';
 
 // details button is waiting for the amiibo's page to finish to get the link.
@@ -10,8 +10,8 @@ interface Amiibo {
     character: string;
     amiiboSeries: string;
     gameSeries: string;
-    name: string,
-    image: string,
+    name: string;
+    image: string;
     id: number;
 }
 
@@ -20,20 +20,20 @@ interface WishProps {
 }
 
 const WishBox = styled.div`
-  position: relative;
-  border: 2px solid #646cff;
-  border-radius: 25px;
-  gap: 10px;
-  display: flex;
-  justify-content: left;
-  align-items: left;
-  margin: 15px;
-  padding: 1rem;
-  height: 55px;
-  width: 600px;
-  font-size: 15px;
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  color: #1a1a1a;
+    position: relative;
+    border: 2px solid #646cff;
+    border-radius: 25px;
+    gap: 10px;
+    display: flex;
+    justify-content: left;
+    align-items: left;
+    margin: 15px;
+    padding: 1rem;
+    height: 55px;
+    width: 600px;
+    font-size: 15px;
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    color: #1a1a1a;
 `;
 
 const AmiiboImg = styled.img`
@@ -42,72 +42,68 @@ const AmiiboImg = styled.img`
 `;
 
 const DetailsButton = styled.button`
-  &:hover {
-    border-color: #646cff;
-  };
-  color: #646cff; 
-  cursor: pointer;
-  transition: border-color 0.25s;
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: white;
-  top: 5px;
-  right: 70px;
-  position: absolute; 
+    &:hover {
+        border-color: #646cff;
+    }
+    color: #646cff;
+    cursor: pointer;
+    transition: border-color 0.25s;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    padding: 0.6em 1.2em;
+    font-size: 1em;
+    font-weight: 500;
+    font-family: inherit;
+    background-color: white;
+    top: 5px;
+    right: 70px;
+    position: absolute;
 `;
 
 const RemoveButton = styled.button`
-  &:hover {
-    border-color: #646cff;
-  };
-  color: #646cff; 
-  cursor: pointer;
-  transition: border-color 0.25s;
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: white;
-  right: 10px;
-  top: 5px;
-  position: absolute; 
+    &:hover {
+        border-color: #646cff;
+    }
+    color: #646cff;
+    cursor: pointer;
+    transition: border-color 0.25s;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    padding: 0.6em 1.2em;
+    font-size: 1em;
+    font-weight: 500;
+    font-family: inherit;
+    background-color: white;
+    right: 10px;
+    top: 5px;
+    position: absolute;
 `;
 
-const WishItem = ({amiiboWish}: WishProps) => {       
-
-
+const WishItem = ({ amiiboWish }: WishProps) => {
     const removeItem = async (wish: Amiibo) => {
-        console.log("prev wishlist: " + JSON.stringify(wish));
-    }
+        console.log('prev wishlist: ' + JSON.stringify(wish));
+    };
 
     return (
-  
         <WishBox>
-        <AmiiboImg src={amiiboWish.image}></AmiiboImg>
-            <h3>{amiiboWish.gameSeries} - {amiiboWish.name}</h3>
-            <div className="wishlist-details-button"> 
-
+            <AmiiboImg src={amiiboWish.image}></AmiiboImg>
+            <h3>
+                {amiiboWish.gameSeries} - {amiiboWish.name}
+            </h3>
+            <div className="wishlist-details-button">
                 <a href="">
-                  <DetailsButton>
-                    <RiInformation2Fill />
-                  </DetailsButton>
+                    <DetailsButton>
+                        <RiInformation2Fill />
+                    </DetailsButton>
                 </a>
-                
             </div>
             <div className="wishlist-add-button">
-              <RemoveButton id="remove-button" onClick={() => removeItem(amiiboWish)}>
-                <FaHeart />
-                </RemoveButton>   
+                <RemoveButton id="remove-button" onClick={() => removeItem(amiiboWish)}>
+                    <FaHeart />
+                </RemoveButton>
             </div>
         </WishBox>
-   
-    )
-}
+    );
+};
 
-export default WishItem
+export default WishItem;
