@@ -2,6 +2,7 @@ import { Amiibo } from '../interfaces/amiiboInterface';
 import { useAppSelector } from '../redux/hooks';
 
 import styled from '@emotion/styled';
+import filterRecentReleases from '../requests/filterRecentReleases';
 
 const Wrapper = styled.div`
     display: flex;
@@ -46,10 +47,11 @@ const CardInfo = styled.div`
 `;
 
 export default function AmiiboCard() {
-    const amiiboData = useAppSelector((state) => state.recentAmiiboCard.amiibos);
+    const amiiboData = useAppSelector((state) => state.allAmiiboSlice.amiibos);
+    const recentReleases = filterRecentReleases(amiiboData);
     return (
         <Wrapper>
-            {amiiboData.map((amiibo: Amiibo) => (
+            {recentReleases.map((amiibo: Amiibo) => (
                 <Card key={`${amiibo.gameSeries}-${amiibo.name}`}>
                     <CardInfo>
                         <p>{amiibo.name}</p>
