@@ -1,6 +1,7 @@
 import filterRecentReleases from '../requests/filterRecentReleases';
 import GetAmiibo from '../requests/fetchAmiiboList';
 import AmiiboCard from '../components/AmiiboCard';
+import React from 'react';
 
 // Deconstruct data from TanStack fucntion 'GetAmiibo', utilize its state management for checking for data (isLoading, data, error), render conditionally.
 // Calls function to filter out recent releases, sends to componetized card function component (reused assets for showcasing amiibo).
