@@ -1,11 +1,16 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { Amiibo } from '../interfaces/amiiboInterface';
 
+interface UserGlobalState {
+    email: string | null;
+    wishlist: Amiibo[]; // Ensure wishlist is an array of Amiibo objects
+}
+
 export const userSlice = createSlice({
     name: 'user',
-    initialState: { email: null, wishlist: [] },
+    initialState: { email: null, wishlist: [] } as UserGlobalState,
     reducers: {
-        setUser: (state, action) => {
+        setUser: (state, action: PayloadAction<{ email: string | null; wishlist: Amiibo[] }>) => {
             const { email, wishlist } = action.payload;
             state.email = email;
             state.wishlist = wishlist;
@@ -13,6 +18,7 @@ export const userSlice = createSlice({
         addAmiiboWishlist: (state, action: PayloadAction<Amiibo>) => {
             // const amiiboAdd = action.payload;
             // state.wishlist.push(amiiboAdd as Amiibo);
+            //
             state.wishlist.push(action.payload);
         },
         removeAmiiboWishlist: (state, action: PayloadAction<Amiibo>) => {
