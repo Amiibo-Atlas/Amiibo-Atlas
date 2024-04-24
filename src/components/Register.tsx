@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { doCreateUserWithEmailAndPassword } from '../features/auth/Auth';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function Register() {
     const navigate = useNavigate();

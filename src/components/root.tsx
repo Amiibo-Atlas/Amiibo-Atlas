@@ -19,7 +19,7 @@ const AlignFooter = styled.div`
 
 // Define function that is parent theme for remainder of application.
 export default function Root({ children }: { children?: ReactNode }) {
-    const [user, setUser] = useState({});
+    const [user] = useState({});
     return (
         <>
             <Container>
