@@ -3,7 +3,7 @@ import { Amiibo } from '../interfaces/amiiboInterface';
 
 interface UserGlobalState {
     email: string | null;
-    wishlist: Amiibo[]; // Ensure wishlist is an array of Amiibo objects
+    wishlist: Amiibo[];
 }
 
 export const userSlice = createSlice({
@@ -16,17 +16,10 @@ export const userSlice = createSlice({
             state.wishlist = wishlist;
         },
         addAmiiboWishlist: (state, action: PayloadAction<Amiibo>) => {
-            // const amiiboAdd = action.payload;
-            // state.wishlist.push(amiiboAdd as Amiibo);
-            //
             state.wishlist.push(action.payload);
         },
         removeAmiiboWishlist: (state, action: PayloadAction<Amiibo>) => {
             const amiiboRemove = action.payload;
-            // state.wishlist = state.wishlist.filter((figure) => {
-            //     const amiiboId = `${figure.amiiboSeries}-${figure.character}-${figure.gameSeries}`;
-            //     return amiiboId !== amiiboRemove;
-            // });
             state.wishlist = state.wishlist.filter((figure) => figure !== amiiboRemove);
         },
     },

@@ -3,5 +3,5 @@ export interface Amiibo {
     name: string;
     image: string;
     character: string;
-    amiiboSeries;
+    amiiboSeries: string;
 }
