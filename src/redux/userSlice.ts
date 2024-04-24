@@ -23,10 +23,11 @@ export const userSlice = createSlice({
         },
         removeAmiiboWishlist: (state, action: PayloadAction<Amiibo>) => {
             const amiiboRemove = action.payload;
-            state.wishlist = state.wishlist.filter((figure) => {
-                const amiiboId = `${figure.amiiboSeries}-${figure.character}-${figure.gameSeries}`;
-                return amiiboId !== amiiboRemove;
-            });
+            // state.wishlist = state.wishlist.filter((figure) => {
+            //     const amiiboId = `${figure.amiiboSeries}-${figure.character}-${figure.gameSeries}`;
+            //     return amiiboId !== amiiboRemove;
+            // });
+            state.wishlist = state.wishlist.filter((figure) => figure !== amiiboRemove);
         },
     },
 });
