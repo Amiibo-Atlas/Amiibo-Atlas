@@ -1,6 +1,5 @@
 import { Amiibo } from '../interfaces/amiiboInterface';
 import { useAppSelector } from '../redux/hooks';
-import React from 'react';
 
 import styled from '@emotion/styled';
 import filterRecentReleases from '../requests/filterRecentReleases';
