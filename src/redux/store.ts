@@ -2,11 +2,13 @@ import { configureStore } from '@reduxjs/toolkit';
 import { recentAmiiboReducer } from './recentAmiiboSlice';
 // import { allAmiiboSlice } from './getAllAmiibo';
 import { allAmiiboSliceReducer } from './getAllAmiibo';
+import { setUser, userSliceReducer } from './userSlice';
 
 export const store = configureStore({
     reducer: {
         recentAmiiboCard: recentAmiiboReducer,
         allAmiiboSlice: allAmiiboSliceReducer,
+        setUser: userSliceReducer,
     },
 });
 
