@@ -1,51 +1,72 @@
 import { NavLink } from 'react-router-dom';
 import styled from '@emotion/styled';
+import myImage from '../assets/react.svg';
 
-const NavbarContainer = styled.div`
+const NavbarContainer = styled.header`
+    max-width: 100%;
+    width: 100%;
+    margin: auto;
     display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-`;
-const NavbarUL = styled.ul`
-    background-color: #a08aa0;
-    display: flex;
-    flex-direction: column;
-    padding-left: 1rem;
-    margin: 0;
-    @media (min-width: 587px) {
-        flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+    @media (min-width: 1024px) {
+        max-width: 1280px;
     }
 `;
 
-const NavbarLi = styled.li`
-    list-style-type: none;
-    color: white;
-    align-self: flex-start;
-    flex-grow: 1;
-    font-size: 2rem;
-    a.active {
-        background-color: #d1cbcb;
-    }
-    @media (min-width: 587px) {
-        align-self: center;
+const NavbarLinkContainer = styled.div`
+    display: none;
+    gap: 3rem;
+    @media (min-width: 1024px) {
+        display: flex;
     }
 `;
 
-function Navbar({ user }) {
+const NavbarLogo = styled.a`
+    flex: 1;
+    padding: 1.5rem;
+    margin: -0.375rem;
+    img {
+        height: 2rem;
+        width: auto;
+    }
+`;
+
+const NavbarLink = styled(NavLink)`
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.5;
+    color: #1f2937;
+    text-decoration: none;
+    &:hover, &:focus, &.active {
+        color: #4b5563; 
+    }
+`;
+
+const NavbarUserSection = styled.div`
+    display: none;
+    flex: 1;
+    justify-content: end;
+    @media (min-width: 1024px) {
+        display: flex;
+    }
+`;
+
+function Navbar() {
     return (
         <NavbarContainer>
-            <NavbarUL>
-                <NavbarLi>
-                    <NavLink to="/">Amiibo Atlas</NavLink>
-                </NavbarLi>
-                <NavbarLi>
-                    <NavLink to="/amiibos">Amiibos Page</NavLink>
-                </NavbarLi>
-                <NavbarLi>
-                    <NavLink to="/#">Temp page</NavLink>
-                </NavbarLi>
-                <NavbarLi>{user.picture && <img src={user.picture}></img>}</NavbarLi>
-            </NavbarUL>
+            <NavbarLogo href="#">
+                <img src={myImage} alt="Amiibo Atlas" />
+            </NavbarLogo>
+            <NavbarLinkContainer>
+                <NavbarLink to="/">Amiibo Atlas</NavbarLink>
+                <NavbarLink to="/amiibos">Amiibos Page</NavbarLink>
+                <NavbarLink to="/wishlist">WishList</NavbarLink>
+            </NavbarLinkContainer>
+            <NavbarUserSection>
+                <NavbarLink to="/login">Log in →</NavbarLink>
+            </NavbarUserSection>
         </NavbarContainer>
     );
 }
