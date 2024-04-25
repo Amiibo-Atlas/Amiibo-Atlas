@@ -24,6 +24,11 @@ const Card = styled.div`
     height: 250px;
     overflow: hidden;
     margin: 0.5rem;
+    transition: transform 0.3s ease;
+    &:hover {
+        transform: scale(1.1);
+        cursor: pointer;
+    }
 `;
 
 const InnerCard = styled.div`
