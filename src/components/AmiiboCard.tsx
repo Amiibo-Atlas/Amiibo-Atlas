@@ -1,8 +1,6 @@
 import { Amiibo } from '../interfaces/amiiboInterface';
-import { useAppSelector } from '../redux/hooks';
 
 import styled from '@emotion/styled';
-import filterRecentReleases from '../requests/filterRecentReleases';
 
 const Wrapper = styled.div`
     display: flex;
@@ -26,6 +24,11 @@ const Card = styled.div`
     height: 250px;
     overflow: hidden;
     margin: 0.5rem;
+    transition: transform 0.3s ease;
+    &:hover {
+        transform: scale(1.1);
+        cursor: pointer;
+    }
 `;
 
 const InnerCard = styled.div`
@@ -46,13 +49,17 @@ const CardInfo = styled.div`
     width: 100%;
 `;
 
-export default function AmiiboCard() {
-    const amiiboData = useAppSelector((state) => state.allAmiiboSlice.amiibos);
-    const recentReleases = filterRecentReleases(amiiboData);
+interface Props {
+    amiiboProps: Amiibo[]; // Changed prop name to amiiboProps
+}
+
+export default function AmiiboCard({ amiiboProps }: Props) {
     return (
         <Wrapper>
-            {recentReleases.map((amiibo: Amiibo) => (
-                <Card key={`${amiibo.gameSeries}-${amiibo.name}`}>
+            {amiiboProps.map((amiibo: Amiibo) => (
+                <Card
+                    key={`${amiibo.gameSeries}-${amiibo.name}-${amiibo.character}-${amiibo.tail}`}
+                >
                     <CardInfo>
                         <p>{amiibo.name}</p>
                     </CardInfo>

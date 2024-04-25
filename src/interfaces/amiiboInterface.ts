@@ -4,4 +4,5 @@ export interface Amiibo {
     image: string;
     character: string;
     amiiboSeries: string;
+    tail: string;
 }
