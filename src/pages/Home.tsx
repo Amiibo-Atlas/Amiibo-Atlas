@@ -53,7 +53,7 @@ export default function Home() {
             <h1>Amiibo Atlas</h1>
             <img src={myImage} />
             <h2>
-                New Releases |
+                {toggle ? 'Every Amiibo' : 'Recently Released Amiibo'} |
                 <ExpandButton onClick={handleExpansion}>
                     {toggle ? (
                         <FontAwesomeIcon icon={faMinus} />
