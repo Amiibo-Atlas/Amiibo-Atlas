@@ -9,6 +9,7 @@ import styled from '@emotion/styled';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faMinus } from '@fortawesome/free-solid-svg-icons';
 
 const ExpandButton = styled.button`
     background: transparent;
@@ -17,13 +18,20 @@ const ExpandButton = styled.button`
         cursor: pointer;
     }
     font-size: 1.2em;
+    padding-left: 1rem;
+    margin-top: 1rem;
 `;
 
 // Deconstruct data from TanStack function 'GetAmiibo', utilize its state management for checking for data (isLoading, data, error), render conditionally.
 // Calls function to filter out recent releases, sends to component card function component (reused assets for showcasing amiibo).
 export default function Home() {
     const [allAmiibo, setAllAmiibo] = useState(false);
+    const [toggle, setToggle] = useState(false);
     const { isLoading, error } = GetAmiibo();
+
+    const handleExpansion = () => {
+        setToggle((prevIsOn) => !prevIsOn);
+    };
 
     // Selecting amiibo data from the redux store...
     const amiiboDataRedux = useAppSelector((state) => state.allAmiiboSlice.amiibos);
@@ -46,7 +54,11 @@ export default function Home() {
             <h2>
                 New Releases |
                 <ExpandButton onClick={() => setAllAmiibo(!allAmiibo)}>
-                    Show all <FontAwesomeIcon icon={faPlus} />
+                    {toggle ? (
+                        <FontAwesomeIcon icon={faMinus} />
+                    ) : (
+                        <FontAwesomeIcon icon={faPlus} onClick={handleExpansion} />
+                    )}
                 </ExpandButton>
             </h2>
             <AmiiboCard amiiboProps={filterAmiiboAllOrRecent} />
