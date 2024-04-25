@@ -5,6 +5,20 @@ import myImage from '../assets/amiibo.png';
 import { useState } from 'react';
 import { useAppSelector } from '../redux/hooks';
 
+import styled from '@emotion/styled';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+
+const ExpandButton = styled.button`
+    background: transparent;
+    border: none;
+    :hover {
+        cursor: pointer;
+    }
+    font-size: 1.2em;
+`;
+
 // Deconstruct data from TanStack function 'GetAmiibo', utilize its state management for checking for data (isLoading, data, error), render conditionally.
 // Calls function to filter out recent releases, sends to component card function component (reused assets for showcasing amiibo).
 export default function Home() {
@@ -30,7 +44,10 @@ export default function Home() {
             <h1>Amiibo Atlas</h1>
             <img src={myImage} />
             <h2>
-                New Releases | <button onClick={() => setAllAmiibo(!allAmiibo)}>Show all?</button>
+                New Releases |
+                <ExpandButton onClick={() => setAllAmiibo(!allAmiibo)}>
+                    Show all <FontAwesomeIcon icon={faPlus} />
+                </ExpandButton>
             </h2>
             <AmiiboCard amiiboProps={filterAmiiboAllOrRecent} />
         </>
