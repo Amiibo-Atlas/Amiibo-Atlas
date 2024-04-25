@@ -31,6 +31,7 @@ export default function Home() {
 
     const handleExpansion = () => {
         setToggle((prevIsOn) => !prevIsOn);
+        setAllAmiibo(!allAmiibo);
     };
 
     // Selecting amiibo data from the redux store...
@@ -53,11 +54,11 @@ export default function Home() {
             <img src={myImage} />
             <h2>
                 New Releases |
-                <ExpandButton onClick={() => setAllAmiibo(!allAmiibo)}>
+                <ExpandButton onClick={handleExpansion}>
                     {toggle ? (
                         <FontAwesomeIcon icon={faMinus} />
                     ) : (
-                        <FontAwesomeIcon icon={faPlus} onClick={handleExpansion} />
+                        <FontAwesomeIcon icon={faPlus} />
                     )}
                 </ExpandButton>
             </h2>
