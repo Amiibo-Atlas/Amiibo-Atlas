@@ -1,11 +1,31 @@
-import { Outlet } from 'react-router-dom';
+import { Global, css } from '@emotion/react';
 import { ReactNode } from 'react';
+import { Outlet } from 'react-router-dom';
+import styled from '@emotion/styled';
 
 import Navbar from './Navbar';
 import Footer from './Footer';
-import styled from '@emotion/styled';
 
-import { useState } from 'react';
+const GlobalStyles = () => (
+    <Global
+        styles={css`
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            html, body {
+                width: 100%;
+                height: 100%;
+                overflow-x: hidden;
+            }
+            body {
+                line-height: 1.5;
+                font-family: Arial, sans-serif;
+            }
+        `}
+    />
+);
 
 const Container = styled.div`
     display: flex;
@@ -17,14 +37,12 @@ const AlignFooter = styled.div`
     margin-top: auto;
 `;
 
-// Define function that is parent theme for remainder of application.
 export default function Root({ children }: { children?: ReactNode }) {
-    const [user] = useState({});
     return (
         <>
+            <GlobalStyles />
             <Container>
-                <Navbar user={user} />
-                {/* {Object.keys(user).length !== 0 ? null : <Login setUser={setUser} />} */}
+                <Navbar />
                 {children || <Outlet />}
                 <AlignFooter>
                     <Footer />
