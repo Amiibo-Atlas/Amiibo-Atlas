@@ -2,7 +2,6 @@ import styled from '@emotion/styled';
 import { FaCopy } from "react-icons/fa";
 import { FacebookShare, TwitterShare, EmailShare, RedditShare } from 'react-share-kit';
 
-
 const CopyButton = styled.button`
   &:hover {
     border-color: black;
@@ -31,7 +30,7 @@ const CopyContent = styled.div`
   text-align: left;
   color: white;
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  font-size: 1.5em;
+  font-size: 1em;
   font-weight: 500;
   padding: 0.1em 0.1em;
 `;

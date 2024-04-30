@@ -62,7 +62,6 @@ const Popup = ({ showPopup, setShowPopup, type, publicStatus, setPublicStatus } 
     const togglePopup = () => {
         setShowPopup(!showPopup);
     }
-    
     return (showPopup ? ( 
             <PopupWindow>
                 <PopupContent>

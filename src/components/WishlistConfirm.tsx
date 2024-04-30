@@ -27,9 +27,9 @@ interface confirmProps {
 
 export default function ConfirmPublic({ publicStatus, setPublicStatus, showPopup, setShowPopup } : confirmProps) {
     const handleConfirm = () => {
-        console.log("prev - isPublic: ", publicStatus);
+        // console.log("prev - isPublic: ", publicStatus);
         setPublicStatus(!publicStatus);
-        console.log("after - isPublic: ", publicStatus);
+        // console.log("after - isPublic: ", publicStatus);
         setShowPopup(!showPopup);
       
     };
