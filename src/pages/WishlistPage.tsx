@@ -1,21 +1,12 @@
-import { useState } from 'react';
+import { useState, ChangeEvent } from 'react';
 import WishItem from '../components/WishItem';
 import { FiShare } from 'react-icons/fi';
+import { Amiibo } from '../interfaces/amiiboInterface';
 import styled from '@emotion/styled';
 import Popup from '../components/WishlistPopup';
 
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { removeAmiiboWishlist } from '../redux/userSlice';
-
-// used for placeholder amiibo information.
-interface Amiibo {
-    character: string;
-    amiiboSeries: string;
-    gameSeries: string;
-    name: string;
-    image: string;
-    id: number;
-}
 
 const Button = styled.button`
     &:hover {
@@ -60,7 +51,7 @@ function WishlistPage() {
             gameSeries: 'Mario Sports Superstars',
             name: 'Metal Mario - Tennis',
             image: 'https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_09d00301-02bb0e02.png',
-            id: 1,
+            tail: '02bb0e02',
         },
         {
             character: 'Mario Cereal',
@@ -68,7 +59,7 @@ function WishlistPage() {
             gameSeries: 'Kellogs',
             name: 'Super Mario Cereal',
             image: 'https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_37400001-03741402.png',
-            id: 2,
+            tail: '03741402',
         },
         {
             character: 'Baby Mario',
@@ -76,7 +67,7 @@ function WishlistPage() {
             gameSeries: 'Mario Sports Superstars',
             name: 'Baby Mario - Soccer',
             image: 'https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_09cc0101-02a50e02.png',
-            id: 3,
+            tail: '02a50e02',
         },
         {
             character: 'Metal Mario',
@@ -84,7 +75,7 @@ function WishlistPage() {
             gameSeries: 'Mario Sports Superstars',
             name: 'Metal Mario - Soccer',
             image: 'https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_09d00101-02b90e02.png',
-            id: 4,
+            tail: '02b90e02',
         },
         {
             character: 'Mario',
@@ -92,15 +83,25 @@ function WishlistPage() {
             gameSeries: 'Mario Sports Superstars',
             name: 'Mario - Soccer',
             image: 'https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_09c00101-02690e02.png',
-            id: 5,
+            tail: '02690e02',
         },
     ];
 
-    const [defaultWish, setDefaultWishlist] = useState(defaultWishlist);
+    const [defaultWish, setDefaultWishlist] = useState<Amiibo[]>(defaultWishlist);
     const [popupOpen, setPopupOpen] = useState(false);
+    const [isPublic, setIsPublic] = useState(false);
+    const [type, setType] = useState("");
+    const [publicCall, setPublicCall] = useState(false);
     const togglePopup = () => {
+        setType("sharing");
         setPopupOpen(!popupOpen);
     };
+
+    const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
+        console.log("Wishlist Public:", e.target.checked);
+        setType("public");
+        setPublicCall(!publicCall); 
+      }
 
     const dispatch = useAppDispatch();
     useAppSelector((state) => state.setUser.wishlist);
@@ -111,22 +112,28 @@ function WishlistPage() {
         setDefaultWishlist(updatedWishlist);
 
         // Dispatch to configured store in redux
-        dispatch(removeAmiiboWishlist(updatedWishlist));
+        dispatch(removeAmiiboWishlist(amiibo));
     };
 
     return (
         <Page>
             <h1 id="page-title">Wishlist</h1>
+            <label>
+                <input id="checkbox" type="checkbox" checked={isPublic}
+                onChange={handleOnChange} onClick={togglePopup}/>
+       </label>
             <p className="route-directory">Home - Wishlist</p>
             <h3>Explore or remove items form your Wish List here. </h3>
+            <p>Item Count: {defaultWish.length}</p>
+
             <div className="wishlist-share-button">
                 <Button id="share-button" onClick={togglePopup}>
                     <FiShare /> Share Wishlist!
                 </Button>
-                <Popup showPopup={popupOpen} setShowPopup={setPopupOpen} />
+                {<Popup showPopup={popupOpen} setShowPopup={setPopupOpen} type={type} publicStatus={isPublic} setPublicStatus={setIsPublic} />}
             </div>
 
-            <Wishes>
+            {isPublic && <Wishes>
                 {defaultWishlist.map((wish) => (
                     <WishItem
                         amiiboWish={wish}
@@ -134,7 +141,7 @@ function WishlistPage() {
                         onRemove={removeWishlistItem}
                     />
                 ))}
-            </Wishes>
+            </Wishes>}
         </Page>
     );
 }

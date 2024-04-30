@@ -1,19 +1,11 @@
 import { FaHeart } from 'react-icons/fa';
 import { RiInformation2Fill } from 'react-icons/ri';
 import styled from '@emotion/styled';
+import { Amiibo } from '../interfaces/amiiboInterface';
 
 // details button is waiting for the amiibo's page to finish to get the link.
 // will integrate code for remove button once merge is complete for authentication2
 // currently code is written and waiting.
-
-interface Amiibo {
-    character: string;
-    amiiboSeries: string;
-    gameSeries: string;
-    name: string;
-    image: string;
-    id: number;
-}
 
 interface WishProps {
     amiiboWish: Amiibo;
@@ -84,7 +76,7 @@ const WishItem = ({ amiiboWish, onRemove }: WishProps) => {
     // const removeItem = async (wish: Amiibo) => {
     //     console.log('prev wishlist: ' + JSON.stringify(wish));
     // };
-    const handleAddToWishlist = () => {
+    const handleRemoveToWishlist = () => {
         onRemove(amiiboWish);
     };
 
@@ -102,7 +94,7 @@ const WishItem = ({ amiiboWish, onRemove }: WishProps) => {
                 </a>
             </div>
             <div className="wishlist-add-button">
-                <RemoveButton id="remove-button" onClick={handleAddToWishlist}>
+                <RemoveButton id="remove-button" onClick={handleRemoveToWishlist}>
                     <FaHeart />
                 </RemoveButton>
             </div>
