@@ -49,6 +49,9 @@ const Share = () => {
 
   return (
     <div className="sharing-container">
+      <h1>Sharing Your Wishlist! </h1>
+      <p> Invite others to your list: </p>
+      <p>Anyone with this link can view your list!</p>
       <CopyBox>
         <CopyContent>      
         {wishlistUrl}

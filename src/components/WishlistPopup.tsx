@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { FaWindowClose } from "react-icons/fa";
 import Share from './WishlistShare';
+import ConfirmPublic from './WishlistConfirm';
 
 const PopupWindow = styled.div`
     position: fixed;
@@ -17,7 +18,7 @@ const PopupWindow = styled.div`
 
 const PopupContent = styled.div`
     position: relative;
-    padding: 32px;
+    padding: 50px;
     width: 100%;
     max-width: 640px;
     background-color: #FFF;
@@ -31,8 +32,10 @@ const PopupContent = styled.div`
 interface popupProps {
     showPopup: boolean,
     setShowPopup: (showPopup:boolean) => void,
+    type: string,
+    publicStatus: boolean,
+    setPublicStatus: (publicStatus: boolean) => void,
 }
-
 
 const CloseButton = styled.button`
   &:hover {
@@ -54,27 +57,24 @@ const CloseButton = styled.button`
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 `;
 
-
-const Popup = ({ showPopup, setShowPopup } : popupProps) => {
+const Popup = ({ showPopup, setShowPopup, type, publicStatus, setPublicStatus } : popupProps) => {
     
     const togglePopup = () => {
         setShowPopup(!showPopup);
     }
     
     return (showPopup ? ( 
-            <PopupWindow id="hiding">
+            <PopupWindow>
                 <PopupContent>
-                    <div className="title">
-                        <h1>Sharing Your Wishlist! </h1>
-                    </div>
-                    <p> Invite others to your list: </p>
-                    <p>Anyone with this link can view your list!</p>
-                    <div className="sharing">
-                        <Share></Share>
+
+                    <div className="content">
+                        {type === "sharing" && <Share></Share>}
+                        {type === "public" && 
+                        <ConfirmPublic publicStatus={publicStatus} setPublicStatus={setPublicStatus} 
+                        showPopup={showPopup} setShowPopup={togglePopup}></ConfirmPublic>}
                     </div>
                     <CloseButton onClick={togglePopup}> <FaWindowClose/> </CloseButton>
                     </PopupContent>
-                
             </PopupWindow>
         ) : ""
     )

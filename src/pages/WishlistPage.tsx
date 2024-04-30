@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, ChangeEvent } from 'react';
 import WishItem from '../components/WishItem';
 import { FiShare } from 'react-icons/fi';
 import { Amiibo } from '../interfaces/amiiboInterface';
@@ -7,8 +7,6 @@ import Popup from '../components/WishlistPopup';
 
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { removeAmiiboWishlist } from '../redux/userSlice';
-
-// used for placeholder amiibo information.
 
 const Button = styled.button`
     &:hover {
@@ -91,9 +89,19 @@ function WishlistPage() {
 
     const [defaultWish, setDefaultWishlist] = useState<Amiibo[]>(defaultWishlist);
     const [popupOpen, setPopupOpen] = useState(false);
+    const [isPublic, setIsPublic] = useState(false);
+    const [type, setType] = useState("");
+    const [publicCall, setPublicCall] = useState(false);
     const togglePopup = () => {
+        setType("sharing");
         setPopupOpen(!popupOpen);
     };
+
+    const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
+        console.log("Wishlist Public:", e.target.checked);
+        setType("public");
+        setPublicCall(!publicCall); 
+      }
 
     const dispatch = useAppDispatch();
     useAppSelector((state) => state.setUser.wishlist);
@@ -110,17 +118,22 @@ function WishlistPage() {
     return (
         <Page>
             <h1 id="page-title">Wishlist</h1>
+            <label>
+                <input id="checkbox" type="checkbox" checked={isPublic}
+                onChange={handleOnChange} onClick={togglePopup}/>
+       </label>
             <p className="route-directory">Home - Wishlist</p>
             <h3>Explore or remove items form your Wish List here. </h3>
             <p>Item Count: {defaultWish.length}</p>
+
             <div className="wishlist-share-button">
                 <Button id="share-button" onClick={togglePopup}>
                     <FiShare /> Share Wishlist!
                 </Button>
-                <Popup showPopup={popupOpen} setShowPopup={setPopupOpen} />
+                {<Popup showPopup={popupOpen} setShowPopup={setPopupOpen} type={type} publicStatus={isPublic} setPublicStatus={setIsPublic} />}
             </div>
 
-            <Wishes>
+            {isPublic && <Wishes>
                 {defaultWishlist.map((wish) => (
                     <WishItem
                         amiiboWish={wish}
@@ -128,7 +141,7 @@ function WishlistPage() {
                         onRemove={removeWishlistItem}
                     />
                 ))}
-            </Wishes>
+            </Wishes>}
         </Page>
     );
 }
