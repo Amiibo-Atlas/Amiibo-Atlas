@@ -1,12 +1,13 @@
 import { useParams } from 'react-router-dom';
 import { useAppSelector } from '../redux/hooks';
+import { Amiibo } from '../interfaces/amiiboInterface';
 
 export default function AmiibosParams() {
     const parameters = useParams();
     const { id } = parameters;
 
     // Access redux store for particular amiibo.
-    const amiiboDataRedux = useAppSelector((state) => state.allAmiiboSlice.amiibos);
+    const amiiboDataRedux: Amiibo[] = useAppSelector((state) => state.allAmiiboSlice.amiibos);
     const selectedAmiibo = amiiboDataRedux.find((amiibo) => amiibo.id === id);
 
     // Logic to ensure amiibo exist.
