@@ -2,6 +2,7 @@ import { Global, css } from '@emotion/react';
 import { ReactNode } from 'react';
 import { Outlet } from 'react-router-dom';
 import styled from '@emotion/styled';
+import ScrollToTop from './ScrollToTop';
 
 import Navbar from './Navbar';
 import Footer from './Footer';
@@ -14,7 +15,8 @@ const GlobalStyles = () => (
                 padding: 0;
                 box-sizing: border-box;
             }
-            html, body {
+            html,
+            body {
                 width: 100%;
                 height: 100%;
                 overflow-x: hidden;
@@ -42,6 +44,7 @@ export default function Root({ children }: { children?: ReactNode }) {
         <>
             <GlobalStyles />
             <Container>
+                <ScrollToTop />
                 <Navbar />
                 {children || <Outlet />}
                 <AlignFooter>
