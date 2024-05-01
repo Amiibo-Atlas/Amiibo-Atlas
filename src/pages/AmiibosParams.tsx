@@ -27,9 +27,20 @@ export default function AmiibosParams() {
     console.log('Redux store for single amiibo: ', selectedAmiibo);
     console.log('Redux store for ALL amiibo: ', amiiboDataRedux);
 
+    // Find the amiibo within the same series, based on all amiibo state.
+    // Use this to filter additional amiibo wihtin the same series.
+    const sameSeries = amiiboDataRedux.filter(
+        (amiibo) => amiibo.amiiboSeries === selectedAmiibo?.amiiboSeries && amiibo.id !== id
+    );
+
     // Logic to ensure amiibo exist.
     if (!selectedAmiibo) {
-        return <div>Loading...</div>; // This should change.
+        return (
+            <div>
+                Loading Amiibo...if there is an error, try again. (Fix this! Amiibo should have one
+                unique ID, and not change on reload...)
+            </div>
+        ); // This should change.
     }
 
     return (
@@ -47,6 +58,15 @@ export default function AmiibosParams() {
             <p>Europe: {selectedAmiibo.release.eu}</p>
             <p>Japan: {selectedAmiibo.release.jp}</p>
             <p>North America: {selectedAmiibo.release.na}</p>
+
+            <h3>Other Amiibos in the Same Series:</h3>
+            <ul>
+                {sameSeries.map((amiibo) => (
+                    <li key={amiibo.id}>
+                        <Link to={`/amiibos/${amiibo.id}`}>{amiibo.name}</Link>
+                    </li>
+                ))}
+            </ul>
         </div>
     );
 }
