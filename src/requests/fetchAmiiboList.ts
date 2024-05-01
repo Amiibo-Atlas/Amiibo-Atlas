@@ -3,12 +3,18 @@ import { useQuery } from '@tanstack/react-query';
 import { getAmiibo } from '../redux/getAllAmiibo';
 import store from '../redux/store';
 
+import { v4 as uuidv4 } from 'uuid';
+
 export async function fetchAmiiboList(API: string) {
     const response = await axios.get(`${API}`);
     if (response.status < 200 || response.status >= 400) {
         throw new Error(response.statusText);
     }
-    return response.data.amiibo;
+
+    return response.data.amiibo.map((amiibo) => ({
+        ...amiibo,
+        id: amiibo.id || uuidv4(),
+    }));
 }
 
 export default function GetAmiibo() {

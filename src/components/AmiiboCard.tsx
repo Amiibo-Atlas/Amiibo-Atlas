@@ -1,4 +1,5 @@
 import { Amiibo } from '../interfaces/amiiboInterface';
+import { Link } from 'react-router-dom';
 
 import styled from '@emotion/styled';
 
@@ -57,16 +58,19 @@ export default function AmiiboCard({ amiiboProps }: Props) {
     return (
         <Wrapper>
             {amiiboProps.map((amiibo: Amiibo) => (
-                <Card
+                <Link
+                    to={`/amiibos/${amiibo.id}`}
                     key={`${amiibo.gameSeries}-${amiibo.name}-${amiibo.character}-${amiibo.tail}`}
                 >
-                    <CardInfo>
-                        <p>{amiibo.name}</p>
-                    </CardInfo>
-                    <InnerCard>
-                        <CardImg src={amiibo.image} />
-                    </InnerCard>
-                </Card>
+                    <Card>
+                        <CardInfo>
+                            <p>{amiibo.name}</p>
+                        </CardInfo>
+                        <InnerCard>
+                            <CardImg src={amiibo.image} />
+                        </InnerCard>
+                    </Card>
+                </Link>
             ))}
         </Wrapper>
     );

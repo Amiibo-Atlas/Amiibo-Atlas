@@ -5,7 +5,11 @@ export const allAmiiboSlice = createSlice({
     initialState: { amiibos: [] },
     reducers: {
         getAmiibo: (state, action) => {
-            state.amiibos = action.payload;
+            // state.amiibos = action.payload;
+            state.amiibos = action.payload.map((amiibo) => ({
+                ...amiibo,
+                id: amiibo.id,
+            }));
         },
     },
 });

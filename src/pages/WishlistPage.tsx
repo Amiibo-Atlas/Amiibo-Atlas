@@ -52,6 +52,8 @@ function WishlistPage() {
             name: 'Metal Mario - Tennis',
             image: 'https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_09d00301-02bb0e02.png',
             tail: '02bb0e02',
+            release: undefined,
+            id: undefined,
         },
         {
             character: 'Mario Cereal',
@@ -60,6 +62,8 @@ function WishlistPage() {
             name: 'Super Mario Cereal',
             image: 'https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_37400001-03741402.png',
             tail: '03741402',
+            release: undefined,
+            id: undefined,
         },
         {
             character: 'Baby Mario',
@@ -68,6 +72,8 @@ function WishlistPage() {
             name: 'Baby Mario - Soccer',
             image: 'https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_09cc0101-02a50e02.png',
             tail: '02a50e02',
+            release: undefined,
+            id: undefined,
         },
         {
             character: 'Metal Mario',
@@ -76,6 +82,8 @@ function WishlistPage() {
             name: 'Metal Mario - Soccer',
             image: 'https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_09d00101-02b90e02.png',
             tail: '02b90e02',
+            release: undefined,
+            id: undefined,
         },
         {
             character: 'Mario',
@@ -84,24 +92,26 @@ function WishlistPage() {
             name: 'Mario - Soccer',
             image: 'https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_09c00101-02690e02.png',
             tail: '02690e02',
+            release: undefined,
+            id: undefined,
         },
     ];
 
     const [defaultWish, setDefaultWishlist] = useState<Amiibo[]>(defaultWishlist);
     const [popupOpen, setPopupOpen] = useState(false);
     const [isPublic, setIsPublic] = useState(false);
-    const [type, setType] = useState("");
+    const [type, setType] = useState('');
     const [publicCall, setPublicCall] = useState(false);
     const togglePopup = () => {
-        setType("sharing");
+        setType('sharing');
         setPopupOpen(!popupOpen);
     };
 
     const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
-        console.log("Wishlist Public:", e.target.checked);
-        setType("public");
-        setPublicCall(!publicCall); 
-      }
+        console.log('Wishlist Public:', e.target.checked);
+        setType('public');
+        setPublicCall(!publicCall);
+    };
 
     const dispatch = useAppDispatch();
     useAppSelector((state) => state.setUser.wishlist);
@@ -119,9 +129,14 @@ function WishlistPage() {
         <Page>
             <h1 id="page-title">Wishlist</h1>
             <label>
-                <input id="checkbox" type="checkbox" checked={isPublic}
-                onChange={handleOnChange} onClick={togglePopup}/>
-       </label>
+                <input
+                    id="checkbox"
+                    type="checkbox"
+                    checked={isPublic}
+                    onChange={handleOnChange}
+                    onClick={togglePopup}
+                />
+            </label>
             <p className="route-directory">Home - Wishlist</p>
             <h3>Explore or remove items form your Wish List here. </h3>
             <p>Item Count: {defaultWish.length}</p>
@@ -130,18 +145,28 @@ function WishlistPage() {
                 <Button id="share-button" onClick={togglePopup}>
                     <FiShare /> Share Wishlist!
                 </Button>
-                {<Popup showPopup={popupOpen} setShowPopup={setPopupOpen} type={type} publicStatus={isPublic} setPublicStatus={setIsPublic} />}
+                {
+                    <Popup
+                        showPopup={popupOpen}
+                        setShowPopup={setPopupOpen}
+                        type={type}
+                        publicStatus={isPublic}
+                        setPublicStatus={setIsPublic}
+                    />
+                }
             </div>
 
-            {isPublic && <Wishes>
-                {defaultWishlist.map((wish) => (
-                    <WishItem
-                        amiiboWish={wish}
-                        key={`${wish.gameSeries} - ${wish.name}}`}
-                        onRemove={removeWishlistItem}
-                    />
-                ))}
-            </Wishes>}
+            {isPublic && (
+                <Wishes>
+                    {defaultWishlist.map((wish) => (
+                        <WishItem
+                            amiiboWish={wish}
+                            key={`${wish.gameSeries} - ${wish.name}}`}
+                            onRemove={removeWishlistItem}
+                        />
+                    ))}
+                </Wishes>
+            )}
         </Page>
     );
 }
