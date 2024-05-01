@@ -58,10 +58,11 @@ export default function AmiiboCard({ amiiboProps }: Props) {
     return (
         <Wrapper>
             {amiiboProps.map((amiibo: Amiibo) => (
-                <Link to={`/amiibos/${amiibo.id}`}>
-                    <Card
-                        key={`${amiibo.gameSeries}-${amiibo.name}-${amiibo.character}-${amiibo.tail}`}
-                    >
+                <Link
+                    to={`/amiibos/${amiibo.id}`}
+                    key={`${amiibo.gameSeries}-${amiibo.name}-${amiibo.character}-${amiibo.tail}`}
+                >
+                    <Card>
                         <CardInfo>
                             <p>{amiibo.name}</p>
                         </CardInfo>
