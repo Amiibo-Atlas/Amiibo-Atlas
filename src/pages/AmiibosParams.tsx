@@ -12,7 +12,7 @@ export default function AmiibosParams() {
 
     // Logic to ensure amiibo exist.
     if (!selectedAmiibo) {
-        return <div>Loading...</div>; // You can render a loading indicator here
+        return <div>Loading...</div>; // This should change.
     }
 
     return (
