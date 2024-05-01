@@ -11,6 +11,25 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { faMinus } from '@fortawesome/free-solid-svg-icons';
 
+const Container = styled.div`
+    display: flex;
+    flex-direction: row;
+`;
+
+const UserInfoContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    border: 2px solid black;
+    border-radius: 7px;
+    margin: 2rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+`;
+
+const UserInfo = styled.div`
+    margin-top: 2rem;
+`;
+
 const ExpandButton = styled.button`
     background: transparent;
     border: none;
@@ -52,17 +71,33 @@ export default function Home() {
         <>
             <h1>Amiibo Atlas</h1>
             <img src={myImage} />
-            <h2>
-                {toggle ? 'Every Amiibo' : 'Recently Released Amiibo'} |
-                <ExpandButton onClick={handleExpansion}>
-                    {toggle ? (
-                        <FontAwesomeIcon icon={faMinus} />
-                    ) : (
-                        <FontAwesomeIcon icon={faPlus} />
-                    )}
-                </ExpandButton>
-            </h2>
-            <AmiiboCard amiiboProps={filterAmiiboAllOrRecent} />
+            <Container>
+                <UserInfoContainer>
+                    <UserInfo>
+                        <h2>User info:</h2>
+                        <p>TO DO: Hook into Redux store</p>
+                        <p>Select User Session</p>
+                        <p>Display User options</p>
+                    </UserInfo>
+                    <UserInfo>
+                        <h3>User Wishlist</h3>
+                        <p>TO DO: Hook into Redux store</p>
+                        <p>Select User Session</p>
+                        <p>Display Current User Wishlist here from global state</p>
+                    </UserInfo>
+                </UserInfoContainer>
+                <h2>
+                    {toggle ? 'Every Amiibo' : 'Recently Released Amiibo'} |
+                    <ExpandButton onClick={handleExpansion}>
+                        {toggle ? (
+                            <FontAwesomeIcon icon={faMinus} />
+                        ) : (
+                            <FontAwesomeIcon icon={faPlus} />
+                        )}
+                    </ExpandButton>
+                </h2>
+                <AmiiboCard amiiboProps={filterAmiiboAllOrRecent} />
+            </Container>
         </>
     );
 }

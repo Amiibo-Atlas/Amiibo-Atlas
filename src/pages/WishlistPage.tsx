@@ -52,6 +52,8 @@ function WishlistPage() {
             name: 'Metal Mario - Tennis',
             image: 'https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_09d00301-02bb0e02.png',
             tail: '02bb0e02',
+            release: undefined,
+            id: undefined,
         },
         {
             character: 'Mario Cereal',
@@ -60,6 +62,8 @@ function WishlistPage() {
             name: 'Super Mario Cereal',
             image: 'https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_37400001-03741402.png',
             tail: '03741402',
+            release: undefined,
+            id: undefined,
         },
         {
             character: 'Baby Mario',
@@ -68,6 +72,8 @@ function WishlistPage() {
             name: 'Baby Mario - Soccer',
             image: 'https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_09cc0101-02a50e02.png',
             tail: '02a50e02',
+            release: undefined,
+            id: undefined,
         },
         {
             character: 'Metal Mario',
@@ -76,6 +82,8 @@ function WishlistPage() {
             name: 'Metal Mario - Soccer',
             image: 'https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_09d00101-02b90e02.png',
             tail: '02b90e02',
+            release: undefined,
+            id: undefined,
         },
         {
             character: 'Mario',
@@ -84,6 +92,8 @@ function WishlistPage() {
             name: 'Mario - Soccer',
             image: 'https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_09c00101-02690e02.png',
             tail: '02690e02',
+            release: undefined,
+            id: undefined,
         },
     ];
 
