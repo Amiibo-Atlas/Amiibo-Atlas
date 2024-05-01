@@ -36,14 +36,14 @@ export default function Home() {
 
     // Selecting amiibo data from the redux store...
     const amiiboDataRedux = useAppSelector((state) => state.allAmiiboSlice.amiibos);
-    console.log('Testing...: ', amiiboDataRedux);
+    // console.log('Testing...: ', amiiboDataRedux);
 
     // Filter amiibo data based on allAmiibo state
     const filterAmiiboAllOrRecent = allAmiibo
         ? amiiboDataRedux
         : filterRecentReleases(amiiboDataRedux);
 
-    console.log('Recent...: ', filterAmiiboAllOrRecent);
+    // console.log('Recent...: ', filterAmiiboAllOrRecent);
 
     if (isLoading) return <p>Loading...</p>;
     if (error) return <p>{error.message}</p>;
