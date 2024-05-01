@@ -1,4 +1,5 @@
 export interface Amiibo {
+    release: any;
     id: any;
     gameSeries: string;
     name: string;
