@@ -1,8 +1,10 @@
 // Components
 import Card from './Card';
+import SortAmiibos from './SortAmiibos';
 import { fetchAmiiboList } from '../requests/fetchAmiiboList';
 
 // Dependencies
+import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import styled from '@emotion/styled';
 
@@ -49,78 +51,56 @@ const GridContainer = styled.div`
     margin-bottom: 3rem;
 `;
 
-// Mock Data
-// I'll read through the API documentation later to see what kind of filterings are available
+const LoadMoreButton = styled.button`
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    &:hover {
+        background-color: #0056b3;
+    }
+`;
+
 const filters = [
     {
         id: 1,
-        name: 'Amiibo Series',
+        name: 'Franchise',
         options: [
-            {
-                key: '0x06',
-                name: '8-bit Mario',
-            },
-            {
-                key: '0x05',
-                name: 'Animal Crossing',
-            },
-            {
-                key: '0x07',
-                name: 'Skylanders',
-            },
-        ],
-    },
-    {
-        id: 2,
-        name: 'Game Series',
-        options: [
-            {
-                key: '0x000',
-                name: 'Super Mario',
-            },
-            {
-                key: '0x008',
-                name: "Yoshi's Woolly World",
-            },
-            {
-                key: '0x320',
-                name: 'Sonic',
-            },
-        ],
-    },
-    {
-        id: 3,
-        name: 'Type',
-        options: [
-            {
-                key: '0x00',
-                name: 'Figure',
-            },
-            {
-                key: '0x01',
-                name: 'Card',
-            },
-            {
-                key: '0x02',
-                name: 'Yarn',
-            },
+            { key: 'animal-crossing', name: 'Animal Crossing' },
+            { key: 'chibi-robo', name: 'Chibi-Robo' },
+            { key: 'fire-emblem', name: 'Fire Emblem' },
+            { key: 'kirby', name: 'Kirby' },
+            { key: 'metroid', name: 'Metroid' },
+            { key: 'monster-hunter', name: 'Monster Hunter' },
+            { key: 'pikmin', name: 'Pikmin' },
+            { key: 'pokemon', name: 'Pokemon' },
+            { key: 'shovel-knight', name: 'Shovel Knight' },
+            { key: 'splatoon', name: 'Splatoon' },
+            { key: 'street-fighter', name: 'Street Fighter' },
+            { key: 'super-smash-bros', name: 'Super Smash Bros' },
+            { key: 'the-legend-of-zelda', name: 'The Legend of Zelda' },
         ],
     },
 ];
 
 function AmiiboList() {
+    const [selectedSeries, setSelectedSeries] = useState('');
+    const [isExpanded, setIsExpanded] = useState(false);
+    const [itemsToShow, setItemsToShow] = useState(12);
+
     const { isLoading, error, data } = useQuery({
-        queryKey: ['amiibos'],
+        queryKey: ['amiibos', selectedSeries],
         queryFn: async () => {
-            // Just for testing purposes. I don't want to fetch all the amiibos
-            const fullUrl = `${import.meta.env.VITE_API_URL}?amiiboSeries=Legend Of Zelda`;
-            const amiibos = await fetchAmiiboList(fullUrl);
+            const fullUrl = new URL(`${import.meta.env.VITE_API_URL}?amiiboSeries=${selectedSeries}`);
+            const amiibos = await fetchAmiiboList(fullUrl.toString());
             return amiibos;
         },
     });
 
-    /*Future Task*/
-    // Can be made more cleaner by extracting the loading, error, and data checks into a separate component to reuse across the app
+    const [sortedData, setSortedData] = useState(data);
+
     if (isLoading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
     if (data.length === 0) return <p>No data found</p>;
@@ -135,29 +115,41 @@ function AmiiboList() {
                 <p>{data.length} results</p>
             </TopSection>
 
-            {data && (
+            <SortAmiibos data={data} setSortedData={setSortedData} />
+
+            {sortedData && (
                 <MainSection>
                     <FilterSection>
                         <h2>Filters</h2>
                         {filters?.map((filter) => (
                             <div key={filter.id}>
                                 <h3>{filter.name}</h3>
-                                {filter.options.map((option) => (
+                                {filter.options.slice(0, isExpanded ? filter.options.length : 5).map((option) => (
                                     <div key={option.key}>
-                                        <input type="checkbox" value={option.name} />
-                                        <label htmlFor={`${filter.id}-${option.name}`}>
+                                        <label>
+                                            <input type="checkbox" value={option.name} onChange={e => setSelectedSeries(e.target.checked ? e.target.value : '')} />
                                             {option.name}
                                         </label>
                                     </div>
                                 ))}
+                                {filter.name === 'Franchise' && (
+                                    <button onClick={() => setIsExpanded(!isExpanded)}>
+                                        {isExpanded ? '-Less' : '+More'}
+                                    </button>
+                                )}
                             </div>
                         ))}
                     </FilterSection>
-                    <GridContainer>
-                        {data.map((amiibo) => (
-                            <Card key={`${amiibo.tail}-${amiibo.head}`} amiibo={amiibo} />
-                        ))}
-                    </GridContainer>
+                    <div>
+                        <GridContainer>
+                            {sortedData.slice(0, itemsToShow).map((amiibo) => (
+                                <Card key={`${amiibo.tail}-${amiibo.head}`} amiibo={amiibo} />
+                            ))}
+                        </GridContainer>
+                        {itemsToShow < sortedData.length && (
+                            <LoadMoreButton onClick={() => setItemsToShow(itemsToShow + 12)}>Load More</LoadMoreButton>
+                        )}
+                    </div>
                 </MainSection>
             )}
         </PageContainer>
