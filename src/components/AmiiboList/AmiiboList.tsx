@@ -4,16 +4,25 @@ import SortAmiibos from './SortAmiibos';
 import FilterAmiibos from './FilterAmiibos';
 import Breadcrumb from '../shared/Breadcrumb';
 import { fetchAmiiboList } from '../../requests/fetchAmiiboList';
-import { CARDS_PER_LOAD } from '../constants/constants';
+import { CARDS_PER_LOAD } from '../../constants/constants';
 
 // Styles
-import { PageContainer, TopSection, Title, LayoutContainer, ControlSection, MainSection, GridContainer, LoadMoreButton, Overlay } from './AmiiboListStyles';
+import {
+    PageContainer,
+    TopSection,
+    Title,
+    LayoutContainer,
+    ControlSection,
+    MainSection,
+    GridContainer,
+    LoadMoreButton,
+    Overlay,
+} from './AmiiboListStyles';
 import { BeatLoader } from 'react-spinners';
 
 // Dependencies
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-
 
 const AmiiboList = () => {
     const [amiibos, setAmiibos] = useState([]);
@@ -42,7 +51,10 @@ const AmiiboList = () => {
     return (
         <PageContainer>
             <Breadcrumb
-                paths={[{ url: '/', name: 'Home' }, { url: '/amiibos', name: 'Amiibos' }]}
+                paths={[
+                    { url: '/', name: 'Home' },
+                    { url: '/amiibos', name: 'Amiibos' },
+                ]}
                 currentUrl="/amiibos"
             />
             <TopSection>
@@ -61,21 +73,21 @@ const AmiiboList = () => {
                         <Overlay>
                             <BeatLoader size={15} />
                         </Overlay>
-                    ) : null }
+                    ) : null}
                     <GridContainer>
-                            {amiibos.slice(0, itemsToShow).map((amiibo: any) => (
-                                <Card key={`${amiibo.tail}-${amiibo.head}`} amiibo={amiibo} />
-                            ))}
-                        </GridContainer>
-                        {itemsToShow < amiibos.length && (
-                            <div className='text-center'>
-                                <LoadMoreButton onClick={handleLoading}>Load More</LoadMoreButton>
-                            </div>
-                        )}
+                        {amiibos.slice(0, itemsToShow).map((amiibo: any) => (
+                            <Card key={`${amiibo.tail}-${amiibo.head}`} amiibo={amiibo} />
+                        ))}
+                    </GridContainer>
+                    {itemsToShow < amiibos.length && (
+                        <div className="text-center">
+                            <LoadMoreButton onClick={handleLoading}>Load More</LoadMoreButton>
+                        </div>
+                    )}
                 </MainSection>
             </LayoutContainer>
         </PageContainer>
     );
-}
+};
 
 export default AmiiboList;
