@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-const SortAmiibos = ({ data, setSortedData }) => {
+const SortAmiibos = ({ amiibos, setAmiibos }) => {
     const [sortOption, setSortOption] = useState('Release Date');
 
     const sortAmiibos = (amiibos, option) => {
@@ -19,10 +19,8 @@ const SortAmiibos = ({ data, setSortedData }) => {
     };
 
     useEffect(() => {
-        if (data) {
-            setSortedData(sortAmiibos(data, sortOption));
-        }
-    }, [data, sortOption]);
+        setAmiibos(sortAmiibos(amiibos, sortOption));
+    }, [sortOption]);
 
     return (
         <select value={sortOption} onChange={e => setSortOption(e.target.value)}>

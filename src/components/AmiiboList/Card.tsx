@@ -28,19 +28,19 @@ const CardImage = styled.img`
 `;
 
 const CardContent = styled.div`
-    padding: 1rem;
+    padding: 2rem;
     display: flex;
     flex-direction: column;
 `;
 
 const CardTitle = styled.h3`
-    font-size: 1rem;
+    font-size: 1.5rem;
     font-weight: bold;
     color: #1f2937;
 `;
 
 const CardText = styled.p`
-    font-size: 0.875rem;
+    font-size: 1rem;
     color: #6b7280;
 `;
 
