@@ -20,3 +20,27 @@ export const filterOptions = [
         ],
     },
 ];
+
+export const RELEASE_DATE = 'Release Date';
+export const NEWEST_PRODUCTS = 'Newest products';
+export const PRODUCT_NAME_AZ = 'Product Name A-Z';
+export const PRODUCT_NAME_ZA = 'Product Name Z-A';
+
+export const sortOptions = [
+    {
+        id: 1,
+        name: RELEASE_DATE
+    },
+    {
+        id: 2,
+        name: NEWEST_PRODUCTS
+    },
+    {
+        id: 3,
+        name: PRODUCT_NAME_AZ
+    },
+    {
+        id: 4,
+        name: PRODUCT_NAME_ZA
+    }
+];
