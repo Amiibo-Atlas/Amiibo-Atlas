@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { css } from '@emotion/react';
 
 export const PageContainer = styled.div`
     max-width: 1920px;
@@ -26,9 +27,9 @@ export const LayoutContainer = styled.div`
     margin: 0 -15px;
 `;
 
-export const FilterSection = styled.aside`
+export const ControlSection = styled.aside`
     flex: 3;
-    width: 15em;
+    max-width: 15em;
     margin: 1.25em;
     display: flex;
     flex-direction: column;
@@ -37,7 +38,7 @@ export const FilterSection = styled.aside`
 
 export const MainSection = styled.div`
     flex: 7;
-    width: 75em;
+    max-width: 75em;
     min-height: 50em;
     overflow: auto;
     margin: 1.25em;
@@ -80,4 +81,44 @@ export const Overlay = styled.div`
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5); 
     z-index: 10;
+`;
+
+export const filterContainer = css`
+    margin-bottom: 20px;
+`;
+
+export const filterTitle = css`
+    color: #333;
+    margin-bottom: 10px;
+    border-bottom: 1px solid gray;
+    padding: 10px 0;
+`;
+
+export const optionContainer = css`
+    margin-bottom: 5px;
+`;
+
+export const optionLabel = css`
+    font-size: 14px;
+    color: #666;
+`;
+
+export const checkbox = css`
+    margin-right: 10px;
+`;
+
+export const expandButton = css`
+    margin-top: 10px;
+    background: none;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+`;
+
+export const dropdown = css`
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
 `;

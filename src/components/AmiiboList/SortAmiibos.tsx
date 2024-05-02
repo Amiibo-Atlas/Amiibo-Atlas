@@ -1,17 +1,20 @@
+/** @jsxImportSource @emotion/react */
 import { useEffect, useState } from 'react';
+import { sortOptions, RELEASE_DATE, NEWEST_PRODUCTS, PRODUCT_NAME_AZ, PRODUCT_NAME_ZA } from '../constants/constants';
+import { dropdown } from './AmiiboListStyles';
 
 const SortAmiibos = ({ amiibos, setAmiibos }) => {
-    const [sortOption, setSortOption] = useState('Release Date');
-
+    const [sortOption, setSortOption] = useState(RELEASE_DATE);
+    
     const sortAmiibos = (amiibos, option) => {
         switch (option) {
-            case 'Release Date':
-                return [...amiibos].sort((a, b) => new Date(a.release.na) - new Date(b.release.na));
-            case 'Newest products':
-                return [...amiibos].sort((a, b) => new Date(b.release.na) - new Date(a.release.na));
-            case 'Product Name A-Z':
+            case RELEASE_DATE:
+                return [...amiibos].sort((a, b) => new Date(a.release.na).getTime() - new Date(b.release.na).getTime());
+            case NEWEST_PRODUCTS:
+                return [...amiibos].sort((a, b) => new Date(b.release.na).getTime() - new Date(a.release.na).getTime());
+            case PRODUCT_NAME_AZ:
                 return [...amiibos].sort((a, b) => a.name.localeCompare(b.name));
-            case 'Product Name Z-A':
+            case PRODUCT_NAME_ZA:
                 return [...amiibos].sort((a, b) => b.name.localeCompare(a.name));
             default:
                 return amiibos;
@@ -19,15 +22,17 @@ const SortAmiibos = ({ amiibos, setAmiibos }) => {
     };
 
     useEffect(() => {
-        setAmiibos(sortAmiibos(amiibos, sortOption));
+        const sortedAmiibos = sortAmiibos(amiibos, sortOption);
+        setAmiibos(sortedAmiibos);
     }, [sortOption]);
 
     return (
-        <select value={sortOption} onChange={e => setSortOption(e.target.value)}>
-            <option value="Release Date">Release Date</option>
-            <option value="Newest products">Newest products</option>
-            <option value="Product Name A-Z">Product Name A-Z</option>
-            <option value="Product Name Z-A">Product Name Z-A</option>
+        <select css={dropdown} value={sortOption} onChange={e => setSortOption(e.target.value)}>
+            {sortOptions.map(option => (
+                <option key={option.id} value={option.name}>
+                    {option.name}
+                </option>
+            ))}
         </select>
     );
 };

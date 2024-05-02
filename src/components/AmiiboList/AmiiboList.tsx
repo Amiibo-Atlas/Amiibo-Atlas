@@ -7,7 +7,7 @@ import { fetchAmiiboList } from '../../requests/fetchAmiiboList';
 import { CARDS_PER_LOAD } from '../constants/constants';
 
 // Styles
-import { PageContainer, TopSection, LayoutContainer, FilterSection, MainSection, Title, GridContainer, LoadMoreButton, Overlay } from './AmiiboListStyles';
+import { PageContainer, TopSection, Title, LayoutContainer, ControlSection, MainSection, GridContainer, LoadMoreButton, Overlay } from './AmiiboListStyles';
 import { BeatLoader } from 'react-spinners';
 
 // Dependencies
@@ -33,8 +33,9 @@ const AmiiboList = () => {
         queryKey: ['amiibos'],
         queryFn: async () => {
             const response = await fetchAmiiboList(`${import.meta.env.VITE_API_URL}`);
-            setOriginalData(response);
             setAmiibos(response);
+            setOriginalData(response);
+            return response;
         },
     });
 
@@ -50,19 +51,19 @@ const AmiiboList = () => {
             </TopSection>
 
             <LayoutContainer>
-                <FilterSection>
+                <ControlSection>
                     <SortAmiibos amiibos={amiibos} setAmiibos={setAmiibos} />
                     <FilterAmiibos originalData={originalData} setAmiibos={setAmiibos} />
-                </FilterSection>
+                </ControlSection>
 
                 <MainSection>
                     {isLoading || isLoadingMore ? (
                         <Overlay>
-                            <BeatLoader color="#123abc" size={15} />
+                            <BeatLoader size={15} />
                         </Overlay>
-                    ) : null}
+                    ) : null }
                     <GridContainer>
-                            {amiibos.slice(0, itemsToShow).map((amiibo) => (
+                            {amiibos.slice(0, itemsToShow).map((amiibo: any) => (
                                 <Card key={`${amiibo.tail}-${amiibo.head}`} amiibo={amiibo} />
                             ))}
                         </GridContainer>
