@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import Root from './components/root.tsx';
 
 import Home from './pages/Home.tsx';
-import AmiiboList from './components/AmiiboList.tsx';
+import AmiiboList from './components/AmiiboList/AmiiboList.tsx';
 import Compare from './pages/Compare.tsx';
 import Signup from './pages/Signup.tsx';
 import LoginPage from './pages/LoginPage.tsx';
