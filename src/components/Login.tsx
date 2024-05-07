@@ -1,19 +1,24 @@
 import { useState } from 'react';
-import { doSignInUserWithEmailAndPassword } from '../features/auth/Auth';
-import styled from '@emotion/styled';
+import { firestore } from '../firebase/firebaseConfig';
+import { doc, getDocs, collection, query, where } from 'firebase/firestore';
 
+import { doSignInUserWithEmailAndPassword } from '../features/auth/Auth';
+
+import { UseDispatch, useDispatch } from 'react-redux';
+import { setUser } from '../redux/userSlice';
+
+import styled from '@emotion/styled';
 const LoginContainer = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center; 
-    height: 100vh; 
-    flex-grow: 1; 
+    align-items: center;
+    height: 100vh;
+    flex-grow: 1;
 `;
 
 function Login() {
-    // TODO: login state
-    //const { userLoggedIn } = useAuth();
+    const dispatch = useDispatch();
 
     const [email, setEmail] = useState('');
     const [username, setUsername] = useState('');
@@ -25,6 +30,22 @@ function Login() {
         if (!isSigningIn) {
             setIsSigningIn(true);
             await doSignInUserWithEmailAndPassword(email, password);
+
+            const q = query(collection(firestore, 'users'), where('displayName', '==', username));
+
+            const querySnapshot = await getDocs(q);
+            querySnapshot.forEach((doc) => {
+                // console.log(doc.id, ' => ', doc.data());
+                const userData = doc.data();
+                dispatch(
+                    setUser({
+                        email: userData.email,
+                        username: userData.displayName,
+                        wishlist: userData.wishlist,
+                        loginStatus: true,
+                    })
+                );
+            });
         }
     };
 
