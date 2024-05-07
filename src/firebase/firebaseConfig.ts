@@ -1,6 +1,8 @@
 import { initializeApp } from 'firebase/app';
+// import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
+import grabAuth from '../functions/getAuthToken';
 
 const firebaseConfig = {
     apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -15,5 +17,26 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const firestore = getFirestore(app);
+
+grabAuth();
+
+// // Listen for login authentication changes, such that user ID can be obtained.
+// onAuthStateChanged(auth, (user) => {
+//     if (user) {
+//         // User is signed in, log the user's ID token
+//         console.log('Logged in User...:', user.uid);
+//         // Console log the auth token, manage it within user global state in redux.
+//         user.getIdToken()
+//             .then((token) => {
+//                 console.log('ID/Auth token...:', token);
+//             })
+//             .catch((error) => {
+//                 console.error('Error obtaining particular user...:', error);
+//             });
+//     } else {
+//         // User is signed out
+//         console.log('User is no longer signed in...');
+//     }
+// });
 
 export { app, auth, firestore };
