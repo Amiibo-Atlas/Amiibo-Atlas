@@ -63,6 +63,7 @@ function Navbar() {
                 <NavbarLink to="/">Amiibo Atlas</NavbarLink>
                 <NavbarLink to="/amiibos">Amiibos Page</NavbarLink>
                 <NavbarLink to="/wishlist">WishList</NavbarLink>
+                <NavbarLink to="/profile">Profile Page</NavbarLink>
             </NavbarLinkContainer>
             <NavbarUserSection>
                 <NavbarLink to="/login">Log in →</NavbarLink>
