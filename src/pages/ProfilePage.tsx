@@ -106,12 +106,6 @@ function ProfilePage() {
                         <ImageBox />
                         <div className="photo-box"></div>
                         <h3>{userNameCapitalized}'s Profile Page</h3>
-                        {/* {user.loginStatus ? (
-                            <h3>{userCapitalized}'s Profile Page</h3>
-                        ) : (
-                            <h3>Temporary user name...fix this before release!</h3>
-                        )} */}
-                        {/* <h3>User Name</h3> */}
                         <p className="bio">{placeholder}</p>
                         <button>
                             Edit Profile! <FaUserEdit />
