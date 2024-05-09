@@ -1,10 +1,14 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { firestore } from '../firebase/firebaseConfig';
 import { getDocs, collection, query, where } from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
 
 import { doSignInUserWithEmailAndPassword } from '../features/auth/Auth';
 
 import { setUser } from '../redux/userSlice';
+
+// import grabAuth from '../functions/getAuthToken';
+// console.log('PLEASE CHECK IF WORKING....: ', grabAuth);
 
 import styled from '@emotion/styled';
 import { useAppDispatch } from '../redux/hooks';
@@ -17,7 +21,33 @@ const LoginContainer = styled.div`
     flex-grow: 1;
 `;
 
+import { useAppSelector } from '../redux/hooks';
+import Cookies from 'universal-cookie';
+
 function Login() {
+    // Determine status of login from the redux store...
+    const statusLogin = useAppSelector((state) => state.setUser.loginStatus);
+    // console.log('CHECK MEEEEE....: ', statusLogin);
+
+    const navigate = useNavigate();
+    useEffect(() => {
+        // If user is logged in, navigate back to homepage.
+        if (statusLogin) {
+            navigate('/profile'); // Redirect to the dashboard after login}
+        }
+    }, [statusLogin]);
+
+    const cookies = new Cookies(null, { path: '/' });
+
+    const user = useAppSelector((state) => state.setUser);
+    // console.log('Cookies test...: ', user.uidToken);
+
+    // Store user data in cookies for one day, assuming that user exists.
+    if (user) {
+        const setDayCookies = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+        cookies.set('userData', user.uidToken, { maxAge: setDayCookies });
+    }
+
     const dispatch = useAppDispatch();
 
     const [email, setEmail] = useState('');
@@ -37,12 +67,14 @@ function Login() {
             querySnapshot.forEach((doc) => {
                 // console.log(doc.id, ' => ', doc.data());
                 const userData = doc.data();
+                // console.log('HELLo? !!!!! : ', userData);
                 dispatch(
                     setUser({
                         email: userData.email,
                         username: userData.displayName,
                         wishlist: userData.wishlist,
                         loginStatus: true,
+                        uidToken: userData.id,
                     })
                 );
             });

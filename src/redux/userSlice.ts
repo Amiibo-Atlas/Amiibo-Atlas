@@ -6,6 +6,7 @@ interface UserGlobalState {
     wishlist: Amiibo[];
     username: string | null;
     loginStatus: boolean;
+    uidToken: string | null;
 }
 
 export const userSlice = createSlice({
@@ -15,6 +16,7 @@ export const userSlice = createSlice({
         wishlist: [],
         username: null,
         loginStatus: false,
+        uidToken: null,
     } as UserGlobalState,
     reducers: {
         setUser: (
@@ -24,13 +26,15 @@ export const userSlice = createSlice({
                 wishlist: Amiibo[];
                 username: string | null;
                 loginStatus: boolean;
+                uidToken: string | null;
             }>
         ) => {
-            const { email, wishlist, username, loginStatus } = action.payload;
+            const { email, wishlist, username, loginStatus, uidToken } = action.payload;
             state.email = email;
             state.wishlist = wishlist;
             state.username = username;
             state.loginStatus = loginStatus;
+            state.uidToken = uidToken;
         },
         addAmiiboWishlist: (state, action: PayloadAction<Amiibo>) => {
             state.wishlist.push(action.payload);
@@ -45,6 +49,9 @@ export const userSlice = createSlice({
         updateUsername: (state, action: PayloadAction<string | null>) => {
             state.username = action.payload;
         },
+        updateUID: (state, action: PayloadAction<string | null>) => {
+            state.uidToken = action.payload;
+        },
     },
 });
 
@@ -54,5 +61,6 @@ export const {
     removeAmiiboWishlist,
     updateLoginStatus,
     updateUsername,
+    updateUID,
 } = userSlice.actions;
 export const userSliceReducer = userSlice.reducer;
