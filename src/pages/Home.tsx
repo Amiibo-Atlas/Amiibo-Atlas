@@ -4,6 +4,7 @@ import AmiiboCard from '../components/AmiiboCard';
 import myImage from '../assets/amiibo.png';
 import { useState } from 'react';
 import { useAppSelector } from '../redux/hooks';
+import grabUserNameCapitalized from '../functions/grabUserName';
 
 import styled from '@emotion/styled';
 
@@ -48,6 +49,10 @@ export default function Home() {
     const [toggle, setToggle] = useState(false);
     const { isLoading, error } = GetAmiibo();
 
+    // Grab user from user global state.
+    const user = useAppSelector((state) => state.setUser);
+    const userNameCapitalized = grabUserNameCapitalized(user);
+
     const handleExpansion = () => {
         setToggle((prevIsOn) => !prevIsOn);
         setAllAmiibo(!allAmiibo);
@@ -74,10 +79,11 @@ export default function Home() {
             <Container>
                 <UserInfoContainer>
                     <UserInfo>
-                        <h2>User info:</h2>
-                        <p>TO DO: Hook into Redux store</p>
-                        <p>Select User Session</p>
-                        <p>Display User options</p>
+                        <h2>{userNameCapitalized}</h2>
+                        <h3>{user.email}</h3>
+                        <h4>UID: {user.uidToken}</h4>
+                        <h4>Select User Session</h4>
+                        <h4>Display User options</h4>
                     </UserInfo>
                     <UserInfo>
                         <h3>User Wishlist</h3>
