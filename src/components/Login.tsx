@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { firestore } from '../firebase/firebaseConfig';
 import { getDocs, collection, query, where } from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
 
 import { doSignInUserWithEmailAndPassword } from '../features/auth/Auth';
 
@@ -24,6 +25,18 @@ import { useAppSelector } from '../redux/hooks';
 import Cookies from 'universal-cookie';
 
 function Login() {
+    // Determine status of login from the redux store...
+    const statusLogin = useAppSelector((state) => state.setUser.loginStatus);
+    console.log('CHECK MEEEEE....: ', statusLogin);
+
+    const navigate = useNavigate();
+    useEffect(() => {
+        // If user is logged in, navigate back to homepage.
+        if (statusLogin) {
+            navigate('/'); // Redirect to the dashboard after login}
+        }
+    }, [statusLogin]);
+
     const cookies = new Cookies(null, { path: '/' });
 
     const user = useAppSelector((state) => state.setUser);
