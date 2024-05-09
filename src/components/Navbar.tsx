@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import myImage from '../assets/react.svg';
 
 import { useAppSelector } from '../redux/hooks';
+import grabUserNameCapitalized from '../functions/grabUserName';
 
 const NavbarContainer = styled.header`
     max-width: 100%;
@@ -60,7 +61,7 @@ const NavbarUserSection = styled.div`
 function Navbar() {
     // Grab user from user global state.
     const user = useAppSelector((state) => state.setUser);
-    console.log('THIS IS A TEST....: ', user);
+    const userNameCapitalized = grabUserNameCapitalized(user);
 
     return (
         <NavbarContainer>
@@ -75,7 +76,7 @@ function Navbar() {
             </NavbarLinkContainer>
             <NavbarUserSection>
                 {user.loginStatus ? (
-                    <h2>Hello, {user.username}</h2>
+                    <h2>Hello, {userNameCapitalized}</h2>
                 ) : (
                     <NavbarLink to="/login">Log in →</NavbarLink>
                 )}
