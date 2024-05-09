@@ -1,14 +1,13 @@
 import { useState } from 'react';
 import { firestore } from '../firebase/firebaseConfig';
-import { doc, getDocs, collection, query, where } from 'firebase/firestore';
+import { getDocs, collection, query, where } from 'firebase/firestore';
 
 import { doSignInUserWithEmailAndPassword } from '../features/auth/Auth';
 
-import { UseDispatch, useDispatch } from 'react-redux';
 import { setUser } from '../redux/userSlice';
 
 import styled from '@emotion/styled';
-import { useAppSelector } from '../redux/hooks';
+import { useAppDispatch } from '../redux/hooks';
 const LoginContainer = styled.div`
     display: flex;
     flex-direction: column;
@@ -19,7 +18,7 @@ const LoginContainer = styled.div`
 `;
 
 function Login() {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     const [email, setEmail] = useState('');
     const [username, setUsername] = useState('');

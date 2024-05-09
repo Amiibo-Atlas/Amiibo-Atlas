@@ -6,8 +6,8 @@ import { FaUserEdit } from 'react-icons/fa';
 import { ImCheckmark } from 'react-icons/im';
 import { FaHeart } from 'react-icons/fa';
 
-import { useAppSelector } from '../redux/hooks';
 import grabUserNameCapitalized from '../functions/grabUserName';
+import { useAppSelector } from '../redux/hooks';
 
 const ContainPage = styled.div`
     display: flex;
@@ -40,7 +40,9 @@ function ProfilePage() {
     //     ? user.username.charAt(0).toUpperCase() + user.username.slice(1)
     //     : '';
 
-    grabUserNameCapitalized();
+    // Grab user from user global state.
+    const user = useAppSelector((state) => state.setUser);
+    const userNameCapitalized = grabUserNameCapitalized(user);
 
     // placeholder
     const personalCollection: Amiibo[] = [
@@ -103,7 +105,7 @@ function ProfilePage() {
                     <div className="profile-info">
                         <ImageBox />
                         <div className="photo-box"></div>
-                        <h3>{grabUserNameCapitalized()}</h3>
+                        <h3>{userNameCapitalized}'s Profile Page</h3>
                         {/* {user.loginStatus ? (
                             <h3>{userCapitalized}'s Profile Page</h3>
                         ) : (
