@@ -20,6 +20,7 @@ import store from './redux/store.ts';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import WishlistPage from './pages/WishlistPage.tsx';
 import ProfilePage from './pages/ProfilePage.tsx';
+import Splash from './pages/Splash.tsx';
 
 const queryClient = new QueryClient();
 
@@ -30,7 +31,8 @@ const router = createBrowserRouter([
         path: '/',
         element: <Root />,
         children: [
-            { index: true, element: <Home /> },
+            { index: true, element: <Splash /> },
+            { path: 'home', element: <Home /> },
             { path: 'amiibos', element: <AmiiboList /> },
             { path: 'amiibos/:id', element: <AmiibosParams /> },
             { path: 'compare', element: <Compare /> },

@@ -69,7 +69,7 @@ function Navbar() {
                 <img src={myImage} alt="Amiibo Atlas" />
             </NavbarLogo>
             <NavbarLinkContainer>
-                <NavbarLink to="/">Amiibo Atlas</NavbarLink>
+                <NavbarLink to="/home">Amiibo Atlas</NavbarLink>
                 <NavbarLink to="/amiibos">Amiibos Page</NavbarLink>
                 <NavbarLink to="/wishlist">WishList</NavbarLink>
                 <NavbarLink to="/profile">Profile Page</NavbarLink>
