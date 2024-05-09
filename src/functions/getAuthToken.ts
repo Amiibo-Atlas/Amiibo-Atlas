@@ -19,11 +19,11 @@ export default function grabAuth() {
     onAuthStateChanged(auth, (user) => {
         if (user) {
             // User is signed in, log the user's ID token
-            console.log('USER UID, REMOVE LOG AFTER STORING IN REDUX:', user.uid);
+            // console.log('USER UID, REMOVE LOG AFTER STORING IN REDUX:', user.uid);
             // Console log the auth token, manage it within user global state in redux.
             user.getIdToken()
                 .then((token) => {
-                    console.log('ID/Auth token...:', token);
+                    // console.log('ID/Auth token...:', token);
                 })
                 .catch((error) => {
                     console.error('Error obtaining particular user...:', error);

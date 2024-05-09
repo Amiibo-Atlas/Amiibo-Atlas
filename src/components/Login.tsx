@@ -7,8 +7,8 @@ import { doSignInUserWithEmailAndPassword } from '../features/auth/Auth';
 
 import { setUser } from '../redux/userSlice';
 
-import grabAuth from '../functions/getAuthToken';
-console.log('PLEASE CHECK IF WORKING....: ', grabAuth);
+// import grabAuth from '../functions/getAuthToken';
+// console.log('PLEASE CHECK IF WORKING....: ', grabAuth);
 
 import styled from '@emotion/styled';
 import { useAppDispatch } from '../redux/hooks';
@@ -27,20 +27,20 @@ import Cookies from 'universal-cookie';
 function Login() {
     // Determine status of login from the redux store...
     const statusLogin = useAppSelector((state) => state.setUser.loginStatus);
-    console.log('CHECK MEEEEE....: ', statusLogin);
+    // console.log('CHECK MEEEEE....: ', statusLogin);
 
     const navigate = useNavigate();
     useEffect(() => {
         // If user is logged in, navigate back to homepage.
         if (statusLogin) {
-            navigate('/'); // Redirect to the dashboard after login}
+            navigate('/profile'); // Redirect to the dashboard after login}
         }
     }, [statusLogin]);
 
     const cookies = new Cookies(null, { path: '/' });
 
     const user = useAppSelector((state) => state.setUser);
-    console.log('Cookies test...: ', user.uidToken);
+    // console.log('Cookies test...: ', user.uidToken);
 
     // Store user data in cookies for one day, assuming that user exists.
     if (user) {
@@ -67,7 +67,7 @@ function Login() {
             querySnapshot.forEach((doc) => {
                 // console.log(doc.id, ' => ', doc.data());
                 const userData = doc.data();
-                console.log('HELLo? !!!!! : ', userData);
+                // console.log('HELLo? !!!!! : ', userData);
                 dispatch(
                     setUser({
                         email: userData.email,
