@@ -1,5 +1,12 @@
+/** @jsxImportSource @emotion/react */
 import React from 'react';
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { FaHeart } from 'react-icons/fa';
+// import { addAmiiboWishlist } from '../redux/userSlice';
+// import { useHistory } from 'react-router-dom';
+// import { useDispatch } from 'react-redux';
+
 
 const CardContainer = styled.div`
     display: flex;
@@ -15,6 +22,7 @@ const ImageContainer = styled.div`
     overflow: hidden;
     height: 0;
     padding-bottom: 100%;
+    border: 1px solid #ccc;
 `;
 
 const CardImage = styled.img`
@@ -28,30 +36,46 @@ const CardImage = styled.img`
 `;
 
 const CardContent = styled.div`
-    padding: 2rem;
+    padding: 1rem 2rem;
     display: flex;
     flex-direction: column;
 `;
 
 const CardTitle = styled.h3`
-    font-size: 1.5rem;
+    font-size: 1.1rem;
     font-weight: bold;
-    color: #1f2937;
 `;
 
-const CardText = styled.p`
-    font-size: 1rem;
-    color: #6b7280;
+const CardText = styled.div`
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
 `;
 
-const Badge = styled.div`
-    background-color: #ef4444;
-    color: white;
-    padding: 0.25rem 0.5rem;
-    border-radius: 10px;
-    font-size: 0.75rem;
+const ButtonContainer = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+`;
+
+const Button = css`
+    padding: 10px;
+    background-color: white;
     text-align: center;
-    width: fit-content;
+    text-decoration: none;
+    font-size: 12px;
+    cursor: pointer;
+    border-radius: 999px;
+`;
+
+const HeartIcon = css`
+    cursor: pointer;
+    font-size: 24px;
+    transition: color 0.3s ease;
+    &:hover {
+        color: #ff0000;
+    }
 `;
 
 interface CardProps {
@@ -68,6 +92,17 @@ interface CardProps {
 }
 
 const Card: React.FC<CardProps> = ({ amiibo }) => {
+    // const history = useHistory();
+    // const dispatch = useDispatch();
+
+    const handleViewMore = () => {
+        // history.push(`/amiibo/${amiibo.name}`);
+    };
+
+    const handleAddToWishlist = () => {
+        // dispatch(addAmiiboWishlist(amiibo));
+    };
+
     return (
         <CardContainer>
             <ImageContainer>
@@ -75,10 +110,15 @@ const Card: React.FC<CardProps> = ({ amiibo }) => {
             </ImageContainer>
             <CardContent>
                 <CardTitle>{amiibo.name}</CardTitle>
-                <CardText>Amiibo Series: {amiibo.amiiboSeries}</CardText>
-                <CardText>Game Series: {amiibo.gameSeries}</CardText>
-                <CardText>Type: {amiibo.type}</CardText>
-                <Badge>Release: {amiibo.release.na}</Badge>
+                <CardText>
+                    <p>{amiibo.amiiboSeries}</p>
+                    <p>Type: {amiibo.type}</p>
+                    <p>{amiibo.release.na}</p>
+                </CardText>
+                <ButtonContainer>
+                    <button css={Button} onClick={handleViewMore}>View More</button>
+                    <FaHeart css={HeartIcon} onClick={handleAddToWishlist} />
+                </ButtonContainer>
             </CardContent>
         </CardContainer>
     );
