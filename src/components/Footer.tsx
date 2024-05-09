@@ -1,38 +1,65 @@
 import styled from '@emotion/styled';
 
-const FooterContainer = styled.div`
+const FooterContainer = styled.footer`
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
-`;
-const FooterUL = styled.ul`
-    background-color: #978097;
-    display: flex;
-    flex-direction: column;
-    margin: 0;
-    @media (min-width: 587px) {
-        flex-direction: row;
-        justify-content: center;
+    justify-content: end;
+    background-color: white;
+    padding: 20px;
+    min-height: 150px; 
+    @media (min-width: 640px) {
+        padding: 24px;
     }
 `;
 
-const FooterLi = styled.li`
-    list-style-type: none;
-    color: white;
-    padding: 0.5rem;
+const FooterNav = styled.nav`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    @media (min-width: 640px) {
+        flex-direction: row;
+        justify-content: center;
+        gap: 12px;
+    }
 `;
+
+const FooterLink = styled.a`
+    font-size: 0.875rem;
+    line-height: 1.5rem;
+    color: #4B5563;
+    &:hover {
+        color: #1F2937;
+    }
+`;
+
+const FooterText = styled.p`
+    margin-top: 10px;
+    text-align: center;
+    font-size: 0.75rem;
+    line-height: 1.25rem;
+    color: #6B7280;
+`;
+
+const navigation = [
+    { name: 'Home', href: '/' },
+    { name: 'Amiibos Page', href: '/amiibos' },
+    { name: 'Login', href: '/login'},
+]
 
 function Footer() {
     return (
         <FooterContainer>
-            <FooterUL>
-                <FooterLi>
-                    © 2024 Ariel Zeto, Ashley Pak, Taesok Kwon, and Joshua Kim. This web app
-                    utilizes the Amiibo API, an independent and unofficial resource created by a
-                    third party. Nintendo, and the 'Amiibo' figurines are in no way affiliated with
-                    this web app.
-                </FooterLi>
-            </FooterUL>
+            <FooterNav aria-label="Footer">
+                {navigation.map((item) => (
+                    <FooterLink key={item.name} href={item.href}>
+                        {item.name}
+                    </FooterLink>
+                ))}
+            </FooterNav>
+            <FooterText>
+                &copy; 2024 Amiibo Atlas. All rights reserved.
+            </FooterText>
         </FooterContainer>
     );
 }
