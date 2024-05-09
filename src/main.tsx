@@ -20,6 +20,7 @@ import store from './redux/store.ts';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import WishlistPage from './pages/WishlistPage.tsx';
 import ProfilePage from './pages/ProfilePage.tsx';
+
 const queryClient = new QueryClient();
 
 const googleOAuthID = import.meta.env.VITE_GOOGLEOAUTH_CLIENT_ID;

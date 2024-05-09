@@ -20,7 +20,21 @@ const LoginContainer = styled.div`
     flex-grow: 1;
 `;
 
+import { useAppSelector } from '../redux/hooks';
+import Cookies from 'universal-cookie';
+
 function Login() {
+    const cookies = new Cookies(null, { path: '/' });
+
+    const user = useAppSelector((state) => state.setUser);
+    console.log('Cookies test...: ', user.uidToken);
+
+    // Store user data in cookies for one day, assuming that user exists.
+    if (user) {
+        const setDayCookies = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+        cookies.set('userData', user.uidToken, { maxAge: setDayCookies });
+    }
+
     const dispatch = useAppDispatch();
 
     const [email, setEmail] = useState('');
