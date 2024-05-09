@@ -2,6 +2,8 @@ import { NavLink } from 'react-router-dom';
 import styled from '@emotion/styled';
 import myImage from '../assets/react.svg';
 
+import { useAppSelector } from '../redux/hooks';
+
 const NavbarContainer = styled.header`
     max-width: 100%;
     width: 100%;
@@ -39,8 +41,10 @@ const NavbarLink = styled(NavLink)`
     line-height: 1.5;
     color: #1f2937;
     text-decoration: none;
-    &:hover, &:focus, &.active {
-        color: #4b5563; 
+    &:hover,
+    &:focus,
+    &.active {
+        color: #4b5563;
     }
 `;
 
@@ -54,6 +58,10 @@ const NavbarUserSection = styled.div`
 `;
 
 function Navbar() {
+    // Grab user from user global state.
+    const user = useAppSelector((state) => state.setUser);
+    console.log('THIS IS A TEST....: ', user);
+
     return (
         <NavbarContainer>
             <NavbarLogo href="#">
@@ -66,7 +74,11 @@ function Navbar() {
                 <NavbarLink to="/profile">Profile Page</NavbarLink>
             </NavbarLinkContainer>
             <NavbarUserSection>
-                <NavbarLink to="/login">Log in →</NavbarLink>
+                {user.loginStatus ? (
+                    <h2>Hello, {user.username}</h2>
+                ) : (
+                    <NavbarLink to="/login">Log in →</NavbarLink>
+                )}
             </NavbarUserSection>
         </NavbarContainer>
     );
