@@ -6,6 +6,9 @@ import { doSignInUserWithEmailAndPassword } from '../features/auth/Auth';
 
 import { setUser } from '../redux/userSlice';
 
+import grabAuth from '../functions/getAuthToken';
+console.log('PLEASE CHECK IF WORKING....: ', grabAuth);
+
 import styled from '@emotion/styled';
 import { useAppDispatch } from '../redux/hooks';
 const LoginContainer = styled.div`
@@ -37,12 +40,14 @@ function Login() {
             querySnapshot.forEach((doc) => {
                 // console.log(doc.id, ' => ', doc.data());
                 const userData = doc.data();
+                console.log('HELLo? !!!!! : ', userData);
                 dispatch(
                     setUser({
                         email: userData.email,
                         username: userData.displayName,
                         wishlist: userData.wishlist,
                         loginStatus: true,
+                        uidToken: userData.id,
                     })
                 );
             });
