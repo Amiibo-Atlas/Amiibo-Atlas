@@ -60,7 +60,6 @@ const NavbarUserSection = styled.div`
 function Navbar() {
     // Grab user from user global state.
     const user = useAppSelector((state) => state.setUser);
-    console.log('THIS IS A TEST....: ', user);
 
     return (
         <NavbarContainer>
