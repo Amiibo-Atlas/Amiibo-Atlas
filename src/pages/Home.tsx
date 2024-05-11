@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { useAppSelector } from '../redux/hooks';
 import grabUserNameCapitalized from '../functions/grabUserName';
 
+import Scroll from '../components/ScrollPara';
 import styled from '@emotion/styled';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -75,7 +76,9 @@ export default function Home() {
     return (
         <>
             <h1>Amiibo Atlas</h1>
+            <Scroll />
             <img src={myImage} />
+            <Scroll />
             <Container>
                 <UserInfoContainer>
                     <UserInfo>

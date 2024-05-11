@@ -3,8 +3,7 @@ import styled from '@emotion/styled';
 
 export const GlobalStyles = () => (
     <Global
-        styles={
-            css`
+        styles={css`
             * {
                 margin: 0;
                 padding: 0;
@@ -19,7 +18,8 @@ export const GlobalStyles = () => (
             body {
                 line-height: 1.5;
                 font-family: Arial, sans-serif;
-            }`}
+            }
+        `}
     />
 );
 
@@ -29,6 +29,6 @@ export const Container = styled.div`
     min-height: 100vh;
 `;
 
-export const AlignFooter = styled.div`
-    margin-top: auto;
-`;
+// export const AlignFooter = styled.div`
+//     margin-top: auto;
+// `;

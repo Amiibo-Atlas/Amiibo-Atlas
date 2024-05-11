@@ -3,12 +3,12 @@ import styled from '@emotion/styled';
 const FooterContainer = styled.footer`
     display: flex;
     flex-direction: column;
-    justify-content: end;
+    justify-content: center;
     background-color: white;
-    padding: 20px;
-    min-height: 150px; 
+    /* padding: 20px; */
+    min-height: 150px;
     @media (min-width: 640px) {
-        padding: 24px;
+        /* padding: 24px; */
     }
 `;
 
@@ -27,9 +27,9 @@ const FooterNav = styled.nav`
 const FooterLink = styled.a`
     font-size: 0.875rem;
     line-height: 1.5rem;
-    color: #4B5563;
+    color: #4b5563;
     &:hover {
-        color: #1F2937;
+        color: #1f2937;
     }
 `;
 
@@ -38,14 +38,14 @@ const FooterText = styled.p`
     text-align: center;
     font-size: 0.75rem;
     line-height: 1.25rem;
-    color: #6B7280;
+    color: #6b7280;
 `;
 
 const navigation = [
     { name: 'Home', href: '/' },
     { name: 'Amiibos Page', href: '/amiibos' },
-    { name: 'Login', href: '/login'},
-]
+    { name: 'Login', href: '/login' },
+];
 
 function Footer() {
     return (
@@ -57,9 +57,7 @@ function Footer() {
                     </FooterLink>
                 ))}
             </FooterNav>
-            <FooterText>
-                &copy; 2024 Amiibo Atlas. All rights reserved.
-            </FooterText>
+            <FooterText>&copy; 2024 Amiibo Atlas. All rights reserved.</FooterText>
         </FooterContainer>
     );
 }

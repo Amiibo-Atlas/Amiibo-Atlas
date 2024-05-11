@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 import { Outlet } from 'react-router-dom';
 import ScrollToTop from './ScrollToTop';
 
-import { GlobalStyles, Container, AlignFooter } from './shared/styles/GlobalStyles';
+import { GlobalStyles, Container } from './shared/styles/GlobalStyles';
 import Navbar from './Navbar';
 import Footer from './Footer';
 
@@ -14,9 +14,9 @@ export default function Root({ children }: { children?: ReactNode }) {
                 <ScrollToTop />
                 <Navbar />
                 {children || <Outlet />}
-                <AlignFooter>
-                    <Footer />
-                </AlignFooter>
+                {/* <AlignFooter> */}
+                <Footer />
+                {/* </AlignFooter> */}
             </Container>
         </>
     );
