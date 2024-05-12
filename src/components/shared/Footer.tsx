@@ -20,7 +20,7 @@ const FooterNav = styled.nav`
     }
 `;
 
-const FooterLink = styled.a`
+const Link = styled.a`
     font-size: 0.875rem;
     line-height: 1.5rem;
     color: #4B5563;
@@ -29,7 +29,7 @@ const FooterLink = styled.a`
     }
 `;
 
-const FooterText = styled.p`
+const Text = styled.p`
     margin-top: 10px;
     text-align: center;
     font-size: 0.75rem;
@@ -39,23 +39,23 @@ const FooterText = styled.p`
 
 const navigation = [
     { name: 'Home', href: '/' },
-    { name: 'Amiibos Page', href: '/amiibos' },
+    { name: 'Amiibos', href: '/amiibos' },
     { name: 'Login', href: '/login'},
 ]
 
 function Footer() {
     return (
         <FooterContainer>
-            <FooterNav aria-label="Footer">
+            <FooterNav>
                 {navigation.map((item) => (
-                    <FooterLink key={item.name} href={item.href}>
+                    <Link key={item.name} href={item.href}>
                         {item.name}
-                    </FooterLink>
+                    </Link>
                 ))}
             </FooterNav>
-            <FooterText>
+            <Text>
                 &copy; 2024 Amiibo Atlas. All rights reserved.
-            </FooterText>
+            </Text>
         </FooterContainer>
     );
 }

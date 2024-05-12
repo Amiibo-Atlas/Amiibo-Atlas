@@ -1,12 +1,16 @@
+// Dependencies
 import { NavLink } from 'react-router-dom';
 import styled from '@emotion/styled';
-import myImage from '../assets/amiibo.png';
+
+// Components
+import { useAppSelector } from '../../redux/hooks';
+import grabUserNameCapitalized from '../../functions/grabUserName';
+
+// Styles
+import myImage from '../../assets/amiibo.png';
 import { FaUser } from 'react-icons/fa';
 
-import { useAppSelector } from '../redux/hooks';
-import grabUserNameCapitalized from '../functions/grabUserName';
-
-const NavbarContainer = styled.header`
+const NavContainer = styled.header`
     width: 100%;
     margin: 0 auto;
     display: flex;
@@ -18,7 +22,7 @@ const NavbarContainer = styled.header`
     }
 `;
 
-const NavbarLinkContainer = styled.div`
+const LinkContainer = styled.div`
     display: none;
     gap: 3rem;
     @media (min-width: 1024px) {
@@ -26,7 +30,7 @@ const NavbarLinkContainer = styled.div`
     }
 `;
 
-const NavbarLogo = styled.a`
+const Logo = styled.a`
     flex: 1;
     padding: 1rem;
     img {
@@ -35,7 +39,7 @@ const NavbarLogo = styled.a`
     }
 `;
 
-const NavbarLink = styled(NavLink)`
+const Link = styled(NavLink)`
     font-size: 1rem;
     font-weight: 600;
     line-height: 1.5;
@@ -63,26 +67,26 @@ function Navbar() {
     const userNameCapitalized = grabUserNameCapitalized(user);
 
     return (
-        <NavbarContainer>
-            <NavbarLogo href="/">
-                <img src={myImage} alt="Amiibo Atlas" />
-            </NavbarLogo>
-            <NavbarLinkContainer>
-                <NavbarLink to="/home">Amiibo Atlas</NavbarLink>
-                <NavbarLink to="/amiibos">Amiibos</NavbarLink>
-                <NavbarLink to="/wishlist">WishList</NavbarLink>
-                <NavbarLink to="/profile">Profile Page</NavbarLink>
-            </NavbarLinkContainer>
+        <NavContainer>
+            <Logo href="/">
+                <img src={myImage} alt="amiibo" />
+            </Logo>
+            <LinkContainer>
+                <Link to="/home">Amiibo Atlas</Link>
+                <Link to="/amiibos">Amiibos</Link>
+                <Link to="/wishlist">WishList</Link>
+                <Link to="/profile">Profile Page</Link>
+            </LinkContainer>
             <NavbarUserSection>
                 {user.loginStatus ? (
                     <h2>Hello, {userNameCapitalized}</h2>
                 ) : (
-                    <NavbarLink to="/login">
+                    <Link to="/login">
                         <FaUser />
-                    </NavbarLink>
+                    </Link>
                 )}
             </NavbarUserSection>
-        </NavbarContainer>
+        </NavContainer>
     );
 }
 

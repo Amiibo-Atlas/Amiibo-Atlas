@@ -2,12 +2,12 @@ import { auth } from '../../firebase/firebaseConfig';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 
 // Register
-export const doCreateUserWithEmailAndPassword = async (email: string, password: string) => {
+export const doCreateUserWithEmailAndPassword = (email: string, password: string) => {
     return createUserWithEmailAndPassword(auth, email, password);
 };
 
 // Login
-export const doSignInUserWithEmailAndPassword = async (email: string, password: string) => {
+export const doSignInUserWithEmailAndPassword = (email: string, password: string) => {
     return signInWithEmailAndPassword(auth, email, password);
 };
 

@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import styled from '@emotion/styled';
-import AmiiboCard from '../components/AmiiboCard';
-import filterRecentReleases from '../requests/filterRecentReleases';
+import AmiiboCard from './components/AmiiboCard';
+import filterRecentReleases from './requests/filterRecentReleases';
 
-import { useAppSelector } from '../redux/hooks';
+import { useAppSelector } from './redux/hooks';
 
 const Container = styled.div`
     display: flex;
@@ -17,7 +17,7 @@ const SplashPage = styled.div`
     border-radius: 7px;
 `;
 
-export default function Splash() {
+export default function App() {
     const [allAmiibo, ,] = useState(false);
     // Selecting amiibo data from the redux store...
     const amiiboDataRedux = useAppSelector((state) => state.allAmiiboSlice.amiibos);

@@ -1,3 +1,7 @@
+// Dependencies
+import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+
 // Components
 import Card from './Card';
 import SortAmiibos from './SortAmiibos';
@@ -5,10 +9,10 @@ import FilterAmiibos from './FilterAmiibos';
 import Breadcrumb from '../shared/Breadcrumb';
 import { fetchAmiiboList } from '../../requests/fetchAmiiboList';
 import { CARDS_PER_LOAD } from '../../constants/constants';
-import nintendo from '../../assets/super_nintendo_world.png';
-import mario from '../../assets/mario.png';
 
 // Styles
+import nintendo from '../../assets/super_nintendo_world.png';
+import mario from '../../assets/mario.png';
 import {
     PageContainer,
     LayoutContainer,
@@ -22,10 +26,6 @@ import {
     ColMd4
 } from './AmiiboListStyles';
 import { BeatLoader } from 'react-spinners';
-
-// Dependencies
-import { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
 
 const AmiiboList = () => {
     const [amiibos, setAmiibos] = useState([]);
