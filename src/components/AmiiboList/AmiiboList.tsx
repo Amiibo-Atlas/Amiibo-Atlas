@@ -5,18 +5,21 @@ import FilterAmiibos from './FilterAmiibos';
 import Breadcrumb from '../shared/Breadcrumb';
 import { fetchAmiiboList } from '../../requests/fetchAmiiboList';
 import { CARDS_PER_LOAD } from '../../constants/constants';
+import nintendo from '../../assets/super_nintendo_world.png';
+import mario from '../../assets/mario.png';
 
 // Styles
 import {
     PageContainer,
-    TopSection,
-    Title,
     LayoutContainer,
     ControlSection,
     MainSection,
     GridContainer,
     LoadMoreButton,
     Overlay,
+    BannerHero,
+    ColMd8,
+    ColMd4
 } from './AmiiboListStyles';
 import { BeatLoader } from 'react-spinners';
 
@@ -57,13 +60,24 @@ const AmiiboList = () => {
                 ]}
                 currentUrl="/amiibos"
             />
-            <TopSection>
-                <Title>Amiibos</Title>
-                <p>{amiibos.length} results</p>
-            </TopSection>
+            <BannerHero>
+                <ColMd8>
+                    <div style={{ padding: '1rem 4rem' }}>
+                        <h1>amiibo</h1>
+                        <p>Explore, filter, and add amiibos to your wishlist. This site uses data from Amiibo API - Learn more at 
+                            <a href='amiiboapi.com'> amiiboapi.com</a>.
+                        </p>
+                    </div>
+                </ColMd8>
+                <ColMd4>
+                    <img src={nintendo} alt="Mario" style={{ height: 'auto', width: '50%' }} />
+                    <img src={mario} alt="Mario" style={{ height: 'auto', width: '50%' }} />
+                </ColMd4>
+            </BannerHero>
 
             <LayoutContainer>
                 <ControlSection>
+                    <p style={{ width: '100%', paddingLeft: '4rem' }}>{amiibos.length} results</p>
                     <SortAmiibos amiibos={amiibos} setAmiibos={setAmiibos} />
                     <FilterAmiibos originalData={originalData} setAmiibos={setAmiibos} />
                 </ControlSection>

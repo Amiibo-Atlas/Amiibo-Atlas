@@ -4,7 +4,6 @@ import { css } from '@emotion/react';
 export const PageContainer = styled.div`
     max-width: 1920px;
     padding: 0 24px;
-    margin: 0 auto;
 `;
 
 export const TopSection = styled.div`
@@ -24,12 +23,13 @@ export const LayoutContainer = styled.div`
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    margin: 0 -15px;
+    padding-bottom: 5em;
 `;
 
 export const ControlSection = styled.aside`
     flex: 3;
     max-width: 15em;
+    padding-top: 1.25em;
     margin: 1.25em;
     display: flex;
     flex-direction: column;
@@ -38,6 +38,7 @@ export const ControlSection = styled.aside`
 
 export const MainSection = styled.div`
     flex: 7;
+    padding-top: 1.25em;
     max-width: 75em;
     min-height: 50em;
     overflow: auto;
@@ -49,9 +50,10 @@ export const MainSection = styled.div`
 
 export const GridContainer = styled.div`
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
     gap: 20px;
     margin-bottom: 3rem;
+    width: 100%;
 `;
 
 export const LoadMoreButton = styled.button`
@@ -85,6 +87,7 @@ export const Overlay = styled.div`
 
 export const filterContainer = css`
     margin-bottom: 20px;
+    width: 80%;
 `;
 
 export const filterTitle = css`
@@ -117,8 +120,29 @@ export const expandButton = css`
 
 export const dropdown = css`
     padding: 10px;
+    width: 80%;
     font-size: 14px;
     border: 1px solid #ccc;
     border-radius: 4px;
     background-color: #fff;
+`;
+
+export const ColMd8 = styled.div`
+    width: 66.666667%;
+`;
+
+export const ColMd4 = styled.div`
+    width: 33.333333%;
+`;
+
+export const BannerHero = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    text-align: left;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    overflow: hidden;
+    background-color: white;
+    margin: 2rem 5rem;
 `;
