@@ -1,7 +1,6 @@
 import filterRecentReleases from '../requests/filterRecentReleases';
 import GetAmiibo from '../requests/fetchAmiiboList';
 import AmiiboCard from '../components/AmiiboCard';
-import myImage from '../assets/amiibo.png';
 import { useState } from 'react';
 import { useAppSelector } from '../redux/hooks';
 import grabUserNameCapitalized from '../functions/grabUserName';
@@ -75,7 +74,6 @@ export default function Home() {
     return (
         <>
             <h1>Amiibo Atlas</h1>
-            <img src={myImage} />
             <Container>
                 <UserInfoContainer>
                     <UserInfo>

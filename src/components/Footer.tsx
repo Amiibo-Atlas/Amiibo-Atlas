@@ -5,17 +5,13 @@ const FooterContainer = styled.footer`
     flex-direction: column;
     justify-content: end;
     background-color: white;
-    padding: 20px;
-    min-height: 150px; 
-    @media (min-width: 640px) {
-        padding: 24px;
-    }
+    padding-bottom: 20px;
+    min-height: 100px; 
 `;
 
 const FooterNav = styled.nav`
     display: flex;
     flex-direction: column;
-    align-items: center;
     gap: 6px;
     @media (min-width: 640px) {
         flex-direction: row;

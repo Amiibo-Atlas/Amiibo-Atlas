@@ -3,26 +3,29 @@ import React from 'react';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { FaHeart } from 'react-icons/fa';
-// import { addAmiiboWishlist } from '../redux/userSlice';
-// import { useHistory } from 'react-router-dom';
-// import { useDispatch } from 'react-redux';
-
 
 const CardContainer = styled.div`
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    border-radius: 8px;
-    border: 1px solid #ccc;
+    border-radius: 20px;
+    border: 1px solid #ddd;
+    background-color: white;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+
+    &:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+    }
 `;
 
 const ImageContainer = styled.div`
     width: 100%;
     position: relative;
     overflow: hidden;
-    height: 0;
-    padding-bottom: 100%;
-    border: 1px solid #ccc;
+    height: 380px;
+    border: 1px solid #ddd;
 `;
 
 const CardImage = styled.img`
@@ -31,32 +34,26 @@ const CardImage = styled.img`
     left: 0;
     height: 100%;
     width: 100%;
-    object-fit: contain;
+    padding: 1rem;
     object-position: center;
-`;
-
-const CardContent = styled.div`
-    padding: 1rem 2rem;
-    display: flex;
-    flex-direction: column;
+    box-sizing: border-box;
 `;
 
 const CardTitle = styled.h3`
-    font-size: 1.1rem;
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
     font-weight: bold;
+    min-height: 80px;
+    margin: 0.25rem 0 1rem 0;
 `;
 
-const CardText = styled.div`
-    display: flex;
-    flex-direction: column;
-    margin-top: 1rem;
-`;
-
-const ButtonContainer = styled.div`
+const CardFooter = styled.div`
     display: flex;
     justify-content: space-between;
+    border-top: 1px solid #ddd;
     align-items: center;
-    margin-top: 1rem;
+    padding: .3rem 1rem .5rem;
+    min-height: 70px;
 `;
 
 const Button = css`
@@ -67,6 +64,11 @@ const Button = css`
     font-size: 12px;
     cursor: pointer;
     border-radius: 999px;
+    text-transform: uppercase;
+    font-size: .8125rem;
+    font-weight: 700;
+    letter-spacing: .5px;
+    line-height: 19px;
 `;
 
 const HeartIcon = css`
@@ -92,8 +94,7 @@ interface CardProps {
 }
 
 const Card: React.FC<CardProps> = ({ amiibo }) => {
-    // const history = useHistory();
-    // const dispatch = useDispatch();
+
 
     const handleViewMore = () => {
         // history.push(`/amiibo/${amiibo.name}`);
@@ -108,18 +109,11 @@ const Card: React.FC<CardProps> = ({ amiibo }) => {
             <ImageContainer>
                 <CardImage src={amiibo.image} alt={`${amiibo.name} image`} />
             </ImageContainer>
-            <CardContent>
-                <CardTitle>{amiibo.name}</CardTitle>
-                <CardText>
-                    <p>{amiibo.amiiboSeries}</p>
-                    <p>Type: {amiibo.type}</p>
-                    <p>{amiibo.release.na}</p>
-                </CardText>
-                <ButtonContainer>
-                    <button css={Button} onClick={handleViewMore}>View More</button>
-                    <FaHeart css={HeartIcon} onClick={handleAddToWishlist} />
-                </ButtonContainer>
-            </CardContent>
+            <CardTitle>{amiibo.name} ({amiibo.amiiboSeries})</CardTitle>
+            <CardFooter>
+                <button css={Button} onClick={handleViewMore}>View More</button>
+                <FaHeart css={HeartIcon} onClick={handleAddToWishlist} />
+            </CardFooter>
         </CardContainer>
     );
 };

@@ -31,7 +31,7 @@ export default function Splash() {
     return (
         <Container>
             <h1>Welcome to Amiibo Atlas!</h1>
-            <AmiiboCard amiiboProps={filterAmiiboAllOrRecent} />;
+            <AmiiboCard amiiboProps={filterAmiiboAllOrRecent} />
             <SplashPage>
                 <p>
                     Amiibo Atlas is a modern, easy to use, modern web application designed for
