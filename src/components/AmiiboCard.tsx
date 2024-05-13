@@ -1,4 +1,4 @@
-import { Amiibo } from '../interfaces/amiiboInterface';
+import { Amiibo } from '../types/Amiibo';
 import { Link } from 'react-router-dom';
 
 import styled from '@emotion/styled';

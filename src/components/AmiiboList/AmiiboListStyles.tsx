@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
+/*************** AmiiboList.tsx ***************/
 export const PageContainer = styled.div`
     max-width: 1920px;
     padding: 0 24px;
@@ -14,9 +15,24 @@ export const TopSection = styled.div`
     margin: 2rem 0;
 `;
 
-export const Title = styled.h1`
-    padding: 0 25px;
-    margin: 0 auto;
+export const BannerHero = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    text-align: left;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    overflow: hidden;
+    background-color: white;
+    margin: 2rem 5rem;
+`;
+
+export const ColMd8 = styled.div`
+    width: 66.666667%;
+`;
+
+export const ColMd4 = styled.div`
+    width: 33.333333%;
 `;
 
 export const LayoutContainer = styled.div`
@@ -84,7 +100,10 @@ export const Overlay = styled.div`
     background-color: rgba(0, 0, 0, 0.5); 
     z-index: 10;
 `;
+/*************** AmiiboList.tsx ***************/
 
+
+/************* FilterAmiibos.tsx **************/
 export const filterContainer = css`
     margin-bottom: 20px;
     width: 80%;
@@ -117,7 +136,10 @@ export const expandButton = css`
     font-size: 14px;
     cursor: pointer;
 `;
+/************* FilterAmiibos.tsx **************/
 
+
+/************** SortAmiibos.tsx **************/
 export const dropdown = css`
     padding: 10px;
     width: 80%;
@@ -126,23 +148,83 @@ export const dropdown = css`
     border-radius: 4px;
     background-color: #fff;
 `;
+/************** SortAmiibos.tsx **************/
 
-export const ColMd8 = styled.div`
-    width: 66.666667%;
-`;
 
-export const ColMd4 = styled.div`
-    width: 33.333333%;
-`;
-
-export const BannerHero = styled.div`
+/***************** Card.tsx *****************/
+export const CardContainer = styled.div`
     display: flex;
-    flex-direction: row;
-    justify-content: center;
-    text-align: left;
-    border: 1px solid #ddd;
-    border-radius: 20px;
+    flex-direction: column;
     overflow: hidden;
+    border-radius: 20px;
+    border: 1px solid #ddd;
     background-color: white;
-    margin: 2rem 5rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+
+    &:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+    }
 `;
+
+export const ImageContainer = styled.div`
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    height: 380px;
+    border: 1px solid #ddd;
+`;
+
+export const CardImage = styled.img`
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    padding: 1rem;
+    object-position: center;
+    box-sizing: border-box;
+`;
+
+export const CardTitle = styled.h3`
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    min-height: 80px;
+    margin: 0.25rem 0 1rem 0;
+`;
+
+export const CardFooter = styled.div`
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid #ddd;
+    align-items: center;
+    padding: .3rem 1rem .5rem;
+    min-height: 70px;
+`;
+
+export const Button = css`
+    padding: 10px;
+    background-color: white;
+    text-align: center;
+    text-decoration: none;
+    font-size: 12px;
+    cursor: pointer;
+    border-radius: 999px;
+    text-transform: uppercase;
+    font-size: .8125rem;
+    font-weight: 700;
+    letter-spacing: .5px;
+    line-height: 19px;
+`;
+
+export const HeartIcon = css`
+    cursor: pointer;
+    font-size: 24px;
+    transition: color 0.3s ease;
+    &:hover {
+        color: #ff0000;
+    }
+`;
+/***************** Card.tsx *****************/

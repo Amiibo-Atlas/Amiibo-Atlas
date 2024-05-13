@@ -1,5 +1,8 @@
 /** @jsxImportSource @emotion/react */
+// Dependencies
 import { useEffect, useState } from 'react';
+
+// Constants
 import {
     sortOptions,
     RELEASE_DATE,
@@ -7,6 +10,8 @@ import {
     PRODUCT_NAME_AZ,
     PRODUCT_NAME_ZA,
 } from '../../constants/constants';
+
+// Styles
 import { dropdown } from './AmiiboListStyles';
 
 const SortAmiibos = ({ amiibos, setAmiibos }) => {

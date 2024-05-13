@@ -2,7 +2,7 @@ import { initializeApp } from 'firebase/app';
 // import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
-import grabAuth from '../functions/getAuthToken';
+import grabAuth from '../features/auth/getAuthToken';
 
 const firebaseConfig = {
     apiKey: import.meta.env.VITE_FIREBASE_API_KEY,

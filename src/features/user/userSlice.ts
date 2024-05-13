@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { Amiibo } from '../interfaces/amiiboInterface';
+import { Amiibo } from '../../types/Amiibo';
 
 interface UserGlobalState {
     email: string | null;

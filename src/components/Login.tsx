@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { doSignInUserWithEmailAndPassword } from '../features/auth/Auth';
 
-import { setUser } from '../redux/userSlice';
+import { setUser } from '../features/user/userSlice';
 
 // import grabAuth from '../functions/getAuthToken';
 // console.log('PLEASE CHECK IF WORKING....: ', grabAuth);

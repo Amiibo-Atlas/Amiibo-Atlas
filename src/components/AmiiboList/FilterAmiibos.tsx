@@ -1,8 +1,12 @@
 /** @jsxImportSource @emotion/react */
-
+// Dependencies
 import { useState, useEffect } from 'react';
+
+// Constants
 import { filterOptions } from '../../constants/constants';
 import { INITIAL_FILTER_OPTIONS_COUNT } from '../../constants/constants';
+
+// Styles
 import {
     filterContainer,
     filterTitle,
