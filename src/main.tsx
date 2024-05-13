@@ -9,16 +9,16 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 // Components
 import Root from './components/root.tsx';
 import App from './App.tsx';
-import Home from './pages/Home.tsx';
+import Home from './components/Home.tsx';
 import Register from './components/Register.tsx';
 import Login from './components/Login.tsx';
 import AmiiboList from './components/AmiiboList/AmiiboList.tsx';
-import AmiibosParams from './pages/AmiibosParams.tsx';
+import AmiibosParams from './components/AmiibosParams.tsx';
 import { Global } from '@emotion/react';
 import Theme from './assets/theme.ts';
 import store from './redux/store.ts';
-import WishlistPage from './pages/WishlistPage.tsx';
-import ProfilePage from './pages/ProfilePage.tsx';
+import WishlistPage from './components/UserDashboard/WishlistPage.tsx';
+import ProfilePage from './components/UserDashboard/ProfilePage.tsx';
 import ErrorPage from './components/shared/ErroPage.tsx';
 
 const queryClient = new QueryClient();

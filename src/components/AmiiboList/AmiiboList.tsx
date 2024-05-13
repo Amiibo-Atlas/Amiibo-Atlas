@@ -7,7 +7,7 @@ import Card from './Card';
 import SortAmiibos from './SortAmiibos';
 import FilterAmiibos from './FilterAmiibos';
 import Breadcrumb from '../shared/Breadcrumb';
-import { fetchAmiiboList } from '../../requests/fetchAmiiboList';
+import { fetchAmiiboList } from '../../features/amiibo/amiiboAPI';
 import { CARDS_PER_LOAD } from '../../constants/constants';
 
 // Styles
@@ -23,7 +23,7 @@ import {
     Overlay,
     BannerHero,
     ColMd8,
-    ColMd4
+    ColMd4,
 } from './AmiiboListStyles';
 import { BeatLoader } from 'react-spinners';
 
@@ -64,8 +64,10 @@ const AmiiboList = () => {
                 <ColMd8>
                     <div style={{ padding: '1rem 4rem' }}>
                         <h1>amiibo</h1>
-                        <p>Explore, filter, and add amiibos to your wishlist. This site uses data from Amiibo API - Learn more at 
-                            <a href='amiiboapi.com'> amiiboapi.com</a>.
+                        <p>
+                            Explore, filter, and add amiibos to your wishlist. This site uses data
+                            from Amiibo API - Learn more at
+                            <a href="amiiboapi.com"> amiiboapi.com</a>.
                         </p>
                     </div>
                 </ColMd8>

@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
-import { getAmiibo } from '../redux/getAllAmiibo';
-import store from '../redux/store';
+import { getAmiibo } from './getAllAmiibo';
+import store from '../../redux/store';
+import calculateDateRecentAmiibo from './recentAmiibo';
 
 import { v4 as uuidv4 } from 'uuid';
 
@@ -17,7 +18,7 @@ export async function fetchAmiiboList(API: string) {
     }));
 }
 
-export default function GetAmiibo() {
+export function GetAmiibo() {
     const { isLoading, error, data } = useQuery({
         queryKey: ['data'],
         queryFn: async () => {
@@ -31,4 +32,13 @@ export default function GetAmiibo() {
         },
     });
     return { isLoading, error, data };
+}
+
+// This function takes amiibos array consisting of objects of data, and filters it down based on NA releases, and whether or not it is considered a 'recent' amiibo based on the Date time library utilization as seen in 'recentAmiibo' function.
+export function filterRecentReleases(amiibos) {
+    const recentRelease = amiibos.filter((amiibo) => {
+        const releases = amiibo.release;
+        return releases.na && calculateDateRecentAmiibo(releases.na);
+    });
+    return recentRelease;
 }

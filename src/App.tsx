@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import styled from '@emotion/styled';
 import AmiiboCard from './components/AmiiboCard';
-import filterRecentReleases from './requests/filterRecentReleases';
-
+import { filterRecentReleases } from './features/amiibo/amiiboAPI';
 import { useAppSelector } from './redux/hooks';
 
 const Container = styled.div`

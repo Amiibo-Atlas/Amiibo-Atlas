@@ -1,13 +1,13 @@
 import styled from '@emotion/styled';
-import AmiiboItem from '../components/PersonalItem';
+import AmiiboItem from './PersonalItem';
 
-import { Amiibo } from '../interfaces/amiiboInterface';
+import { Amiibo } from '../../types/Amiibo';
 import { FaUserEdit } from 'react-icons/fa';
 import { ImCheckmark } from 'react-icons/im';
 import { FaHeart } from 'react-icons/fa';
 
-import grabUserNameCapitalized from '../functions/grabUserName';
-import { useAppSelector } from '../redux/hooks';
+import grabUserNameCapitalized from '../../features/user/grabUserName';
+import { useAppSelector } from '../../redux/hooks';
 
 const ContainPage = styled.div`
     display: flex;

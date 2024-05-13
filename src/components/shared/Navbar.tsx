@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 
 // Components
 import { useAppSelector } from '../../redux/hooks';
-import grabUserNameCapitalized from '../../functions/grabUserName';
+import grabUserNameCapitalized from '../../features/user/grabUserName';
 
 // Styles
 import myImage from '../../assets/amiibo.png';

@@ -1,12 +1,12 @@
 import { useState, ChangeEvent } from 'react';
-import WishItem from '../components/WishItem';
+import WishItem from './WishItem';
 import { FiShare } from 'react-icons/fi';
-import { Amiibo } from '../interfaces/amiiboInterface';
+import { Amiibo } from '../../types/Amiibo';
 import styled from '@emotion/styled';
-import Popup from '../components/WishlistPopup';
+import Popup from './WishlistPopup';
 
-import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import { removeAmiiboWishlist } from '../redux/userSlice';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { removeAmiiboWishlist } from '../../features/user/userSlice';
 
 const Button = styled.button`
     &:hover {

@@ -1,9 +1,8 @@
-import filterRecentReleases from '../requests/filterRecentReleases';
-import GetAmiibo from '../requests/fetchAmiiboList';
-import AmiiboCard from '../components/AmiiboCard';
+import { filterRecentReleases, GetAmiibo } from '../features/amiibo/amiiboAPI';
+import AmiiboCard from './AmiiboCard';
 import { useState } from 'react';
 import { useAppSelector } from '../redux/hooks';
-import grabUserNameCapitalized from '../functions/grabUserName';
+import grabUserNameCapitalized from '../features/user/grabUserName';
 
 import styled from '@emotion/styled';
 

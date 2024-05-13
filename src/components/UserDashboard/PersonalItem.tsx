@@ -1,15 +1,10 @@
-import { FaHeart } from 'react-icons/fa';
 import { RiInformation2Fill } from 'react-icons/ri';
 import styled from '@emotion/styled';
-import { Amiibo } from '../interfaces/amiiboInterface';
+import { Amiibo } from '../../types/Amiibo';
 
-// details button is waiting for the amiibo's page to finish to get the link.
-// will integrate code for remove button once merge is complete for authentication2
-// currently code is written and waiting.
-
-interface WishProps {
-    amiiboWish: Amiibo;
-    onRemove: (amiibo: Amiibo) => void;
+interface AmiiboProps {
+    amiibo: Amiibo;
+    Icon: React.ElementType;
 }
 
 const WishBox = styled.div`
@@ -72,19 +67,16 @@ const RemoveButton = styled.button`
     position: absolute;
 `;
 
-const WishItem = ({ amiiboWish, onRemove }: WishProps) => {
+const AmiiboItem = ({ amiibo, Icon }: AmiiboProps) => {
     // const removeItem = async (wish: Amiibo) => {
     //     console.log('prev wishlist: ' + JSON.stringify(wish));
     // };
-    const handleRemoveToWishlist = () => {
-        onRemove(amiiboWish);
-    };
 
     return (
         <WishBox>
-            <AmiiboImg src={amiiboWish.image}></AmiiboImg>
+            <AmiiboImg src={amiibo.image}></AmiiboImg>
             <h3>
-                {amiiboWish.gameSeries} - {amiiboWish.name}
+                {amiibo.gameSeries} - {amiibo.name}
             </h3>
             <div className="wishlist-details-button">
                 <a href="">
@@ -94,12 +86,10 @@ const WishItem = ({ amiiboWish, onRemove }: WishProps) => {
                 </a>
             </div>
             <div className="wishlist-add-button">
-                <RemoveButton id="remove-button" onClick={handleRemoveToWishlist}>
-                    <FaHeart />
-                </RemoveButton>
+                <RemoveButton id="remove-button">{Icon && <Icon></Icon>}</RemoveButton>
             </div>
         </WishBox>
     );
 };
 
-export default WishItem;
+export default AmiiboItem;
