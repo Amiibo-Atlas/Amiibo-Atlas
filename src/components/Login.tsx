@@ -101,7 +101,7 @@ const Login = () => {
                     <ButtonContainer>
                         <Button onClick={loginWithGoogle}>Sign in with Google</Button>
                         <Text>
-                            <Link href="/">Sign in as a guest</Link>
+                            <Link href="/">Cancel</Link>
                         </Text>
                     </ButtonContainer>
                 </Card>

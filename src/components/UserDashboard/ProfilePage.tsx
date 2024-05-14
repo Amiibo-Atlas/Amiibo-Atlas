@@ -1,12 +1,15 @@
-import styled from '@emotion/styled';
-import AmiiboItem from './PersonalItem';
-import { useParams } from 'react-router-dom';
+// Dependencies
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import styled from '@emotion/styled';
+import { FaUserEdit } from 'react-icons/fa';
+import { FaHeart } from 'react-icons/fa';
+import { ImCheckmark } from 'react-icons/im';
+
+// Components
+import AmiiboItem from './PersonalItem';
 import { getUser } from '../../features/user/userAPI';
 import { Amiibo } from '../../types/Amiibo';
-import { FaUserEdit } from 'react-icons/fa';
-import { ImCheckmark } from 'react-icons/im';
-import { FaHeart } from 'react-icons/fa';
 import { User } from '../../types/User';
 
 const ContainPage = styled.div`
@@ -20,7 +23,21 @@ const MainContent = styled.div`
     align-items: center;
 `;
 
+const ImageBox = styled.div`
+    background-color: white;
+    border: 5px black solid;
+    border-radius: 50%;
+    height: 75px;
+    width: 75px;
+    display: inline-block;
+    top: 0;
+`;
+
+const placeholder =
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum eu laoreet mi. Morbi cursus tortor vitae diam congue, at dignissim orci sollicitudin. Aenean euismod pharetra turpis posuere efficitur. Aliquam erat volutpat. Nulla fringilla augue quis enim iaculis, non rutrum ipsum sodales. Nunc tempus turpis et est fermentum, in convallis enim tincidunt. Maecenas finibus laoreet diam vitae sollicitudin. Duis eget nibh urna. Duis a risus massa. Maecenas non orci vitae enim faucibus aliquet. Integer tristique sem ac diam rutrum, ut sodales diam fringilla. Nullam in leo turpis. Donec placerat vestibulum leo, sed condimentum mauris porttitor sed. Duis tincidunt massa at tortor rutrum imperdiet. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vestibulum sit amet nulla in libero vestibulum iaculis suscipit id magna.';
+
 function ProfilePage() {
+    // Get the user ID from the URL
     const { userId } = useParams();
     const [user, setUser] = useState<User | null>(null);
 
@@ -92,7 +109,9 @@ function ProfilePage() {
             <ContainPage>
                 <MainContent>
                     <div className="profile-info">
-                        <p className="bio">{user?.displayName}</p>
+                        <ImageBox />
+                        <p>{user?.displayName}</p>
+                        <p className="bio">{placeholder}</p>
                         <button>
                             Edit Profile! <FaUserEdit />
                         </button>

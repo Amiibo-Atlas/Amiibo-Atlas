@@ -2,12 +2,14 @@
 // Dependencies
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useEffect, useState, useRef } from 'react';
+import styled from '@emotion/styled';
+import { css } from '@emotion/react';
+
+// Components
 import { useAppSelector } from '../../redux/hooks';
 import { getUser } from '../../features/user/userAPI';
 import { signOut } from '../../features/auth/Auth';
 import { User } from '../../types/User';
-import styled from '@emotion/styled';
-import { css } from '@emotion/react';
 
 // Styles
 import myImage from '../../assets/amiibo.png';
@@ -104,17 +106,23 @@ function Navbar() {
     const userId = useAppSelector((state) => state.user.userId);
     const [user, setUser] = useState<User | null>();
     const [modalOpen, setModalOpen] = useState(false);
-    const modalRef = useRef(null);
+    const modalRef = useRef<HTMLDivElement | null>(null);
     const navigate = useNavigate();
 
     const toggleModal = () => {
         setModalOpen(!modalOpen);
     };
 
+    // If the modal is open and the click event's target is not within the modal, close the modal
     const handleClickOutside = (event) => {
         if (modalRef.current && !modalRef.current.contains(event.target)) {
             setModalOpen(false);
         }
+    };
+
+    const navigateTo = (path) => {
+        navigate(path);
+        setModalOpen(false);
     };
 
     const handleSignOut = () => {
@@ -122,11 +130,6 @@ function Navbar() {
         setModalOpen(false);
         navigate('/');
     }
-
-    const navigateTo = (path) => {
-        navigate(path);
-        setModalOpen(false);
-    };
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -140,6 +143,7 @@ function Navbar() {
         fetchUser();
     }, [userId]);
 
+    // Add event listener to listen for clicks outside of the modal when the component mounts
     useEffect(() => {
         document.addEventListener("mousedown", handleClickOutside);
         return () => {
