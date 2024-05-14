@@ -1,12 +1,15 @@
 import { useState, ChangeEvent } from 'react';
-import WishItem from './WishItem';
+import AmiiboItem from './AmiiboItem';
 import { FiShare } from 'react-icons/fi';
 import { Amiibo } from '../../types/Amiibo';
 import styled from '@emotion/styled';
 import Popup from './WishlistPopup';
 
+import { FaHeart } from 'react-icons/fa';
+
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { removeAmiiboWishlist } from '../../features/user/userSlice';
+import grabUserNameCapitalized from '../../features/user/grabUserName';
 
 const Button = styled.button`
     &:hover {
@@ -43,6 +46,8 @@ const Wishes = styled.div`
 `;
 
 function WishlistPage() {
+    const user = useAppSelector((state) => state.setUser);
+    const userNameCapitalized = grabUserNameCapitalized(user);
     // placeholder
     const defaultWishlist: Amiibo[] = [
         {
@@ -118,7 +123,6 @@ function WishlistPage() {
 
     const removeWishlistItem = (amiibo: Amiibo) => {
         const updatedWishlist = defaultWish.filter((item) => item.name !== amiibo.name);
-        console.log('Removed from wishlist:', amiibo);
         setDefaultWishlist(updatedWishlist);
 
         // Dispatch to configured store in redux
@@ -127,7 +131,7 @@ function WishlistPage() {
 
     return (
         <Page>
-            <h1 id="page-title">Wishlist</h1>
+            <h1 id="page-title">{userNameCapitalized}'s Wishlist</h1>
             <label>
                 <input
                     id="checkbox"
@@ -159,12 +163,16 @@ function WishlistPage() {
             {isPublic && (
                 <Wishes>
                     {defaultWishlist.map((wish) => (
-                        <WishItem
-                            amiiboWish={wish}
-                            key={`${wish.gameSeries} - ${wish.name}}`}
-                            onRemove={removeWishlistItem}
-                        />
+                        <AmiiboItem
+                        amiibo={wish}
+                        key={`${wish.gameSeries} - ${wish.name}}`}
+                        Icon={FaHeart}
+                        onRemove={removeWishlistItem}
+                    />
                     ))}
+                    {defaultWishlist.length == 0 && 
+                    <p>Your wishlist is currently empty...</p>
+                    }
                 </Wishes>
             )}
         </Page>
