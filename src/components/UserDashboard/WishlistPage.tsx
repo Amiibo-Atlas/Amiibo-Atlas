@@ -1,12 +1,13 @@
+// Dependencies
 import { useState, ChangeEvent } from 'react';
-import AmiiboItem from './AmiiboItem';
 import { FiShare } from 'react-icons/fi';
-import { Amiibo } from '../../types/Amiibo';
 import styled from '@emotion/styled';
-import Popup from './WishlistPopup';
-
 import { FaHeart } from 'react-icons/fa';
 
+// Components
+import AmiiboItem from './AmiiboItem';
+import Popup from './WishlistPopup';
+import { Amiibo } from '../../types/Amiibo';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { removeAmiiboWishlist } from '../../features/user/userSlice';
 import grabUserNameCapitalized from '../../features/user/grabUserName';

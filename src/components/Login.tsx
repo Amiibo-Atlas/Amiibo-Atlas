@@ -1,135 +1,113 @@
-import { useState, useEffect } from 'react';
-import { firestore } from '../firebase/firebaseConfig';
-import { getDocs, collection, query, where } from 'firebase/firestore';
-import { useNavigate } from 'react-router-dom';
-
-import { doSignInUserWithEmailAndPassword } from '../features/auth/Auth';
-
-import { setUser } from '../features/user/userSlice';
-
-// import grabAuth from '../functions/getAuthToken';
-// console.log('PLEASE CHECK IF WORKING....: ', grabAuth);
-
 import styled from '@emotion/styled';
 import { useAppDispatch } from '../redux/hooks';
-const LoginContainer = styled.div`
+import { login, googleSignInAndUserSetup } from '../features/user/userSlice';
+import { useNavigate } from 'react-router-dom';
+
+const Container = styled.div`
+    position: fixed;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    inset: 0;
     align-items: center;
-    height: 100vh;
-    flex-grow: 1;
+    justify-content: center;
+    background-color: gray;
 `;
 
-import { useAppSelector } from '../redux/hooks';
-import Cookies from 'universal-cookie';
+const InnerContainer = styled.div`
+    width: 100%;
+    max-width: 20rem;
+`;
 
-function Login() {
-    // Determine status of login from the redux store...
-    const statusLogin = useAppSelector((state) => state.setUser.loginStatus);
-    // console.log('CHECK MEEEEE....: ', statusLogin);
+const Card = styled.div`
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 0.5rem;
+    padding: 2rem 2rem 2rem 2rem;
+    margin-bottom: 1rem;
+`;
 
+const Logo = styled.img`
+    display: block;
+    margin: 2.5rem auto 0 auto;
+    height: 2.5rem;
+    width: auto;
+`;
+
+const Title = styled.h2`
+    margin-top: 2.5rem;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    line-height: 2.25rem;
+    color: black;
+`;
+
+const ButtonContainer = styled.div`
+    margin-top: 2.5rem;
+`;
+
+const Button = styled.button`
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    border-radius: 0.375rem;
+    background-color: indigo;
+    padding: 0.75rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: white;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    &:hover {
+        background-color: darkblue;
+    }
+`;
+
+const Text = styled.p`
+    margin-top: 2.5rem;
+    text-align: center;
+    font-size: 0.875rem;
+    color: gray;
+`;
+
+const Link = styled.a`
+    font-weight: 600;
+    line-height: 1.5rem;
+    color: indigo;
+    &:hover {
+        color: darkblue;
+    }
+`;
+
+const Login = () => {
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
-    useEffect(() => {
-        // If user is logged in, navigate back to homepage.
-        if (statusLogin) {
-            navigate('/profile'); // Redirect to the dashboard after login}
-        }
-    }, [statusLogin]);
 
-    const cookies = new Cookies(null, { path: '/' });
-
-    const user = useAppSelector((state) => state.setUser);
-    // console.log('Cookies test...: ', user.uidToken);
-
-    // Store user data in cookies for one day, assuming that user exists.
-    if (user) {
-        const setDayCookies = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
-        cookies.set('userData', user.uidToken, { maxAge: setDayCookies });
+    const loginWithGoogle = () => {
+        googleSignInAndUserSetup().then(
+            (userId) => {
+                if(userId) {
+                    dispatch(login(userId));
+                    navigate(`/users/${userId}`);
+                }
+            }
+        )
     }
 
-    const dispatch = useAppDispatch();
-
-    const [email, setEmail] = useState('');
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [isSigningIn, setIsSigningIn] = useState(false);
-
-    const onSubmit = async (e) => {
-        e.preventDefault();
-        if (!isSigningIn) {
-            setIsSigningIn(true);
-            await doSignInUserWithEmailAndPassword(email, password);
-
-            const q = query(collection(firestore, 'users'), where('displayName', '==', username));
-
-            const querySnapshot = await getDocs(q);
-            querySnapshot.forEach((doc) => {
-                // console.log(doc.id, ' => ', doc.data());
-                const userData = doc.data();
-                // console.log('HELLo? !!!!! : ', userData);
-                dispatch(
-                    setUser({
-                        email: userData.email,
-                        username: userData.displayName,
-                        wishlist: userData.wishlist,
-                        loginStatus: true,
-                        uidToken: userData.id,
-                    })
-                );
-            });
-        }
-    };
-
     return (
-        <LoginContainer>
-            <div>
-                <h2>Login</h2>
-                <form onSubmit={onSubmit}>
-                    <div>
-                        <label>Email:</label>
-                        <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            required
-                            value={email}
-                            onChange={(e) => {
-                                setEmail(e.target.value);
-                            }}
-                        />
-                    </div>
-                    <div>
-                        <label>Username:</label>
-                        <input
-                            type="text"
-                            id="username"
-                            name="username"
-                            required
-                            value={username}
-                            onChange={(e) => {
-                                setUsername(e.target.value);
-                            }}
-                        />
-                    </div>
-                    <div>
-                        <label>Password:</label>
-                        <input
-                            type="password"
-                            id="password"
-                            name="password"
-                            required
-                            value={password}
-                            onChange={(e) => {
-                                setPassword(e.target.value);
-                            }}
-                        />
-                    </div>
-                    <button type="submit">Login</button>
-                </form>
-            </div>
-        </LoginContainer>
+        <Container>
+            <InnerContainer>
+                <Card>
+                    <Logo src="/src/assets/amiibo.png" />
+                    <Title>Amiibo Atlas</Title>
+                    <ButtonContainer>
+                        <Button onClick={loginWithGoogle}>Sign in with Google</Button>
+                        <Text>
+                            <Link href="/">Cancel</Link>
+                        </Text>
+                    </ButtonContainer>
+                </Card>
+            </InnerContainer>
+        </Container>
     );
-}
+};
 
 export default Login;

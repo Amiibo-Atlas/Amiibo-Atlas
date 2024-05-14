@@ -1,66 +1,50 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { Amiibo } from '../../types/Amiibo';
+import { createSlice } from '@reduxjs/toolkit';
+import { signInWithGoogle } from '../auth/Auth';
+import { getUser, postUser } from './userAPI';
+import { User } from '../../types/User';
 
-interface UserGlobalState {
-    email: string | null;
-    wishlist: Amiibo[];
-    username: string | null;
-    loginStatus: boolean;
-    uidToken: string | null;
+const initialState = {
+    userId: ""
+}
+
+export const googleSignInAndUserSetup = async (): Promise<string | undefined> => {
+    try {
+        // Check if the user data is already in the database
+        const result = await signInWithGoogle();
+        // console.log(result);
+        const login_user = result.user;
+        const user = await getUser(login_user.uid);
+
+        // If the user data is not in the database, add it
+        if(!user) {
+            const newUser: User = {
+                displayName: login_user.displayName ?? "",
+                email: login_user.email ?? "",
+                profile_picture: login_user.photoURL ?? ""
+            }
+            await postUser({
+                uid: login_user.uid,
+                user: newUser
+            })
+        }
+        return login_user.uid;
+    } catch (error) {
+        console.log('Login failed: ', error);
+    }
 }
 
 export const userSlice = createSlice({
-    name: 'user',
-    initialState: {
-        email: null,
-        wishlist: [],
-        username: null,
-        loginStatus: false,
-        uidToken: null,
-    } as UserGlobalState,
+    name: "userId",
+    initialState,
     reducers: {
-        setUser: (
-            state,
-            action: PayloadAction<{
-                email: string | null;
-                wishlist: Amiibo[];
-                username: string | null;
-                loginStatus: boolean;
-                uidToken: string | null;
-            }>
-        ) => {
-            const { email, wishlist, username, loginStatus, uidToken } = action.payload;
-            state.email = email;
-            state.wishlist = wishlist;
-            state.username = username;
-            state.loginStatus = loginStatus;
-            state.uidToken = uidToken;
+        login: (state, action) => {
+            state.userId = action.payload;
         },
-        addAmiiboWishlist: (state, action: PayloadAction<Amiibo>) => {
-            state.wishlist.push(action.payload);
-        },
-        removeAmiiboWishlist: (state, action: PayloadAction<Amiibo>) => {
-            const amiiboRemove = action.payload;
-            state.wishlist = state.wishlist.filter((figure) => figure !== amiiboRemove);
-        },
-        updateLoginStatus: (state, action: PayloadAction<boolean>) => {
-            state.loginStatus = action.payload;
-        },
-        updateUsername: (state, action: PayloadAction<string | null>) => {
-            state.username = action.payload;
-        },
-        updateUID: (state, action: PayloadAction<string | null>) => {
-            state.uidToken = action.payload;
-        },
-    },
-});
+        logout: (state) => {
+            state.userId = "";
+        }
+    }
+})
 
-export const {
-    setUser,
-    addAmiiboWishlist,
-    removeAmiiboWishlist,
-    updateLoginStatus,
-    updateUsername,
-    updateUID,
-} = userSlice.actions;
-export const userSliceReducer = userSlice.reducer;
+export const { login, logout } = userSlice.actions;
+export default userSlice.reducer;
