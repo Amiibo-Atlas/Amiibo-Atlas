@@ -4,18 +4,13 @@ import { useParams } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { FaUserEdit } from 'react-icons/fa';
 import { FaHeart } from 'react-icons/fa';
-import { ImCheckmark } from 'react-icons/im';
-import { FaUserEdit } from 'react-icons/fa';
-import { FaHeart } from 'react-icons/fa';
 import { RxCross2 } from "react-icons/rx";
 
 // Components
-import AmiiboItem from './PersonalItem';
 import { getUser } from '../../features/user/userAPI';
 import { Amiibo } from '../../types/Amiibo';
 import { User } from '../../types/User';
 import AmiiboItem from './AmiiboItem';
-import { Amiibo } from '../../types/Amiibo';
 
 const ContainPage = styled.div`
     display: flex;
@@ -134,7 +129,7 @@ function ProfilePage() {
                 <ProfileContent>
                     <div className="photo-box"></div>
                     <h3>{user?.displayName}</h3>
-                    <OnlineStatus online={user.loginStatus} />    
+                    <OnlineStatus online={user != null} />    
                 </ProfileContent>
                 <p className="bio">{placeholder}</p>
                 <button>

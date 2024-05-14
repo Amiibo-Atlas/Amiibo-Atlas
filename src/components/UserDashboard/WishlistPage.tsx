@@ -8,9 +8,6 @@ import { FaHeart } from 'react-icons/fa';
 import AmiiboItem from './AmiiboItem';
 import Popup from './WishlistPopup';
 import { Amiibo } from '../../types/Amiibo';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { removeAmiiboWishlist } from '../../features/user/userSlice';
-import grabUserNameCapitalized from '../../features/user/grabUserName';
 
 const Button = styled.button`
     &:hover {
@@ -47,8 +44,6 @@ const Wishes = styled.div`
 `;
 
 function WishlistPage() {
-    const user = useAppSelector((state) => state.setUser);
-    const userNameCapitalized = grabUserNameCapitalized(user);
     // placeholder
     const defaultWishlist: Amiibo[] = [
         {
@@ -119,20 +114,13 @@ function WishlistPage() {
         setPublicCall(!publicCall);
     };
 
-    const dispatch = useAppDispatch();
-    useAppSelector((state) => state.setUser.wishlist);
-
     const removeWishlistItem = (amiibo: Amiibo) => {
         const updatedWishlist = defaultWish.filter((item) => item.name !== amiibo.name);
         setDefaultWishlist(updatedWishlist);
-
-        // Dispatch to configured store in redux
-        dispatch(removeAmiiboWishlist(amiibo));
     };
 
     return (
         <Page>
-            <h1 id="page-title">{userNameCapitalized}'s Wishlist</h1>
             <label>
                 <input
                     id="checkbox"
