@@ -1,8 +1,5 @@
-import { useState } from 'react';
 import styled from '@emotion/styled';
-import AmiiboCard from './components/AmiiboCard';
-import { filterRecentReleases } from './features/amiibo/amiiboAPI';
-import { useAppSelector } from './redux/hooks';
+import useAuthState from './features/auth/useAuthState';
 
 const Container = styled.div`
     display: flex;
@@ -17,20 +14,11 @@ const SplashPage = styled.div`
 `;
 
 export default function App() {
-    const [allAmiibo, ,] = useState(false);
-    // Selecting amiibo data from the redux store...
-    const amiiboDataRedux = useAppSelector((state) => state.allAmiiboSlice.amiibos);
-    // console.log('Testing...: ', amiiboDataRedux);
-
-    // Filter amiibo data based on allAmiibo state
-    const filterAmiiboAllOrRecent = allAmiibo
-        ? amiiboDataRedux
-        : filterRecentReleases(amiiboDataRedux);
+    useAuthState();
 
     return (
         <Container>
             <h1>Welcome to Amiibo Atlas!</h1>
-            <AmiiboCard amiiboProps={filterAmiiboAllOrRecent} />
             <SplashPage>
                 <p>
                     Amiibo Atlas is a modern, easy to use, modern web application designed for
