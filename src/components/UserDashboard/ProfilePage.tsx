@@ -5,12 +5,17 @@ import styled from '@emotion/styled';
 import { FaUserEdit } from 'react-icons/fa';
 import { FaHeart } from 'react-icons/fa';
 import { ImCheckmark } from 'react-icons/im';
+import { FaUserEdit } from 'react-icons/fa';
+import { FaHeart } from 'react-icons/fa';
+import { RxCross2 } from "react-icons/rx";
 
 // Components
 import AmiiboItem from './PersonalItem';
 import { getUser } from '../../features/user/userAPI';
 import { Amiibo } from '../../types/Amiibo';
 import { User } from '../../types/User';
+import AmiiboItem from './AmiiboItem';
+import { Amiibo } from '../../types/Amiibo';
 
 const ContainPage = styled.div`
     display: flex;
@@ -33,6 +38,19 @@ const ImageBox = styled.div`
     top: 0;
 `;
 
+const OnlineStatus = styled.label<{ online: boolean }>`
+    background: ${({ online }) => (online ? "#00FF40" :  "grey" )};
+    width: 10px;
+    height: 10px;
+    border: 2px solid black;
+    border-radius: 20px;
+    margin: 25px 10px;
+`;
+
+const ProfileContent = styled.div`
+    display: inline-flex;
+`;
+
 const placeholder =
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum eu laoreet mi. Morbi cursus tortor vitae diam congue, at dignissim orci sollicitudin. Aenean euismod pharetra turpis posuere efficitur. Aliquam erat volutpat. Nulla fringilla augue quis enim iaculis, non rutrum ipsum sodales. Nunc tempus turpis et est fermentum, in convallis enim tincidunt. Maecenas finibus laoreet diam vitae sollicitudin. Duis eget nibh urna. Duis a risus massa. Maecenas non orci vitae enim faucibus aliquet. Integer tristique sem ac diam rutrum, ut sodales diam fringilla. Nullam in leo turpis. Donec placerat vestibulum leo, sed condimentum mauris porttitor sed. Duis tincidunt massa at tortor rutrum imperdiet. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vestibulum sit amet nulla in libero vestibulum iaculis suscipit id magna.';
 
@@ -51,6 +69,11 @@ function ProfilePage() {
         fetchUser();
     }, [userId]);
 
+    const removePersonalItem = ( amiibo: Amiibo ) => {
+        console.log('handle removing from owned collection...');
+    }
+
+    // placeholder
     const personalCollection: Amiibo[] = [
         {
             character: 'Link',
@@ -105,32 +128,33 @@ function ProfilePage() {
     ];
 
     return (
-        <div>
-            <ContainPage>
-                <MainContent>
-                    <div className="profile-info">
-                        <ImageBox />
-                        <p>{user?.displayName}</p>
-                        <p className="bio">{placeholder}</p>
-                        <button>
-                            Edit Profile! <FaUserEdit />
-                        </button>
-                    </div>
-                    <button>
-                        Wishlist! <FaHeart />
-                    </button>
-                    <div className="personal-collection">
-                        {personalCollection.map((amiibo) => (
-                            <AmiiboItem
-                                amiibo={amiibo}
-                                key={`${amiibo.gameSeries} - ${amiibo.name}`}
-                                Icon={ImCheckmark}
-                            />
-                        ))}
-                    </div>
-                </MainContent>
-            </ContainPage>
-        </div>
+        <ContainPage>
+            <MainContent>
+                <ImageBox />
+                <ProfileContent>
+                    <div className="photo-box"></div>
+                    <h3>{user?.displayName}</h3>
+                    <OnlineStatus online={user.loginStatus} />    
+                </ProfileContent>
+                <p className="bio">{placeholder}</p>
+                <button>
+                    Edit Profile! <FaUserEdit />
+                </button>
+                <button>
+                    Wishlist! <FaHeart />
+                </button>
+                <div className="personal-collection">
+                    {personalCollection.map((amiibo) => (
+                        <AmiiboItem
+                            amiibo={amiibo}
+                            key={`${amiibo.gameSeries} - ${amiibo.name}`}
+                            Icon={RxCross2}
+                            onRemove={removePersonalItem}
+                        />
+                    ))}
+                </div>
+            </MainContent>
+        </ContainPage>       
     );
 }
 
