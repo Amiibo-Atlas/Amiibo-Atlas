@@ -3,17 +3,9 @@ import { doCreateUserWithEmailAndPassword } from '../features/auth/Auth';
 import { useNavigate } from 'react-router-dom';
 import {
     doc,
-    onSnapshot,
-    updateDoc,
     setDoc,
-    deleteDoc,
     collection,
     serverTimestamp,
-    getDocs,
-    query,
-    where,
-    orderBy,
-    limit,
 } from 'firebase/firestore';
 import { v4 as uuidv4 } from 'uuid';
 
