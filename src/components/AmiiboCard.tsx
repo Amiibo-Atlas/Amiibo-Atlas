@@ -17,7 +17,8 @@ const Wrapper = styled.div`
 
 const Card = styled.div`
     display: flex;
-    border: 1px solid grey;
+    border: 1px solid #ddd;
+    background-color: white;
     border-radius: 7px;
     flex-wrap: wrap;
     align-self: center;
@@ -25,7 +26,9 @@ const Card = styled.div`
     height: 250px;
     overflow: hidden;
     margin: 0.5rem;
-    transition: transform 0.3s ease;
+    transition: all 0.3s ease;
+    box-shadow: 2px 5px rgba(0, 0, 0, 0.15)
+    border-radius: 20px;
     &:hover {
         transform: scale(1.1);
         cursor: pointer;
@@ -46,8 +49,11 @@ const CardImg = styled.img`
 `;
 
 const CardInfo = styled.div`
-    border: 2px solid grey;
     width: 100%;
+    display: flex;
+    justify-content: center;
+    color: red;
+    text-decoration: none;
 `;
 
 interface Props {
