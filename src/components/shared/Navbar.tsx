@@ -129,25 +129,25 @@ function Navbar() {
         signOut();
         setModalOpen(false);
         navigate('/');
-    }
+    };
 
     useEffect(() => {
         const fetchUser = async () => {
-            if(userId) {
+            if (userId) {
                 const userRef = await getUser(userId);
-                if(userRef) {
+                if (userRef) {
                     setUser(userRef);
                 }
             }
-        }
+        };
         fetchUser();
     }, [userId]);
 
     // Add event listener to listen for clicks outside of the modal when the component mounts
     useEffect(() => {
-        document.addEventListener("mousedown", handleClickOutside);
+        document.addEventListener('mousedown', handleClickOutside);
         return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
+            document.removeEventListener('mousedown', handleClickOutside);
         };
     }, []);
 
@@ -157,18 +157,27 @@ function Navbar() {
                 <img src={myImage} alt="amiibo" />
             </Logo>
             <LinkContainer>
-                <Link to="/home">Amiibo Atlas</Link>
+                <Link to="/">Amiibo Atlas</Link>
                 <Link to="/amiibos">Amiibos</Link>
             </LinkContainer>
             <NavbarUserSection>
                 {userId ? (
                     <div css={userBox} onClick={toggleModal} ref={modalRef}>
-                        <img css={userImage} src={user?.profile_picture || "/default-user-icon.webp"} />
+                        <img
+                            css={userImage}
+                            src={user?.profile_picture || '/default-user-icon.webp'}
+                        />
                         {modalOpen && (
                             <div css={modalContent}>
-                                <div css={modalLink} onClick={() => navigateTo(`/users/${userId}`)}>Account</div>
-                                <div css={modalLink} onClick={() => navigateTo('/')}>Settings</div>
-                                <div css={modalLink} onClick={handleSignOut}>Sign Out</div>
+                                <div css={modalLink} onClick={() => navigateTo(`/users/${userId}`)}>
+                                    Account
+                                </div>
+                                <div css={modalLink} onClick={() => navigateTo('/')}>
+                                    Settings
+                                </div>
+                                <div css={modalLink} onClick={handleSignOut}>
+                                    Sign Out
+                                </div>
                             </div>
                         )}
                     </div>

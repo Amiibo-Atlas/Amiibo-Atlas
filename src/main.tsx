@@ -27,7 +27,6 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage />,
         children: [
             { index: true, element: <App /> },
-            { path: '/home', element: <Home /> },
             { path: '/amiibos', element: <AmiiboList /> },
             { path: '/amiibos/:id', element: <AmiibosParams /> },
             { path: '/login', element: <Login /> },
@@ -39,10 +38,10 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
         <Provider store={store}>
-        <QueryClientProvider client={queryClient}>
-                    <Global styles={Theme()} />
-                    <RouterProvider router={router} />
-                </QueryClientProvider>
+            <QueryClientProvider client={queryClient}>
+                <Global styles={Theme()} />
+                <RouterProvider router={router} />
+            </QueryClientProvider>
         </Provider>
     </React.StrictMode>
 );

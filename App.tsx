@@ -1,13 +1,36 @@
-import { filterRecentReleases, GetAmiibo } from '../features/amiibo/amiiboAPI';
-import AmiiboCard from './AmiiboCard';
+import filterRecentReleases from './src/requests/filterRecentReleases';
+import GetAmiibo from './src/requests/fetchAmiiboList';
+import AmiiboCard from './src/components/AmiiboCard';
+import myImage from './src/assets/amiibo.png';
 import { useState } from 'react';
-import { useAppSelector } from '../redux/hooks';
+import { useAppSelector } from './src/redux/hooks';
+import grabUserNameCapitalized from './src/functions/grabUserName';
 
+import Scroll from './src/components/ScrollPara';
 import styled from '@emotion/styled';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { faMinus } from '@fortawesome/free-solid-svg-icons';
+
+const Wrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    margin: 2rem;
+`;
+
+const CenterContent = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+`;
+
+const SplashInfo = styled.div`
+    padding: 2rem;
+    border: 2px solid black;
+    border-radius: 7px;
+`;
 
 const Container = styled.div`
     display: flex;
@@ -46,6 +69,10 @@ export default function Home() {
     const [toggle, setToggle] = useState(false);
     const { isLoading, error } = GetAmiibo();
 
+    // Grab user from user global state.
+    const user = useAppSelector((state) => state.setUser);
+    const userNameCapitalized = grabUserNameCapitalized(user);
+
     const handleExpansion = () => {
         setToggle((prevIsOn) => !prevIsOn);
         setAllAmiibo(!allAmiibo);
@@ -67,10 +94,43 @@ export default function Home() {
 
     return (
         <>
+            <Wrapper>
+                <img src={myImage} />
+                <h1>Welcome to Amiibo Atlas!</h1>
+                <SplashInfo>
+                    <CenterContent>
+                        <Scroll />
+                    </CenterContent>
+
+                    <p>
+                        Amiibo Atlas is a modern, easy to use, modern web application designed for
+                        collectors, enthusiasts, or those that are interested in the current state
+                        of Nintendo’s Amiibo figurines. These figurines have been in production for
+                        ten years now, and have varied use cases amongst Nintendo’s catalog of
+                        games.
+                    </p>
+                    <br />
+                    <p>
+                        Core functionality includes authentication, parameterized pages, and various
+                        the ability to wishlist particular amiibos, etc. The frontend was built
+                        using the React framework for building the user interface based on its
+                        component like implementation. Given how React handles state management, and
+                        the scope of our web app, we have integrated Redux Toolkit for global state
+                        management. Thus far, we have created a global state for the currently
+                        logged in User (and their settings), and Amiibos. The backend includes
+                        firestore integration.
+                    </p>
+                </SplashInfo>
+            </Wrapper>
+
             <h1>Amiibo Atlas</h1>
+
             <Container>
                 <UserInfoContainer>
                     <UserInfo>
+                        <h2>{userNameCapitalized}</h2>
+                        <h3>{user.email}</h3>
+                        <h4>UID: {user.uidToken}</h4>
                         <h4>Select User Session</h4>
                         <h4>Display User options</h4>
                     </UserInfo>
