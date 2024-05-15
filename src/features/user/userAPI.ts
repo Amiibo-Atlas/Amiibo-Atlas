@@ -19,6 +19,7 @@ export const postUser = async (userRef: UserRef): Promise<void> => {
     await setDoc(doc(db, "users", userRef.uid), {
         displayName: user.displayName,
         email: user.email,
-        profile_picture: user.profile_picture
+        profile_picture: user.profile_picture,
+        wishlist: user.wishlist,
     });
 };

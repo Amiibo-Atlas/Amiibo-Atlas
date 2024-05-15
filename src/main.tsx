@@ -16,7 +16,7 @@ import AmiibosParams from './components/AmiibosParams.tsx';
 import { Global } from '@emotion/react';
 import Theme from './assets/theme.ts';
 import store from './redux/store.ts';
-// import WishlistPage from './components/UserDashboard/WishlistPage.tsx';
+import WishlistPage from './components/UserDashboard/WishlistPage.tsx';
 import ProfilePage from './components/UserDashboard/ProfilePage.tsx';
 import ErrorPage from './components/shared/ErroPage.tsx';
 
@@ -33,6 +33,7 @@ const router = createBrowserRouter([
             { path: '/amiibos/:id', element: <AmiibosParams /> },
             { path: '/login', element: <Login /> },
             { path: '/users/:userId', element: <ProfilePage /> },
+            { path: '/users/:userId/wishlist', element: <WishlistPage /> },
         ],
     },
 ]);

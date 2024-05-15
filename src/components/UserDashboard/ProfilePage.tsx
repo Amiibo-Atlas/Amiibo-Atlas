@@ -79,6 +79,7 @@ function ProfilePage() {
             tail: '00040002',
             release: undefined,
             id: undefined,
+            head: '',
         },
         {
             character: 'Link',
@@ -89,6 +90,7 @@ function ProfilePage() {
             tail: '03530902',
             release: undefined,
             id: undefined,
+            head: '',
         },
         {
             character: 'Legend of Zelda',
@@ -99,6 +101,7 @@ function ProfilePage() {
             tail: '034f0902',
             release: undefined,
             id: undefined,
+            head: '',
         },
         {
             character: 'Link',
@@ -109,6 +112,7 @@ function ProfilePage() {
             tail: '03540902',
             release: undefined,
             id: undefined,
+            head: '',
         },
         {
             character: 'Link',
@@ -119,8 +123,11 @@ function ProfilePage() {
             tail: '03500902',
             release: undefined,
             id: undefined,
+            head: '',
         },
     ];
+
+    const path = `/users/${userId}/wishlist`;
 
     return (
         <ContainPage>
@@ -135,9 +142,11 @@ function ProfilePage() {
                 <button>
                     Edit Profile! <FaUserEdit />
                 </button>
-                <button>
-                    Wishlist! <FaHeart />
-                </button>
+                <a href={path}>
+                    <button >
+                        Wishlist! <FaHeart />
+                    </button>
+                </a>
                 <div className="personal-collection">
                     {personalCollection.map((amiibo) => (
                         <AmiiboItem
