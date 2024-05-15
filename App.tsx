@@ -1,17 +1,36 @@
-import filterRecentReleases from '../requests/filterRecentReleases';
-import GetAmiibo from '../requests/fetchAmiiboList';
-import AmiiboCard from '../components/AmiiboCard';
-import myImage from '../assets/amiibo.png';
+import filterRecentReleases from './src/requests/filterRecentReleases';
+import GetAmiibo from './src/requests/fetchAmiiboList';
+import AmiiboCard from './src/components/AmiiboCard';
+import myImage from './src/assets/amiibo.png';
 import { useState } from 'react';
-import { useAppSelector } from '../redux/hooks';
-import grabUserNameCapitalized from '../functions/grabUserName';
+import { useAppSelector } from './src/redux/hooks';
+import grabUserNameCapitalized from './src/functions/grabUserName';
 
-import Scroll from '../components/ScrollPara';
+import Scroll from './src/components/ScrollPara';
 import styled from '@emotion/styled';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { faMinus } from '@fortawesome/free-solid-svg-icons';
+
+const Wrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    margin: 2rem;
+`;
+
+const CenterContent = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+`;
+
+const SplashInfo = styled.div`
+    padding: 2rem;
+    border: 2px solid black;
+    border-radius: 7px;
+`;
 
 const Container = styled.div`
     display: flex;
@@ -75,10 +94,37 @@ export default function Home() {
 
     return (
         <>
+            <Wrapper>
+                <h1>Welcome to Amiibo Atlas!</h1>
+                <SplashInfo>
+                    <CenterContent>
+                        <Scroll />
+                    </CenterContent>
+
+                    <p>
+                        Amiibo Atlas is a modern, easy to use, modern web application designed for
+                        collectors, enthusiasts, or those that are interested in the current state
+                        of Nintendo’s Amiibo figurines. These figurines have been in production for
+                        ten years now, and have varied use cases amongst Nintendo’s catalog of
+                        games.
+                    </p>
+                    <br />
+                    <p>
+                        Core functionality includes authentication, parameterized pages, and various
+                        the ability to wishlist particular amiibos, etc. The frontend was built
+                        using the React framework for building the user interface based on its
+                        component like implementation. Given how React handles state management, and
+                        the scope of our web app, we have integrated Redux Toolkit for global state
+                        management. Thus far, we have created a global state for the currently
+                        logged in User (and their settings), and Amiibos. The backend includes
+                        firestore integration.
+                    </p>
+                </SplashInfo>
+            </Wrapper>
+
             <h1>Amiibo Atlas</h1>
-            <Scroll />
+
             <img src={myImage} />
-            <Scroll />
             <Container>
                 <UserInfoContainer>
                     <UserInfo>

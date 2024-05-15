@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import Root from './components/root.tsx';
 
-import Home from './pages/Home.tsx';
+import App from '../App.tsx';
 import AmiiboList from './components/AmiiboList/AmiiboList.tsx';
 import Compare from './pages/Compare.tsx';
 import Signup from './pages/Signup.tsx';
@@ -20,7 +20,8 @@ import store from './redux/store.ts';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import WishlistPage from './pages/WishlistPage.tsx';
 import ProfilePage from './pages/ProfilePage.tsx';
-import Splash from './pages/Splash.tsx';
+// import Splash from './pages/Splash.tsx';
+// import App from '../oldApp.tsx';
 
 const queryClient = new QueryClient();
 
@@ -31,8 +32,8 @@ const router = createBrowserRouter([
         path: '/',
         element: <Root />,
         children: [
-            { index: true, element: <Splash /> },
-            { path: 'home', element: <Home /> },
+            { index: true, element: <App /> },
+            // { path: 'home', element: <Home /> },
             { path: 'amiibos', element: <AmiiboList /> },
             { path: 'amiibos/:id', element: <AmiibosParams /> },
             { path: 'compare', element: <Compare /> },
