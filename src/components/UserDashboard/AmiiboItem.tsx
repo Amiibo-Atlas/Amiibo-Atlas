@@ -93,13 +93,12 @@ const AmiiboItem = ({ amiibo, Icon, onRemove }: AmiiboProps) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const handleDetails = (amiibo: any) => {
+    const handleDetails = () => {
         dispatch(setSelectedAmiibo(amiibo));
         navigate(`/amiibos/${amiibo.tail}-${amiibo.head}`);
     }
   
     const handleRemove = () => {
-        console.log('Handling remove');
         onRemove(amiibo);
     };
 

@@ -5,6 +5,7 @@ import styled from '@emotion/styled';
 import { FaUserEdit } from 'react-icons/fa';
 import { FaHeart } from 'react-icons/fa';
 import { RxCross2 } from "react-icons/rx";
+import { NavLink } from 'react-router-dom';
 
 // Components
 import { getUser } from '../../features/user/userAPI';
@@ -142,11 +143,7 @@ function ProfilePage() {
                 <button>
                     Edit Profile! <FaUserEdit />
                 </button>
-                <a href={path}>
-                    <button >
-                        Wishlist! <FaHeart />
-                    </button>
-                </a>
+                <NavLink to={path}>Wishlist ! <FaHeart /></NavLink>
                 <div className="personal-collection">
                     {personalCollection.map((amiibo) => (
                         <AmiiboItem

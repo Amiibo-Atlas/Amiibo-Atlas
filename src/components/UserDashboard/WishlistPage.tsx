@@ -11,8 +11,7 @@ import Popup from './WishlistPopup';
 import { Amiibo } from '../../types/Amiibo';
 import { User } from '../../types/User';
 import { getUser } from '../../features/user/userAPI';
-import { removeFromWishlist, addToWishlist } from '../../features/user/updateWishlist';
-
+import { removeFromWishlist } from '../../features/user/updateWishlist';
 
 
 const Button = styled.button`
@@ -54,7 +53,6 @@ function WishlistPage() {
     const [user, setUser] = useState<User | null>();
     const [defaultWish, setDefaultWishlist] = useState<Amiibo[]>([]);
 
-
     useEffect(() => {
         const fetchUser = async () => {
             if (userId) {
@@ -85,7 +83,7 @@ function WishlistPage() {
     const removeWishlistItem = (amiibo: Amiibo) => {
         const updatedWishlist = defaultWish.filter((item) => item.name !== amiibo.name);
         setDefaultWishlist(updatedWishlist);
-        removeFromWishlist(userId, defaultWish, amiibo);
+        removeFromWishlist(userId, updatedWishlist, amiibo);
     };
 
     return (
