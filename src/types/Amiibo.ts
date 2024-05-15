@@ -7,4 +7,11 @@ export interface Amiibo {
     character: string;
     amiiboSeries: string;
     tail: string;
+    head: string;
+}
+
+export interface AmiiboState {
+    amiibo: {
+        selectedAmiibo: Amiibo | null;
+    }
 }

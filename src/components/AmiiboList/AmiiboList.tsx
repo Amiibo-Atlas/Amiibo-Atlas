@@ -9,6 +9,9 @@ import FilterAmiibos from './FilterAmiibos';
 import Breadcrumb from '../shared/Breadcrumb';
 import { fetchAmiiboList } from '../../features/amiibo/amiiboAPI';
 import { CARDS_PER_LOAD } from '../../constants/constants';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { setSelectedAmiibo } from '../../features/amiibo/amiiboSlice';
 
 // Styles
 import nintendo from '../../assets/super_nintendo_world.png';
@@ -32,6 +35,8 @@ const AmiiboList = () => {
     const [originalData, setOriginalData] = useState([]);
     const [isLoadingMore, setIsLoadingMore] = useState(false);
     const [itemsToShow, setItemsToShow] = useState(CARDS_PER_LOAD);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleLoading = () => {
         setIsLoadingMore(true);
@@ -51,6 +56,11 @@ const AmiiboList = () => {
         },
     });
 
+    const handleCardClick = (amiibo: any) => {
+        dispatch(setSelectedAmiibo(amiibo));
+        navigate(`/amiibos/${amiibo.tail}-${amiibo.head}`);
+    }
+
     return (
         <PageContainer>
             <Breadcrumb
@@ -67,7 +77,7 @@ const AmiiboList = () => {
                         <p>
                             Explore, filter, and add amiibos to your wishlist. This site uses data
                             from Amiibo API - Learn more at
-                            <a href="amiiboapi.com"> amiiboapi.com</a>.
+                            <a href="https://www.amiiboapi.com" target='_blank'> amiiboapi.com</a>.
                         </p>
                     </div>
                 </ColMd8>
@@ -92,7 +102,11 @@ const AmiiboList = () => {
                     ) : null}
                     <GridContainer>
                         {amiibos.slice(0, itemsToShow).map((amiibo: any) => (
-                            <Card key={`${amiibo.tail}-${amiibo.head}`} amiibo={amiibo} />
+                            <Card 
+                                key={`${amiibo.tail}-${amiibo.head}`} 
+                                amiibo={amiibo}
+                                onClick={() => handleCardClick(amiibo)}
+                            />
                         ))}
                     </GridContainer>
                     {itemsToShow < amiibos.length && (

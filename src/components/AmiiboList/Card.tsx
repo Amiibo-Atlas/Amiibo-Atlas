@@ -2,15 +2,7 @@
 import { FaHeart } from 'react-icons/fa';
 import { CardContainer, ImageContainer, CardImage, CardTitle, CardFooter, Button, HeartIcon } from './AmiiboListStyles';
 
-const Card = ({ amiibo }) => {
-    const handleViewMore = () => {
-        
-    };
-
-    const handleAddWishlist = () => {
-        
-    };
-
+const Card = ({ amiibo, onClick }) => {
     return (
         <CardContainer>
             <ImageContainer>
@@ -18,8 +10,8 @@ const Card = ({ amiibo }) => {
             </ImageContainer>
             <CardTitle>{amiibo.name} ({amiibo.amiiboSeries})</CardTitle>
             <CardFooter>
-                <button css={Button} onClick={handleViewMore}>View More</button>
-                <FaHeart css={HeartIcon} onClick={handleAddWishlist} />
+                <button css={Button} onClick={onClick}>View More</button>
+                <FaHeart css={HeartIcon} />
             </CardFooter>
         </CardContainer>
     );

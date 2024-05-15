@@ -11,6 +11,7 @@ import App from './App.tsx';
 import Home from './components/Home.tsx';
 import Login from './components/Login.tsx';
 import AmiiboList from './components/AmiiboList/AmiiboList.tsx';
+import AmiiboDetail from './components/AmiiboList/AmiiboDetail.tsx';
 import AmiibosParams from './components/AmiibosParams.tsx';
 import { Global } from '@emotion/react';
 import Theme from './assets/theme.ts';
@@ -29,6 +30,7 @@ const router = createBrowserRouter([
             { index: true, element: <App /> },
             { path: '/home', element: <Home /> },
             { path: '/amiibos', element: <AmiiboList /> },
+            { path: '/amiibos/:amiiboId', element: <AmiiboDetail />},
             { path: '/amiibos/:id', element: <AmiibosParams /> },
             { path: '/login', element: <Login /> },
             { path: '/users/:userId', element: <ProfilePage /> },

@@ -217,6 +217,10 @@ export const Button = css`
     font-weight: 700;
     letter-spacing: .5px;
     line-height: 19px;
+    &:hover {
+        border: 2px solid #f80001;
+        box-shadow: none;
+    }
 `;
 
 export const HeartIcon = css`
