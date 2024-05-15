@@ -27,7 +27,7 @@ const Card = styled.div`
     overflow: hidden;
     margin: 0.5rem;
     transition: all 0.3s ease;
-    box-shadow: 2px 5px rgba(0, 0, 0, 0.15)
+    box-shadow: 2px 5px rgba(0, 0, 0, 0.15);
     border-radius: 20px;
     &:hover {
         transform: scale(1.1);
@@ -56,6 +56,10 @@ const CardInfo = styled.div`
     text-decoration: none;
 `;
 
+const StyleReactRouterLink = styled(Link)`
+    text-decoration: none;
+`;
+
 interface Props {
     amiiboProps: Amiibo[]; // Changed prop name to amiiboProps
 }
@@ -64,7 +68,7 @@ export default function AmiiboCard({ amiiboProps }: Props) {
     return (
         <Wrapper>
             {amiiboProps.map((amiibo: Amiibo) => (
-                <Link
+                <StyleReactRouterLink
                     to={`/amiibos/${amiibo.id}`}
                     key={`${amiibo.gameSeries}-${amiibo.name}-${amiibo.character}-${amiibo.tail}`}
                 >
@@ -76,7 +80,7 @@ export default function AmiiboCard({ amiiboProps }: Props) {
                             <CardImg src={amiibo.image} />
                         </InnerCard>
                     </Card>
-                </Link>
+                </StyleReactRouterLink>
             ))}
         </Wrapper>
     );
