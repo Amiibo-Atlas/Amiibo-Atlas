@@ -149,7 +149,7 @@ function ProfilePage() {
                     ))}
                 </div>
             </MainContent>
-        </ContainPage>       
+        </ContainPage>
     );
 }
 

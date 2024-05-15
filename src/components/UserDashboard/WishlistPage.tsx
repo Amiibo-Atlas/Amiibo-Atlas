@@ -55,6 +55,7 @@ function WishlistPage() {
             tail: '02bb0e02',
             release: undefined,
             id: undefined,
+            head: '02bb0e02',
         },
         {
             character: 'Mario Cereal',
@@ -65,6 +66,7 @@ function WishlistPage() {
             tail: '03741402',
             release: undefined,
             id: undefined,
+            head: '03741402',
         },
         {
             character: 'Baby Mario',
@@ -75,6 +77,7 @@ function WishlistPage() {
             tail: '02a50e02',
             release: undefined,
             id: undefined,
+            head: '02a50e02',
         },
         {
             character: 'Metal Mario',
@@ -85,6 +88,7 @@ function WishlistPage() {
             tail: '02b90e02',
             release: undefined,
             id: undefined,
+            head: '02b90e02',
         },
         {
             character: 'Mario',
@@ -95,6 +99,7 @@ function WishlistPage() {
             tail: '02690e02',
             release: undefined,
             id: undefined,
+            head: '02690e02',
         },
     ];
 
