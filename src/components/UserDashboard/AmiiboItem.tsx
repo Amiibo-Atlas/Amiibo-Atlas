@@ -1,8 +1,13 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { Amiibo } from '../../types/Amiibo';
 
+
+// Components
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { setSelectedAmiibo } from '../../features/amiibo/amiiboSlice';
+import { Amiibo } from '../../types/Amiibo';
 
 interface AmiiboProps {
     amiibo: Amiibo;
@@ -84,14 +89,16 @@ const BoxTitle = styled.h3`
 `;
 
 const AmiiboItem = ({ amiibo, Icon, onRemove }: AmiiboProps) => { 
-  
 
-  const handleDetails = () => {
-    console.log('Details button...');
-  }
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const handleDetails = () => {
+        dispatch(setSelectedAmiibo(amiibo));
+        navigate(`/amiibos/${amiibo.tail}-${amiibo.head}`);
+    }
   
-  const handleRemove = () => {
-        console.log('Handling remove');
+    const handleRemove = () => {
         onRemove(amiibo);
     };
 

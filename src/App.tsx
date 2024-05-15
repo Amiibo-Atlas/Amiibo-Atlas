@@ -15,6 +15,7 @@ import styled from '@emotion/styled';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { faMinus } from '@fortawesome/free-solid-svg-icons';
+import useAuthState from './features/auth/useAuthState';
 
 const Wrapper = styled.div`
     display: flex;
@@ -71,6 +72,7 @@ const ExpandButton = styled.button`
 // Deconstruct data from TanStack function 'GetAmiibo', utilize its state management for checking for data (isLoading, data, error), render conditionally.
 // Calls function to filter out recent releases, sends to component card function component (reused assets for showcasing amiibo).
 export default function App() {
+    useAuthState();
     const [allAmiibo, setAllAmiibo] = useState(false);
     const [toggle, setToggle] = useState(false);
     const { isLoading, error } = GetAmiibo();

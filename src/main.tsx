@@ -6,21 +6,22 @@ import { Provider } from 'react-redux';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 // Components
+import { Global } from '@emotion/react';
+import Theme from './assets/theme.ts';
 import Root from './components/root.tsx';
 import App from './App.tsx';
+import ErrorPage from './components/shared/ErroPage.tsx';
 
 import Login from './components/Login.tsx';
 import AmiiboList from './components/AmiiboList/AmiiboList.tsx';
 import AmiiboDetail from './components/AmiiboList/AmiiboDetail.tsx';
-import AmiibosParams from './components/AmiibosParams.tsx';
-import { Global } from '@emotion/react';
-import Theme from './assets/theme.ts';
+import ProfilePage from './components/UserDashboard/ProfilePage.tsx';
+import WishlistPage from './components/UserDashboard/WishlistPage.tsx';
+
 import store from './redux/store.ts';
 
-import ProfilePage from './components/UserDashboard/ProfilePage.tsx';
-import ErrorPage from './components/shared/ErroPage.tsx';
-
 const queryClient = new QueryClient();
+
 const router = createBrowserRouter([
     {
         path: '/',
@@ -30,9 +31,9 @@ const router = createBrowserRouter([
             { index: true, element: <App /> },
             { path: '/amiibos', element: <AmiiboList /> },
             { path: '/amiibos/:amiiboId', element: <AmiiboDetail /> },
-            { path: '/amiibos/:id', element: <AmiibosParams /> },
             { path: '/login', element: <Login /> },
             { path: '/users/:userId', element: <ProfilePage /> },
+            { path: '/users/:userId/wishlist', element: <WishlistPage /> },
         ],
     },
 ]);

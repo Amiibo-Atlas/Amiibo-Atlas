@@ -20,7 +20,8 @@ export const googleSignInAndUserSetup = async (): Promise<string | undefined> =>
             const newUser: User = {
                 displayName: login_user.displayName ?? "",
                 email: login_user.email ?? "",
-                profile_picture: login_user.photoURL ?? ""
+                profile_picture: login_user.photoURL ?? "",
+                wishlist: login_user.wishlist ?? []
             }
             await postUser({
                 uid: login_user.uid,

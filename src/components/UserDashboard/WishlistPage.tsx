@@ -1,13 +1,18 @@
 // Dependencies
-import { useState, ChangeEvent } from 'react';
+import { useState, ChangeEvent, useEffect } from 'react';
 import { FiShare } from 'react-icons/fi';
 import styled from '@emotion/styled';
 import { FaHeart } from 'react-icons/fa';
+import { useParams } from 'react-router-dom';
 
 // Components
 import AmiiboItem from './AmiiboItem';
 import Popup from './WishlistPopup';
 import { Amiibo } from '../../types/Amiibo';
+import { User } from '../../types/User';
+import { getUser } from '../../features/user/userAPI';
+import { removeFromWishlist } from '../../features/user/updateWishlist';
+
 
 const Button = styled.button`
     &:hover {
@@ -44,66 +49,23 @@ const Wishes = styled.div`
 `;
 
 function WishlistPage() {
-    // placeholder
-    const defaultWishlist: Amiibo[] = [
-        {
-            character: 'Metal Mario',
-            amiiboSeries: 'Mario Sports Superstars',
-            gameSeries: 'Mario Sports Superstars',
-            name: 'Metal Mario - Tennis',
-            image: 'https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_09d00301-02bb0e02.png',
-            tail: '02bb0e02',
-            release: undefined,
-            id: undefined,
-            head: '02bb0e02',
-        },
-        {
-            character: 'Mario Cereal',
-            amiiboSeries: 'Others',
-            gameSeries: 'Kellogs',
-            name: 'Super Mario Cereal',
-            image: 'https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_37400001-03741402.png',
-            tail: '03741402',
-            release: undefined,
-            id: undefined,
-            head: '03741402',
-        },
-        {
-            character: 'Baby Mario',
-            amiiboSeries: 'Mario Sports Superstars',
-            gameSeries: 'Mario Sports Superstars',
-            name: 'Baby Mario - Soccer',
-            image: 'https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_09cc0101-02a50e02.png',
-            tail: '02a50e02',
-            release: undefined,
-            id: undefined,
-            head: '02a50e02',
-        },
-        {
-            character: 'Metal Mario',
-            amiiboSeries: 'Mario Sports Superstars',
-            gameSeries: 'Mario Sports Superstars',
-            name: 'Metal Mario - Soccer',
-            image: 'https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_09d00101-02b90e02.png',
-            tail: '02b90e02',
-            release: undefined,
-            id: undefined,
-            head: '02b90e02',
-        },
-        {
-            character: 'Mario',
-            amiiboSeries: 'Mario Sports Superstars',
-            gameSeries: 'Mario Sports Superstars',
-            name: 'Mario - Soccer',
-            image: 'https://raw.githubusercontent.com/N3evin/AmiiboAPI/master/images/icon_09c00101-02690e02.png',
-            tail: '02690e02',
-            release: undefined,
-            id: undefined,
-            head: '02690e02',
-        },
-    ];
+    const { userId } = useParams();
+    const [user, setUser] = useState<User | null>();
+    const [defaultWish, setDefaultWishlist] = useState<Amiibo[]>([]);
 
-    const [defaultWish, setDefaultWishlist] = useState<Amiibo[]>(defaultWishlist);
+    useEffect(() => {
+        const fetchUser = async () => {
+            if (userId) {
+                const fetchedUser = await getUser(userId);
+                setUser(fetchedUser || null);
+            }
+        };
+        fetchUser();
+        if (user) {
+            setDefaultWishlist(user.wishlist);
+        }
+    }, [userId]);
+
     const [popupOpen, setPopupOpen] = useState(false);
     const [isPublic, setIsPublic] = useState(false);
     const [type, setType] = useState('');
@@ -114,7 +76,6 @@ function WishlistPage() {
     };
 
     const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
-        console.log('Wishlist Public:', e.target.checked);
         setType('public');
         setPublicCall(!publicCall);
     };
@@ -122,6 +83,7 @@ function WishlistPage() {
     const removeWishlistItem = (amiibo: Amiibo) => {
         const updatedWishlist = defaultWish.filter((item) => item.name !== amiibo.name);
         setDefaultWishlist(updatedWishlist);
+        removeFromWishlist(userId, updatedWishlist, amiibo);
     };
 
     return (
@@ -156,7 +118,7 @@ function WishlistPage() {
 
             {isPublic && (
                 <Wishes>
-                    {defaultWishlist.map((wish) => (
+                    {defaultWish.map((wish) => (
                         <AmiiboItem
                         amiibo={wish}
                         key={`${wish.gameSeries} - ${wish.name}}`}
@@ -164,7 +126,7 @@ function WishlistPage() {
                         onRemove={removeWishlistItem}
                     />
                     ))}
-                    {defaultWishlist.length == 0 && 
+                    {defaultWish.length == 0 && 
                     <p>Your wishlist is currently empty...</p>
                     }
                 </Wishes>
