@@ -2,10 +2,9 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { GetAmiibo, filterRecentReleases } from './features/amiibo/amiiboAPI';
 import AmiiboCard from './components/AmiiboCard';
-// import myImage from './assets/amiibo.png';
+
 import { useState } from 'react';
 import { useAppSelector } from './redux/hooks';
-// import grabUserNameCapitalized from './functions/grabUserName';
 
 import { getUser } from './features/user/userAPI';
 import { User } from './types/User';
@@ -32,7 +31,7 @@ const CenterContent = styled.div`
 
 const SplashInfo = styled.div`
     padding: 2rem;
-    border: 2px solid black;
+    border: 1px solid gray;
     border-radius: 7px;
     background-color: white;
     transition: 0.3s ease;
@@ -76,10 +75,6 @@ export default function App() {
     const [toggle, setToggle] = useState(false);
     const { isLoading, error } = GetAmiibo();
 
-    // Grab user from user global state.
-    // const user = useAppSelector((state) => state.setUser);
-    // const userNameCapitalized = grabUserNameCapitalized(user);
-
     //
     const { userId } = useParams();
     const [user, setUser] = useState<User | null>(null);
@@ -102,14 +97,11 @@ export default function App() {
 
     // Selecting amiibo data from the redux store...
     const amiiboDataRedux = useAppSelector((state) => state.allAmiiboSlice.amiibos);
-    // console.log('Testing...: ', amiiboDataRedux);
 
     // Filter amiibo data based on allAmiibo state
     const filterAmiiboAllOrRecent = allAmiibo
         ? amiiboDataRedux
         : filterRecentReleases(amiiboDataRedux);
-
-    // console.log('Recent...: ', filterAmiiboAllOrRecent);
 
     if (isLoading) return <p>Loading...</p>;
     if (error) return <p>{error.message}</p>;
@@ -117,10 +109,10 @@ export default function App() {
     return (
         <>
             <Wrapper>
-                {/* <img src={myImage} /> */}
                 <h1>Welcome to Amiibo Atlas!</h1>
                 <SplashInfo>
                     <CenterContent>
+                        <h2>Featured Amiibo</h2>
                         <Scroll />
                     </CenterContent>
 
@@ -131,7 +123,7 @@ export default function App() {
                         ten years now, and have varied use cases amongst Nintendo’s catalog of
                         games.
                     </p>
-                    <br />
+
                     <p>
                         Core functionality includes authentication, parameterized pages, and various
                         the ability to wishlist particular amiibos, etc. The frontend was built

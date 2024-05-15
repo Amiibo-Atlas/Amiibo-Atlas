@@ -1,6 +1,7 @@
+import { useDispatch } from 'react-redux';
 import { Amiibo } from '../types/Amiibo';
 import { Link } from 'react-router-dom';
-
+import { setSelectedAmiibo } from '../features/amiibo/amiiboSlice';
 import styled from '@emotion/styled';
 
 const Wrapper = styled.div`
@@ -61,16 +62,23 @@ const StyleReactRouterLink = styled(Link)`
 `;
 
 interface Props {
-    amiiboProps: Amiibo[]; // Changed prop name to amiiboProps
+    amiiboProps: Amiibo[];
 }
 
 export default function AmiiboCard({ amiiboProps }: Props) {
+    const dispatch = useDispatch();
+
+    const handleAmiiboClick = (amiibo: Amiibo) => {
+        dispatch(setSelectedAmiibo(amiibo));
+    };
+
     return (
         <Wrapper>
             {amiiboProps.map((amiibo: Amiibo) => (
                 <StyleReactRouterLink
-                    to={`/amiibos/${amiibo.id}`}
+                    to={`/amiibos/${amiibo.tail}-${amiibo.head}`}
                     key={`${amiibo.gameSeries}-${amiibo.name}-${amiibo.character}-${amiibo.tail}`}
+                    onClick={() => handleAmiiboClick(amiibo)}
                 >
                     <Card>
                         <CardInfo>
