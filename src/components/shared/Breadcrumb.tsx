@@ -1,24 +1,46 @@
-import React from 'react';
 import styled from '@emotion/styled';
+import { AiOutlineRight } from 'react-icons/ai';
 
-const BreadcrumbContainer = styled.nav`
+const BreadcrumbList = styled.ol`
+    display: flex;
+    align-items: center;
+    margin-left: 6rem;
     padding: 1rem 0;
+`;
+
+const BreadcrumbItem = styled.li`
+    display: flex;
+    align-items: center;
+`;
+
+const Link = styled.a`
+    margin: 0 0.25rem;
+    font-weight: bold;
+    text-decoration: none;
+    color: black;
+    &:hover {
+        color: #E60711;
+    }
+`;
+
+const Text = styled.span`
+    margin-left: 0.25rem;
 `;
 
 const Breadcrumb = ({ paths, currentUrl }) => {
     return (
-        <BreadcrumbContainer>
+        <BreadcrumbList>
             {paths.map((path, index) => (
-                <React.Fragment key={index}>
-                    {path.url !== currentUrl ? (
-                        <a href={path.url}>{path.name}</a>
+                <BreadcrumbItem key={index}>
+                    {index !== 0 && <AiOutlineRight />}
+                    {path.url === currentUrl ? (
+                        <Text>{path.name}</Text>
                     ) : (
-                        path.name
+                        <Link href={path.url}>{path.name}</Link>
                     )}
-                    {index < paths.length - 1 && ' / '}
-                </React.Fragment>
+                </BreadcrumbItem>
             ))}
-        </BreadcrumbContainer>
+        </BreadcrumbList>
     );
 };
 

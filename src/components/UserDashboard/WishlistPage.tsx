@@ -1,12 +1,13 @@
+// Dependencies
 import { useState, ChangeEvent } from 'react';
-import WishItem from '../components/WishItem';
 import { FiShare } from 'react-icons/fi';
-import { Amiibo } from '../interfaces/amiiboInterface';
 import styled from '@emotion/styled';
-import Popup from '../components/WishlistPopup';
+import { FaHeart } from 'react-icons/fa';
 
-import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import { removeAmiiboWishlist } from '../redux/userSlice';
+// Components
+import AmiiboItem from './AmiiboItem';
+import Popup from './WishlistPopup';
+import { Amiibo } from '../../types/Amiibo';
 
 const Button = styled.button`
     &:hover {
@@ -113,21 +114,13 @@ function WishlistPage() {
         setPublicCall(!publicCall);
     };
 
-    const dispatch = useAppDispatch();
-    useAppSelector((state) => state.setUser.wishlist);
-
     const removeWishlistItem = (amiibo: Amiibo) => {
         const updatedWishlist = defaultWish.filter((item) => item.name !== amiibo.name);
-        console.log('Removed from wishlist:', amiibo);
         setDefaultWishlist(updatedWishlist);
-
-        // Dispatch to configured store in redux
-        dispatch(removeAmiiboWishlist(amiibo));
     };
 
     return (
         <Page>
-            <h1 id="page-title">Wishlist</h1>
             <label>
                 <input
                     id="checkbox"
@@ -159,12 +152,16 @@ function WishlistPage() {
             {isPublic && (
                 <Wishes>
                     {defaultWishlist.map((wish) => (
-                        <WishItem
-                            amiiboWish={wish}
-                            key={`${wish.gameSeries} - ${wish.name}}`}
-                            onRemove={removeWishlistItem}
-                        />
+                        <AmiiboItem
+                        amiibo={wish}
+                        key={`${wish.gameSeries} - ${wish.name}}`}
+                        Icon={FaHeart}
+                        onRemove={removeWishlistItem}
+                    />
                     ))}
+                    {defaultWishlist.length == 0 && 
+                    <p>Your wishlist is currently empty...</p>
+                    }
                 </Wishes>
             )}
         </Page>

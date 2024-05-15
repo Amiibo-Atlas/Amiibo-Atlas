@@ -1,23 +1,29 @@
+// Dependencies
 import { ReactNode } from 'react';
 import { Outlet } from 'react-router-dom';
-import ScrollToTop from './ScrollToTop';
+import styled from '@emotion/styled';
 
-import { GlobalStyles, Container } from './shared/styles/GlobalStyles';
-import Navbar from './Navbar';
-import Footer from './Footer';
+// Components
+import Navbar from './shared/Navbar';
+import Footer from './shared/Footer';
+
+const RootContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+`;
+
+const MainContent = styled.div`
+    flex: 1 0 auto;
+    background-color: #f2f2f2;
+`;
 
 export default function Root({ children }: { children?: ReactNode }) {
     return (
-        <>
-            <GlobalStyles />
-            <Container>
-                <ScrollToTop />
-                <Navbar />
-                {children || <Outlet />}
-                {/* <AlignFooter> */}
-                <Footer />
-                {/* </AlignFooter> */}
-            </Container>
-        </>
+        <RootContainer>
+            <Navbar />
+            <MainContent>{children || <Outlet />}</MainContent>
+            <Footer />
+        </RootContainer>
     );
 }
