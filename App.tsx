@@ -95,6 +95,7 @@ export default function Home() {
     return (
         <>
             <Wrapper>
+                <img src={myImage} />
                 <h1>Welcome to Amiibo Atlas!</h1>
                 <SplashInfo>
                     <CenterContent>
@@ -124,7 +125,6 @@ export default function Home() {
 
             <h1>Amiibo Atlas</h1>
 
-            <img src={myImage} />
             <Container>
                 <UserInfoContainer>
                     <UserInfo>
