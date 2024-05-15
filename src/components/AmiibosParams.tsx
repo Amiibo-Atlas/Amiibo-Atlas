@@ -1,10 +1,12 @@
 import { useParams } from 'react-router-dom';
+
 import { useAppSelector } from '../redux/hooks';
+import { AmiiboState } from '../types/Amiibo';
+
 import { Amiibo } from '../types/Amiibo';
 import { Link } from 'react-router-dom';
 
 import styled from '@emotion/styled';
-import AmiiboCard from './AmiiboCard';
 
 const ImgWrapper = styled.div`
     display: flex;
@@ -22,7 +24,14 @@ export default function AmiibosParams() {
 
     // Access redux store for particular amiibo.
     const amiiboDataRedux: Amiibo[] = useAppSelector((state) => state.allAmiiboSlice.amiibos);
-    const selectedAmiibo = amiiboDataRedux.find((amiibo) => amiibo.id === id);
+    // const selectedAmiibo = amiiboDataRedux.find((amiibo) => amiibo.id === id);
+
+    /// kjsdghlsjdghsd
+
+    const selectedAmiibo = useAppSelector((state: AmiiboState) => state.amiibo.selectedAmiibo);
+    console.log('TESTING...!!!!!!!!: ');
+
+    // sdjgksdghsdgj
 
     // log store.
     console.log('Redux store for single amiibo: ', selectedAmiibo);
