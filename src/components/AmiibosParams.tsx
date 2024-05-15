@@ -74,7 +74,8 @@ export default function AmiibosParams() {
             <ul>
                 {sameSeries.map((amiibo) => (
                     <li key={amiibo.id}>
-                        <Link to={`/amiibos/${amiibo.id}`}>{amiibo.name}</Link>
+                        {/* <Link to={`/amiibos/${amiibo.id}`}>{amiibo.name}</Link> */}
+                        navigate(`/amiibos/${amiibo.tail}-${amiibo.head}`);
                     </li>
                 ))}
             </ul>

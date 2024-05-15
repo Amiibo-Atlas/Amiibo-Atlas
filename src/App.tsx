@@ -2,10 +2,9 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { GetAmiibo, filterRecentReleases } from './features/amiibo/amiiboAPI';
 import AmiiboCard from './components/AmiiboCard';
-// import myImage from './assets/amiibo.png';
+
 import { useState } from 'react';
 import { useAppSelector } from './redux/hooks';
-// import grabUserNameCapitalized from './functions/grabUserName';
 
 import { getUser } from './features/user/userAPI';
 import { User } from './types/User';
