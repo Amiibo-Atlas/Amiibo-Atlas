@@ -16,7 +16,7 @@ import { faMinus } from '@fortawesome/free-solid-svg-icons';
 const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
-    margin: 2rem;
+    margin: 20rem;
 `;
 
 const CenterContent = styled.div`

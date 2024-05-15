@@ -34,6 +34,9 @@ const SplashInfo = styled.div`
     padding: 2rem;
     border: 2px solid black;
     border-radius: 7px;
+    background-color: white;
+    transition: 0.3s ease;
+    box-shadow: 2px 5px rgba(0, 0, 0, 0.15);
 `;
 
 const Container = styled.div`
@@ -68,7 +71,7 @@ const ExpandButton = styled.button`
 
 // Deconstruct data from TanStack function 'GetAmiibo', utilize its state management for checking for data (isLoading, data, error), render conditionally.
 // Calls function to filter out recent releases, sends to component card function component (reused assets for showcasing amiibo).
-export default function Home() {
+export default function App() {
     const [allAmiibo, setAllAmiibo] = useState(false);
     const [toggle, setToggle] = useState(false);
     const { isLoading, error } = GetAmiibo();

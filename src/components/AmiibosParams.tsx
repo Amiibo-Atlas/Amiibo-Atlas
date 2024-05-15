@@ -4,6 +4,7 @@ import { Amiibo } from '../types/Amiibo';
 import { Link } from 'react-router-dom';
 
 import styled from '@emotion/styled';
+import AmiiboCard from './AmiiboCard';
 
 const ImgWrapper = styled.div`
     display: flex;
@@ -47,6 +48,7 @@ export default function AmiibosParams() {
         <div>
             <h1>{selectedAmiibo.name}</h1>
             <ImgWrapper>
+                {/* <AmiiboCard amiiboProps={filterAmiiboAllOrRecent} /> */}
                 <ContainImg src={selectedAmiibo.image} />
             </ImgWrapper>
 
