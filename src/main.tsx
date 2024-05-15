@@ -27,7 +27,6 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage />,
         children: [
             { index: true, element: <App /> },
-            { path: '/home', element: <Home /> },
             { path: '/amiibos', element: <AmiiboList /> },
             { path: '/amiibos/:id', element: <AmiibosParams /> },
             { path: '/login', element: <Login /> },
