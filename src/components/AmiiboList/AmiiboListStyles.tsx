@@ -222,13 +222,4 @@ export const Button = css`
         box-shadow: none;
     }
 `;
-
-export const HeartIcon = css`
-    cursor: pointer;
-    font-size: 24px;
-    transition: color 0.3s ease;
-    &:hover {
-        color: #ff0000;
-    }
-`;
 /***************** Card.tsx *****************/

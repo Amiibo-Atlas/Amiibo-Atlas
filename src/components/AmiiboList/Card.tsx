@@ -1,47 +1,7 @@
 /** @jsxImportSource @emotion/react */
-import { FaHeart } from 'react-icons/fa';
-import { CardContainer, ImageContainer, CardImage, CardTitle, CardFooter, Button, HeartIcon } from './AmiiboListStyles';
-import { useEffect, useState } from 'react';
-import { User } from '../../types/User';
-import { useAppSelector } from '../../redux/hooks';
-import { getUser } from '../../features/user/userAPI';
-import { Amiibo } from '../../types/Amiibo';
-import { addToWishlist } from '../../features/user/updateWishlist';
+import { CardContainer, ImageContainer, CardImage, CardTitle, CardFooter, Button } from './AmiiboListStyles';
 
-const Card = ({ amiibo, onClick }) => {
-
-    const userId = useAppSelector((state) => state.user.userId);
-    const [user, setUser] = useState<User | null>();
-    const [defaultWish, setDefaultWishlist] = useState<Amiibo[]>([]);
-
-    useEffect(() => {
-        const fetchUser = async () => {
-            if(userId) {
-                const userRef = await getUser(userId);
-                if(userRef) {
-                    setUser(userRef || null);
-                }
-            }
-        }
-        fetchUser();
-        if (user) {
-            setDefaultWishlist(user.wishlist);
-        }
-    }, [userId]);
-
-    const handleAddWishlist = () => {
-        const dupe = defaultWish.find((figure) => figure.image === amiibo.image);
-        if (dupe) {
-            alert(`The amiibo: ${JSON.stringify(amiibo.name)} (${amiibo.amiiboSeries}) is already in your wishlist!`);
-        }
-        else {
-            // HERE - the state seems to be getting overwritten.
-            const newList = [...defaultWish, amiibo];
-            setDefaultWishlist(newList);
-            addToWishlist(userId, newList, amiibo);
-        }      
-    };
-
+const Card = ({ amiibo, onClickDetail, onClickWishlist }) => {
     return (
         <CardContainer>
             <ImageContainer>
@@ -49,8 +9,8 @@ const Card = ({ amiibo, onClick }) => {
             </ImageContainer>
             <CardTitle>{amiibo.name} ({amiibo.amiiboSeries})</CardTitle>
             <CardFooter>
-                <button css={Button} onClick={onClick}>View More</button>
-                <FaHeart css={HeartIcon} onClick={handleAddWishlist}/>
+                <button css={Button} onClick={onClickDetail}>View More</button>
+                <button css={Button} onClick={onClickWishlist}>Wishlist</button>
             </CardFooter>
         </CardContainer>
     );

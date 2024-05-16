@@ -11,7 +11,6 @@ export const googleSignInAndUserSetup = async (): Promise<string | undefined> =>
     try {
         // Check if the user data is already in the database
         const result = await signInWithGoogle();
-        // console.log(result);
         const login_user = result.user;
         const user = await getUser(login_user.uid);
 
@@ -21,7 +20,6 @@ export const googleSignInAndUserSetup = async (): Promise<string | undefined> =>
                 displayName: login_user.displayName ?? "",
                 email: login_user.email ?? "",
                 profile_picture: login_user.photoURL ?? "",
-                wishlist: login_user.wishlist ?? []
             }
             await postUser({
                 uid: login_user.uid,
