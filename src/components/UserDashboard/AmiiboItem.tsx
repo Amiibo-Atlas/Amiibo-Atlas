@@ -1,20 +1,15 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-
+import { RxCross2 as Icon } from "react-icons/rx";
+import { format } from 'date-fns';
 
 // Components
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { useAppSelector } from '../../redux/hooks';
 import { setSelectedAmiibo } from '../../features/amiibo/amiiboSlice';
-import { Amiibo } from '../../types/Amiibo';
-
-interface AmiiboProps {
-    amiibo: Amiibo;
-    onRemove: (amiibo: Amiibo) => void;
-    Icon: React.ElementType;
-    
-}
+import { removeFromWishlist } from '../../features/user/userAPI';
 
 const ItemBox = styled.div`
     display: flex;
@@ -88,35 +83,43 @@ const BoxTitle = styled.h3`
     margin: auto;
 `;
 
-const AmiiboItem = ({ amiibo, Icon, onRemove }: AmiiboProps) => { 
+const TimestampText = styled.div`
+    font-size: 0.75rem;
+    color: #666;
+    font-style: italic;
+`;
 
+const AmiiboItem = ({ amiibo, setWishlist }) => { 
+    const userId = useAppSelector((state) => state.user.userId);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const addedAtFormatted = format(amiibo.addedAt.toDate(), "PPpp");
 
     const handleDetails = () => {
         dispatch(setSelectedAmiibo(amiibo));
         navigate(`/amiibos/${amiibo.tail}-${amiibo.head}`);
     }
-  
-    const handleRemove = () => {
-        onRemove(amiibo);
+
+    const handleRemove = async () => {
+        if (window.confirm("Are you sure you want to remove this item from your wishlist?")) {
+            await removeFromWishlist(userId, amiibo.wishlistId); 
+            setWishlist((prev) => prev.filter((item) => item.wishlistId !== amiibo.wishlistId));
+        }
     };
 
     return (
         <ItemBox>
-        <AmiiboImg src={amiibo.image}></AmiiboImg>
-        <BoxTitle>
-          {amiibo.name} ({amiibo.amiiboSeries})
-        </BoxTitle>
+            <AmiiboImg src={amiibo.image}></AmiiboImg>
+            <BoxTitle>
+                {amiibo.name} ({amiibo.amiiboSeries})
+                <TimestampText>Added: {addedAtFormatted}</TimestampText>
+            </BoxTitle>
             <ButtonBox>
             <button css={Button} onClick={handleDetails}>Details</button>
-              <Icon css={IconDesign} onClick={handleRemove} />
+                <Icon css={IconDesign} onClick={handleRemove} />
             </ButtonBox>
-              
-           
         </ItemBox>
     )
 }
 
-export default AmiiboItem
- 
+export default AmiiboItem;

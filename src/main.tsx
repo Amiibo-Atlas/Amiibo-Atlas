@@ -16,7 +16,7 @@ import Login from './components/Login.tsx';
 import AmiiboList from './components/AmiiboList/AmiiboList.tsx';
 import AmiiboDetail from './components/AmiiboList/AmiiboDetail.tsx';
 import ProfilePage from './components/UserDashboard/ProfilePage.tsx';
-import WishlistPage from './components/UserDashboard/WishlistPage.tsx';
+// import WishlistPage from './components/UserDashboard/WishlistPage.tsx';
 
 import store from './redux/store.ts';
 
@@ -33,7 +33,7 @@ const router = createBrowserRouter([
             { path: '/amiibos/:amiiboId', element: <AmiiboDetail /> },
             { path: '/login', element: <Login /> },
             { path: '/users/:userId', element: <ProfilePage /> },
-            { path: '/users/:userId/wishlist', element: <WishlistPage /> },
+            // { path: '/users/:userId/wishlist', element: <WishlistPage /> },
         ],
     },
 ]);
