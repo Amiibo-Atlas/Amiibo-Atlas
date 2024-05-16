@@ -56,11 +56,7 @@ const AmiiboDetail = () => {
                             <h1>{selectedAmiibo?.name}</h1>
                             <p>Game Series: {selectedAmiibo?.gameSeries}</p>
                             <p>Amiibo Series: {selectedAmiibo?.amiiboSeries}</p>
-                            <h3>Release Date: </h3>
-                            <p>Australia: {selectedAmiibo?.release.au}</p>
-                            <p>Europe: {selectedAmiibo?.release.eu}</p>
-                            <p>Japan: {selectedAmiibo?.release.jp}</p>
-                            <p>North America: {selectedAmiibo?.release.na}</p>
+                            <p>Release Date: {selectedAmiibo?.release.na}</p>
 
                             <h3>Other Amiibos in the Same Series:</h3>
                             {

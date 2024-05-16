@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 // Dependencies
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
@@ -12,10 +13,13 @@ import { CARDS_PER_LOAD } from '../../constants/constants';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setSelectedAmiibo } from '../../features/amiibo/amiiboSlice';
+import { addToWishlist } from '../../features/user/userAPI';
+import { useAppSelector } from '../../redux/hooks';
 
 // Styles
 import nintendo from '../../assets/super_nintendo_world.png';
 import mario from '../../assets/mario.png';
+import { css } from '@emotion/react';
 import {
     PageContainer,
     LayoutContainer,
@@ -30,11 +34,43 @@ import {
 } from './AmiiboListStyles';
 import { BeatLoader } from 'react-spinners';
 
+const modalOverlay = css`
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`;
+
+const modalContent = css`
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    width: 300px;
+    text-align: center;
+    z-index: 10;
+`;
+
+const modalButton = css`
+    padding: 10px 20px;
+    border-radius: 15px;
+    margin: 10px;
+    border: none;
+    cursor: pointer;
+`;
+
 const AmiiboList = () => {
+    const userId = useAppSelector((state) => state.user.userId);
     const [amiibos, setAmiibos] = useState([]);
     const [originalData, setOriginalData] = useState([]);
     const [isLoadingMore, setIsLoadingMore] = useState(false);
     const [itemsToShow, setItemsToShow] = useState(CARDS_PER_LOAD);
+    const [isModalOpen, setModalOpen] = useState(false);
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -56,9 +92,32 @@ const AmiiboList = () => {
         },
     });
 
-    const handleCardClick = (amiibo: any) => {
+    const handleViewMore = (amiibo) => {
         dispatch(setSelectedAmiibo(amiibo));
         navigate(`/amiibos/${amiibo.tail}-${amiibo.head}`);
+    }
+
+    const handleAddWishlist = async (amiibo) => {
+        if (!userId && !isModalOpen) {
+            setModalOpen(true);
+            return;
+        }
+        await addToWishlist(userId, amiibo);
+        alert("Added to wishlist");
+    };
+
+    const closeModal = (e) => {
+        e.stopPropagation();
+        setModalOpen(false);
+    }
+
+    const handleContentClick = (e) => {
+        e.stopPropagation();
+    };
+
+    const navigateTo = (path) => {
+        navigate(path);
+        setModalOpen(false);
     }
 
     return (
@@ -105,7 +164,8 @@ const AmiiboList = () => {
                             <Card 
                                 key={`${amiibo.tail}-${amiibo.head}`} 
                                 amiibo={amiibo}
-                                onClick={() => handleCardClick(amiibo)}
+                                onClickDetail={() => handleViewMore(amiibo)}
+                                onClickWishlist={() => handleAddWishlist(amiibo)}
                             />
                         ))}
                     </GridContainer>
@@ -116,6 +176,15 @@ const AmiiboList = () => {
                     )}
                 </MainSection>
             </LayoutContainer>
+            {isModalOpen && (
+                <div css={modalOverlay} onClick={closeModal}>
+                    <div css={modalContent} onClick={handleContentClick}>
+                        <h3>Sign in to save to your wishlist</h3>
+                        <button css={modalButton} onClick={() => navigateTo('/login')} style={{ backgroundColor: 'red', color: 'white' }}>SIGN IN</button>
+                        <button css={modalButton} onClick={closeModal}>CLOSE</button>
+                    </div>
+                </div>
+            )}
         </PageContainer>
     );
 };
