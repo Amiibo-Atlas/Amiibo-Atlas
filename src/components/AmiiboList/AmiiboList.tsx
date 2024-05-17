@@ -95,21 +95,35 @@ const AmiiboList = () => {
     const handleViewMore = (amiibo) => {
         dispatch(setSelectedAmiibo(amiibo));
         navigate(`/amiibos/${amiibo.tail}-${amiibo.head}`);
-    }
+    };
 
     const handleAddWishlist = async (amiibo) => {
         if (!userId && !isModalOpen) {
             setModalOpen(true);
             return;
         }
-        await addToWishlist(userId, amiibo);
-        alert("Added to wishlist");
+        try {
+            await addToWishlist(userId, amiibo);
+            alert('Added to wishlist');
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                if (error.message === 'Amiibo already in wishlist') {
+                    alert('This amiibo is already in your wishlist');
+                } else {
+                    console.error('Failed to add to wishlist', error);
+                    alert('Failed to add to wishlist');
+                }
+            } else {
+                console.error('Unexpected error', error);
+                alert('An unexpected error occurred');
+            }
+        }
     };
 
     const closeModal = (e) => {
         e.stopPropagation();
         setModalOpen(false);
-    }
+    };
 
     const handleContentClick = (e) => {
         e.stopPropagation();
@@ -118,7 +132,7 @@ const AmiiboList = () => {
     const navigateTo = (path) => {
         navigate(path);
         setModalOpen(false);
-    }
+    };
 
     return (
         <PageContainer>
@@ -136,7 +150,11 @@ const AmiiboList = () => {
                         <p>
                             Explore, filter, and add amiibos to your wishlist. This site uses data
                             from Amiibo API - Learn more at
-                            <a href="https://www.amiiboapi.com" target='_blank'> amiiboapi.com</a>.
+                            <a href="https://www.amiiboapi.com" target="_blank">
+                                {' '}
+                                amiiboapi.com
+                            </a>
+                            .
                         </p>
                     </div>
                 </ColMd8>
@@ -161,8 +179,8 @@ const AmiiboList = () => {
                     ) : null}
                     <GridContainer>
                         {amiibos.slice(0, itemsToShow).map((amiibo: any) => (
-                            <Card 
-                                key={`${amiibo.tail}-${amiibo.head}`} 
+                            <Card
+                                key={`${amiibo.tail}-${amiibo.head}`}
                                 amiibo={amiibo}
                                 onClickDetail={() => handleViewMore(amiibo)}
                                 onClickWishlist={() => handleAddWishlist(amiibo)}
@@ -180,8 +198,16 @@ const AmiiboList = () => {
                 <div css={modalOverlay} onClick={closeModal}>
                     <div css={modalContent} onClick={handleContentClick}>
                         <h3>Sign in to save to your wishlist</h3>
-                        <button css={modalButton} onClick={() => navigateTo('/login')} style={{ backgroundColor: 'red', color: 'white' }}>SIGN IN</button>
-                        <button css={modalButton} onClick={closeModal}>CLOSE</button>
+                        <button
+                            css={modalButton}
+                            onClick={() => navigateTo('/login')}
+                            style={{ backgroundColor: 'red', color: 'white' }}
+                        >
+                            SIGN IN
+                        </button>
+                        <button css={modalButton} onClick={closeModal}>
+                            CLOSE
+                        </button>
                     </div>
                 </div>
             )}
