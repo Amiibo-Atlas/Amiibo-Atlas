@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 // Components
@@ -18,7 +18,6 @@ import Login from './components/Login.tsx';
 import AmiiboList from './components/AmiiboList/AmiiboList.tsx';
 import AmiiboDetail from './components/AmiiboList/AmiiboDetail.tsx';
 import ProfilePage from './components/UserDashboard/ProfilePage.tsx';
-// import WishlistPage from './components/UserDashboard/WishlistPage.tsx';
 import AboutAmiibo from './components/AmiiboAbout.tsx';
 
 import store from './redux/store.ts';
@@ -42,7 +41,6 @@ const router = createBrowserRouter([
             { path: '/login', element: <Login /> },
             { path: '/users/:userId', element: <ProfilePage /> },
             { path: `/aboutamiibo`, element: <AboutAmiibo /> },
-            // { path: '/users/:userId/wishlist', element: <WishlistPage /> },
         ],
     },
 ]);

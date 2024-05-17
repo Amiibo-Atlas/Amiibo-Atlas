@@ -24,14 +24,8 @@ export default function AmiibosParams() {
 
     // Access redux store for particular amiibo.
     const amiiboDataRedux: Amiibo[] = useAppSelector((state) => state.allAmiiboSlice.amiibos);
-    // const selectedAmiibo = amiiboDataRedux.find((amiibo) => amiibo.id === id);
-
-    /// kjsdghlsjdghsd
 
     const selectedAmiibo = useAppSelector((state: AmiiboState) => state.amiibo.selectedAmiibo);
-    console.log('TESTING...!!!!!!!!: ');
-
-    // sdjgksdghsdgj
 
     // log store.
     console.log('Redux store for single amiibo: ', selectedAmiibo);
