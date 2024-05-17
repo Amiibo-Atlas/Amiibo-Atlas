@@ -1,8 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { RxCross2 as Icon } from "react-icons/rx";
+import { RxCross2 as Icon } from 'react-icons/rx';
 import { format } from 'date-fns';
+import { useState } from 'react';
+import { toast } from 'react-toastify';
 
 // Components
 import { useDispatch } from 'react-redux';
@@ -10,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../redux/hooks';
 import { setSelectedAmiibo } from '../../features/amiibo/amiiboSlice';
 import { removeFromWishlist } from '../../features/user/userAPI';
+import DetermineModal from '../DetermineModal';
 
 const ItemBox = styled.div`
     display: flex;
@@ -41,7 +44,7 @@ const ButtonBox = styled.div`
     display: flex;
     justify-content: space-evenly;
     align-items: stretch;
-    padding: .3rem 1rem .5rem;
+    padding: 0.3rem 1rem 0.5rem;
     min-height: 70px;
 `;
 
@@ -54,9 +57,9 @@ const Button = css`
     cursor: pointer;
     border-radius: 999px;
     text-transform: uppercase;
-    font-size: .8125rem;
+    font-size: 0.8125rem;
     font-weight: 700;
-    letter-spacing: .5px;
+    letter-spacing: 0.5px;
     line-height: 19px;
     &:hover {
         border-color: #646cff;
@@ -89,37 +92,69 @@ const TimestampText = styled.div`
     font-style: italic;
 `;
 
-const AmiiboItem = ({ amiibo, setWishlist }) => { 
+const AmiiboItem = ({ amiibo, setWishlist }) => {
     const userId = useAppSelector((state) => state.user.userId);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const addedAtFormatted = format(amiibo.addedAt.toDate(), "PPpp");
+    const addedAtFormatted = format(amiibo.addedAt.toDate(), 'PPpp');
+    const [determineModalStatus, setDetermineModalStatus] = useState(false);
 
     const handleDetails = () => {
         dispatch(setSelectedAmiibo(amiibo));
         navigate(`/amiibos/${amiibo.tail}-${amiibo.head}`);
-    }
+    };
 
-    const handleRemove = async () => {
-        if (window.confirm("Are you sure you want to remove this item from your wishlist?")) {
-            await removeFromWishlist(userId, amiibo.wishlistId); 
+    // const handleRemove = async () => {
+    //     if (window.confirm(' you want to remove this item from your wishlist?')) {
+    //         await removeFromWishlist(userId, amiibo.wishlistId);
+    //         setWishlist((prev) => prev.filter((item) => item.wishlistId !== amiibo.wishlistId));
+    //     }
+    // };
+
+    const handleRemove = () => {
+        setDetermineModalStatus(true);
+    };
+
+    const confirmRemove = async () => {
+        try {
+            await removeFromWishlist(userId, amiibo.wishlistId);
             setWishlist((prev) => prev.filter((item) => item.wishlistId !== amiibo.wishlistId));
+            toast.success('Removed from wishlist');
+        } catch (error) {
+            console.error('Failed to remove from wishlist', error);
+            toast.error('Failed to remove from wishlist');
+        } finally {
+            setDetermineModalStatus(false);
         }
     };
 
-    return (
-        <ItemBox>
-            <AmiiboImg src={amiibo.image}></AmiiboImg>
-            <BoxTitle>
-                {amiibo.name} ({amiibo.amiiboSeries})
-                <TimestampText>Added: {addedAtFormatted}</TimestampText>
-            </BoxTitle>
-            <ButtonBox>
-            <button css={Button} onClick={handleDetails}>Details</button>
-                <Icon css={IconDesign} onClick={handleRemove} />
-            </ButtonBox>
-        </ItemBox>
-    )
-}
+    const cancelRemove = () => {
+        setDetermineModalStatus(false);
+    };
 
+    return (
+        <>
+            <ItemBox>
+                <AmiiboImg src={amiibo.image}></AmiiboImg>
+                <BoxTitle>
+                    {amiibo.name} ({amiibo.amiiboSeries})
+                    <TimestampText>Added: {addedAtFormatted}</TimestampText>
+                </BoxTitle>
+                <ButtonBox>
+                    <button css={Button} onClick={handleDetails}>
+                        Details
+                    </button>
+                    <Icon css={IconDesign} onClick={handleRemove} />
+                </ButtonBox>
+            </ItemBox>
+            {determineModalStatus && (
+                <DetermineModal
+                    message="Do you want to remove this item from your wishlist?"
+                    onConfirm={confirmRemove}
+                    onCancel={cancelRemove}
+                />
+            )}
+        </>
+    );
+};
 export default AmiiboItem;
