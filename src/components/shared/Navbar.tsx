@@ -13,6 +13,11 @@ import { User } from '../../types/User';
 
 // Styles
 import myImage from '../../assets/amiibo.png';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import { faGear } from '@fortawesome/free-solid-svg-icons';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 
 const NavContainer = styled.header`
     width: 100%;
@@ -92,14 +97,36 @@ const modalContent = css`
     z-index: 1000;
 `;
 
-const modalLink = css`
-    margin: 5px 0;
-    color: #1f2937;
-    text-decoration: none;
+const modalRow = css`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
     cursor: pointer;
     &:hover {
-        color: #4b5563;
+        background-color: #f2f2f2;
     }
+    border-radius: 5px;
+    color: #1f2937;
+`;
+
+const modalLink = css`
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    margin: 5px 0;
+    text-decoration: none;
+    cursor: pointer;
+`;
+
+const modalIcon = css`
+    min-width: 20px;
+`;
+
+const modalSpan = css`
+    padding-left: 12px;
 `;
 
 function Navbar() {
@@ -171,14 +198,30 @@ function Navbar() {
                         />
                         {modalOpen && (
                             <div css={modalContent}>
-                                <div css={modalLink} onClick={() => navigateTo(`/users/${userId}`)}>
-                                    Account
+                                <div css={modalRow} onClick={() => navigateTo(`/users/${userId}`)}>
+                                    <div css={modalLink}>
+                                        <FontAwesomeIcon icon={faUser} css={modalIcon} />
+                                        <span css={modalSpan}>Account</span>
+                                    </div>
+                                    <FontAwesomeIcon icon={faAngleRight} />
                                 </div>
-                                <div css={modalLink} onClick={() => navigateTo('/')}>
-                                    Settings
+                                <div css={modalRow} onClick={() => navigateTo('/')}>
+                                    <div css={modalLink}>
+                                        <FontAwesomeIcon icon={faGear} css={modalIcon} />
+                                        <span css={modalSpan}>Settings</span>
+                                    </div>
+                                    <FontAwesomeIcon icon={faAngleRight} />
                                 </div>
-                                <div css={modalLink} onClick={handleSignOut}>
-                                    Sign Out
+
+                                <div css={modalRow} onClick={handleSignOut}>
+                                    <div css={modalLink}>
+                                        <FontAwesomeIcon
+                                            icon={faRightFromBracket}
+                                            css={modalIcon}
+                                        />
+                                        <span css={modalSpan}>Sign Out</span>
+                                    </div>
+                                    <FontAwesomeIcon icon={faAngleRight} />
                                 </div>
                             </div>
                         )}
