@@ -39,11 +39,11 @@ export const postUser = async (userRef: UserRef): Promise<void> => {
 export const addToWishlist = async (userId: string, amiibo: Amiibo): Promise<void> => {
     const wishlistRef = collection(db, 'users', userId, 'wishlist');
 
-    // Check if amiibo already exists in the wishlist
-    const q = query(wishlistRef, where('name', '==', amiibo.name));
-    const querySnapshot = await getDocs(q);
+    // Identify if the amiibo already exists within the wishlist for the user...
+    const findWishlist = query(wishlistRef, where('name', '==', amiibo.name));
+    const querySnapshot = await getDocs(findWishlist);
     if (!querySnapshot.empty) {
-        // Amiibo already exists in the wishlist
+        // Amiibo exists in the wishlist if particular amiibo is non-empty.
         throw new Error('Amiibo already in wishlist');
     }
 

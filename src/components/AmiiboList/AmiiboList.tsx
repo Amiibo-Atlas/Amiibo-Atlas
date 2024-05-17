@@ -2,6 +2,7 @@
 // Dependencies
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
 
 // Components
 import Card from './Card';
@@ -104,18 +105,18 @@ const AmiiboList = () => {
         }
         try {
             await addToWishlist(userId, amiibo);
-            alert('Added to wishlist');
-        } catch (error: unknown) {
+            toast.success('Added to wishlist');
+        } catch (error) {
             if (error instanceof Error) {
                 if (error.message === 'Amiibo already in wishlist') {
-                    alert('This amiibo is already in your wishlist');
+                    toast.error('This amiibo is already in your wishlist');
                 } else {
                     console.error('Failed to add to wishlist', error);
-                    alert('Failed to add to wishlist');
+                    toast.error('Failed to add to wishlist');
                 }
             } else {
                 console.error('Unexpected error', error);
-                alert('An unexpected error occurred');
+                toast.error('An unexpected error occurred');
             }
         }
     };
