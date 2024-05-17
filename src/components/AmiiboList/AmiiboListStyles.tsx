@@ -180,7 +180,7 @@ export const CardImage = styled.img`
     height: 100%;
     width: 100%;
     padding: 1rem;
-    object-fit: contain; // Added to ensure images don't look
+    object-fit: contain; // Added to ensure images don't appear stretched.
     object-position: center;
     box-sizing: border-box;
 `;

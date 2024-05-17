@@ -11,7 +11,7 @@ import Theme from './assets/theme.ts';
 import Root from './components/root.tsx';
 import App from './App.tsx';
 import ErrorPage from './components/shared/ErroPage.tsx';
-
+import ScrollToTop from './components/ScrollToTop.tsx';
 import Login from './components/Login.tsx';
 import AmiiboList from './components/AmiiboList/AmiiboList.tsx';
 import AmiiboDetail from './components/AmiiboList/AmiiboDetail.tsx';
@@ -26,7 +26,12 @@ const queryClient = new QueryClient();
 const router = createBrowserRouter([
     {
         path: '/',
-        element: <Root />,
+        element: (
+            <>
+                <ScrollToTop />
+                <Root />
+            </>
+        ),
         errorElement: <ErrorPage />,
         children: [
             { index: true, element: <App /> },
