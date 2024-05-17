@@ -186,7 +186,7 @@ function Navbar() {
             <LinkContainer>
                 <Link to="/">Amiibo Atlas</Link>
                 <Link to="/amiibos">Amiibos</Link>
-                <Link to="#">What are Amiibo?</Link>
+                <Link to="/aboutamiibo">What are Amiibo?</Link>
                 <Link to="#">Temp page...</Link>
             </LinkContainer>
             <NavbarUserSection>

@@ -74,15 +74,15 @@ export const GridContainer = styled.div`
 
 export const LoadMoreButton = styled.button`
     padding: 1em 8em;
-    background-color: #E60711;
+    background-color: #e60711;
     color: white;
     border: none;
     border-radius: 99px;
     cursor: pointer;
     display: inline-block;
-    font-size: .8125rem;
+    font-size: 0.8125rem;
     font-weight: 700;
-    letter-spacing: .5px;
+    letter-spacing: 0.5px;
     line-height: 19px;
     text-transform: uppercase;
     margin-bottom: 1rem;
@@ -97,11 +97,10 @@ export const Overlay = styled.div`
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); 
+    background-color: rgba(0, 0, 0, 0.5);
     z-index: 10;
 `;
 /*************** AmiiboList.tsx ***************/
-
 
 /************* FilterAmiibos.tsx **************/
 export const filterContainer = css`
@@ -138,7 +137,6 @@ export const expandButton = css`
 `;
 /************* FilterAmiibos.tsx **************/
 
-
 /************** SortAmiibos.tsx **************/
 export const dropdown = css`
     padding: 10px;
@@ -149,7 +147,6 @@ export const dropdown = css`
     background-color: #fff;
 `;
 /************** SortAmiibos.tsx **************/
-
 
 /***************** Card.tsx *****************/
 export const CardContainer = styled.div`
@@ -183,6 +180,7 @@ export const CardImage = styled.img`
     height: 100%;
     width: 100%;
     padding: 1rem;
+    object-fit: contain; // Added to ensure images don't appear stretched.
     object-position: center;
     box-sizing: border-box;
 `;
@@ -200,7 +198,7 @@ export const CardFooter = styled.div`
     justify-content: space-between;
     border-top: 1px solid #ddd;
     align-items: center;
-    padding: .3rem 1rem .5rem;
+    padding: 0.3rem 1rem 0.5rem;
     min-height: 70px;
 `;
 
@@ -213,9 +211,9 @@ export const Button = css`
     cursor: pointer;
     border-radius: 999px;
     text-transform: uppercase;
-    font-size: .8125rem;
+    font-size: 0.8125rem;
     font-weight: 700;
-    letter-spacing: .5px;
+    letter-spacing: 0.5px;
     line-height: 19px;
     &:hover {
         border: 2px solid #f80001;

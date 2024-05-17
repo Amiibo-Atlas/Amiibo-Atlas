@@ -77,7 +77,6 @@ export default function App() {
     const [toggle, setToggle] = useState(false);
     const { isLoading, error } = GetAmiibo();
 
-    //
     const { userId } = useParams();
     const [user, setUser] = useState<User | null>(null);
 
@@ -90,7 +89,6 @@ export default function App() {
         };
         fetchUser();
     }, [userId]);
-    //
 
     const handleExpansion = () => {
         setToggle((prevIsOn) => !prevIsOn);

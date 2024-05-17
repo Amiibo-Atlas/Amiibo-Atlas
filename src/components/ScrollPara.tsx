@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import AmiiboCard from './AmiiboCard';
 import { useAppSelector } from '../redux/hooks';
-// import { Amiibo } from '../interfaces/amiiboInterface';
 import { Amiibo } from '../types/Amiibo';
 
 import styled from '@emotion/styled';
