@@ -149,7 +149,7 @@ const AmiiboItem = ({ amiibo, setWishlist }) => {
             </ItemBox>
             {determineModalStatus && (
                 <DetermineModal
-                    message="Do you want to remove this item from your wishlist?"
+                    message="Are you sure you want to remove this item from your wishlist?"
                     onConfirm={confirmRemove}
                     onCancel={cancelRemove}
                 />
