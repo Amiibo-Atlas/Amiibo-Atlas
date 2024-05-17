@@ -50,35 +50,22 @@ export default function AboutAmiibo() {
                         </p>
                     </section>
                     <section>
-                        <h2>How amiibo work</h2>
+                        <h2>How does Amiibo work?</h2>
                         <p>
-                            Amiibo work by using NFC (Near Field Communication) technology to
-                            interact with compatible devices and games. When you tap an amiibo on
-                            your Nintendo Switch, Wii U, or 3DS, it unlocks special features or
-                            content.
+                            Amiibo utilize Near Field Communication (NFC) in order to interact with
+                            compatible Nintendo hardware and software. The supported hardware
+                            includes Nintendo Switch, 3DS, and WiiU. In order to get started with
+                            using Amiibo, you place the figurine or card onto the hardware (where
+                            the NFC hardware is present). By doing so, a user may unlock unique
+                            features, content, or exclusives within their games.
                         </p>
                     </section>
-                    <section>
-                        <h2>Popular amiibo</h2>
-                        <p>
-                            Some popular amiibo include Mario, Link from The Legend of Zelda, and
-                            characters from the Super Smash Bros. series.
-                        </p>
-                    </section>
+
                     <section>
                         <h2>Benefits of using amiibo</h2>
                         <p>
-                            Using amiibo can unlock in-game items, costumes, and even new levels or
-                            challenges. They add an extra layer of fun and interactivity to your
-                            games.
-                        </p>
-                    </section>
-                    <section>
-                        <h2>How to use amiibo</h2>
-                        <p>
-                            To use an amiibo, simply tap it on the designated NFC touchpoint on your
-                            console or controller. Follow the on-screen instructions to enjoy the
-                            new content it unlocks!
+                            Utilizing Amiibo allows the user to unlock exclusive in-game content,
+                            such as costumes, levels, challenges, and various other features.
                         </p>
                     </section>
                 </div>
