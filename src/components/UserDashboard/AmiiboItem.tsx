@@ -62,7 +62,7 @@ const Button = css`
     letter-spacing: 0.5px;
     line-height: 19px;
     &:hover {
-        border-color: #646cff;
+        border-color: #f80001;
     }
     margin-bottom: auto;
 `;
