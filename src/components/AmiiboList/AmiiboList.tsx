@@ -185,6 +185,7 @@ const AmiiboList = () => {
                                 amiibo={amiibo}
                                 onClickDetail={() => handleViewMore(amiibo)}
                                 onClickWishlist={() => handleAddWishlist(amiibo)}
+                                userId={userId}
                             />
                         ))}
                     </GridContainer>

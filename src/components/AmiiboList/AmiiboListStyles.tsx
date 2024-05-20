@@ -220,4 +220,26 @@ export const Button = css`
         box-shadow: none;
     }
 `;
+
+export const WishButton = styled.button<{ wished: boolean }>`
+    color:  ${({ wished }) => (wished ? "white" :  "black" )};
+    border: ${({ wished }) => (wished ? "2px solid #f80001" :  "2px solid black" )};
+    padding: 10px;
+    background-color: ${({ wished }) => (wished ? "#f80001" :  "white" )};
+    text-align: center;
+    text-decoration: none;
+    font-size: 12px;
+    cursor: pointer;
+    border-radius: 999px;
+    text-transform: uppercase;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    line-height: 19px;
+    &:hover {
+        border: 2px solid #f80001;
+        box-shadow: none;
+        // cursor: default;  // can click on it to see warning message.
+    }
+`;
 /***************** Card.tsx *****************/
