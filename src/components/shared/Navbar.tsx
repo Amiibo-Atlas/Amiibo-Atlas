@@ -21,7 +21,7 @@ import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 
 const NavContainer = styled.header`
     width: 100%;
-    margin: 0 2em 0 auto;
+    margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: space-between;

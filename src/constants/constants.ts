@@ -1,5 +1,4 @@
 export const CARDS_PER_LOAD = 12;
-export const INITIAL_FILTER_OPTIONS_COUNT = 5;
 
 export const filterOptions = [
     {
@@ -19,7 +18,7 @@ export const filterOptions = [
             { key: 'yu-gi-oh', name: 'Yu-Gi-Oh!' },
         ],
     },
-];
+] as const;
 
 export const RELEASE_DATE = 'Release Date';
 export const NEWEST_PRODUCTS = 'Newest products';
@@ -43,4 +42,4 @@ export const sortOptions = [
         id: 4,
         name: PRODUCT_NAME_ZA
     }
-];
+] as const;

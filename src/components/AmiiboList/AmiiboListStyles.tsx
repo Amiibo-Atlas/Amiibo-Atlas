@@ -24,7 +24,7 @@ export const BannerHero = styled.div`
     border-radius: 20px;
     overflow: hidden;
     background-color: white;
-    margin: 2rem 5rem;
+    margin: 2rem 8rem;
 `;
 
 export const ColMd8 = styled.div`
@@ -126,14 +126,6 @@ export const optionLabel = css`
 
 export const checkbox = css`
     margin-right: 10px;
-`;
-
-export const expandButton = css`
-    margin-top: 10px;
-    background: none;
-    border: none;
-    font-size: 14px;
-    cursor: pointer;
 `;
 /************* FilterAmiibos.tsx **************/
 
