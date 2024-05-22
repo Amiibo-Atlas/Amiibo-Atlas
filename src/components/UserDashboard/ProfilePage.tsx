@@ -1,13 +1,16 @@
 // Dependencies
+/** @jsxImportSource @emotion/react */
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { FiShare } from 'react-icons/fi';
+import { RxCross2 as Icon, RxCross2 } from 'react-icons/rx';
 
 // Components
 import { getUser, getWishlist } from '../../features/user/userAPI';
 import { Amiibo } from '../../types/Amiibo';
 import { User } from '../../types/User';
 import AmiiboItem from './AmiiboItem';
+import WishlistShare from './WishlistShare';
 
 // Styles
 import {
@@ -24,6 +27,11 @@ import {
     // RightSection,
     LeftSection,
     Collection,
+    ModalContainer,
+    modalContent,
+    informationBox,
+    ModalButton,
+    topper,
 } from './ProfilePageStyles';
 
 function ProfilePage() {
@@ -31,6 +39,13 @@ function ProfilePage() {
     const { userId } = useParams();
     const [user, setUser] = useState<User | null>(null);
     const [wishlist, setWishlist] = useState<Amiibo[]>([]);
+    const [modalOpen, setModalOpen] = useState(false);
+
+
+    const toggleModal = () => {
+        console.log(modalOpen);
+        setModalOpen(!modalOpen);
+    };
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -54,10 +69,20 @@ function ProfilePage() {
                         <OnlineStatus online={user != null} />
                     </ProfileContent>
                     <ProfileCount>CURRENT WISH COUNT: {wishlist?.length}</ProfileCount>
-                    <ShareButton>
-                        {' '}
-                        <FiShare /> Share Wishlist!
-                    </ShareButton>
+
+                    <ShareButton onClick={toggleModal}> <FiShare /> Share Wishlist!</ShareButton>
+                    { modalOpen && (
+                        <ModalContainer>
+                            <div css={modalContent}>
+                            <ModalButton onClick={toggleModal}><Icon/></ModalButton>
+                                <div css={topper}>Share Wish List</div>
+                                <div css={informationBox}>
+                                    <WishlistShare></WishlistShare>
+                                </div>
+                            </div>
+                        </ModalContainer>
+                    )}
+
                 </ProfileContainer>
 
                 <BottomContainer>
