@@ -140,7 +140,7 @@ export default function App() {
             <h1>Amiibo Atlas</h1>
 
             <Container>
-                <UserInfoContainer>
+                {/* <UserInfoContainer>
                     <UserInfo>
                         <h2>{user?.displayName}</h2>
                         <h3>{user?.email}</h3>
@@ -154,7 +154,7 @@ export default function App() {
                         <p>Select User Session</p>
                         <p>Display Current User Wishlist here from global state</p>
                     </UserInfo>
-                </UserInfoContainer>
+                </UserInfoContainer> */}
                 <h2>
                     {toggle ? 'Every Amiibo' : 'Recently Released Amiibo'} |
                     <ExpandButton onClick={handleExpansion}>
