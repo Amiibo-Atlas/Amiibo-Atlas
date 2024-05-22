@@ -3,6 +3,7 @@ import { useAppSelector } from '../../redux/hooks';
 import { AmiiboState } from '../../types/Amiibo';
 import Breadcrumb from '../shared/Breadcrumb';
 import { Amiibo } from '../../types/Amiibo';
+import AmiiboCard from '../AmiiboCard';
 import { Link } from 'react-router-dom';
 
 // Styles
@@ -59,17 +60,7 @@ const AmiiboDetail = () => {
                             <p>Release Date: {selectedAmiibo?.release.na}</p>
 
                             <h3>Other Amiibos in the Same Series:</h3>
-                            {
-                                <ul>
-                                    {sameSeries.map((amiibo) => (
-                                        <li key={amiibo.id}>
-                                            <Link to={`/amiibos/${amiibo.tail}-${amiibo.head}`}>
-                                                {amiibo.name}
-                                            </Link>
-                                        </li>
-                                    ))}
-                                </ul>
-                            }
+                            {<AmiiboCard amiiboProps={sameSeries.slice(0, 3)}></AmiiboCard>}
                         </div>
                     </ColMd8>
                 </div>
