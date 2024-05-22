@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import styled from '@emotion/styled';
+import { css } from '@emotion/react';
 import { Button } from '../AmiiboList/AmiiboListStyles';
 
 export const PageContainer = styled.div`
@@ -90,4 +91,77 @@ export const LeftSection = styled.div`
 
 export const Collection = styled.div`  
     margin: auto;
+`;
+
+export const ModalContainer = styled.div`
+    display: flex;
+    align-items: center;
+    position: fixed;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    background-color: rgba(0, 0, 0, 0.5);
+`;
+
+export const modalContent = css`
+    background-color: transparent;
+    padding: 10px;
+    position: absolute;
+    min-width: 200px;
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+`;
+
+export const topper = css`
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    background-color: white;
+    padding-bottom: 20px;
+    background-color: #f80001;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    min-height: 50px; 
+    border-radius: 15px 15px 0px 0px;
+    border: 2px solid #f80001;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+`;
+
+export const informationBox = css`
+    height: 500px;
+    width: 500px;
+    background-color: white;
+    border-radius: 0 0 15px 15px;
+`;
+
+export const modalTopper = css`
+    height: 500px;
+    width: 500px;
+    border: 2px solid black;
+    border-radius: 5%;
+`;
+
+export const ModalButton = styled.button`
+    height: 50px;
+    width: 50px;
+    margin-bottom: 15px;
+    border-radius: 50%;
+    right: 10px;
+    position: absolute;
+    top: -50px;
+    font-size: 30px;
+    color: white;
+    border: 2px solid #5d5d5d;
+    background-color: #5d5d5d;
+    transition: all 0.3s ease;
+    &:hover {
+        border: 2px solid #282828;
+        background-color: #282828;
+    }
 `;
