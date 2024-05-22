@@ -24,8 +24,8 @@ import {
     ProfileContent,
     ProfileCount,
     BottomContainer,
-    RightSection,
-    LeftSection, 
+    // RightSection,
+    LeftSection,
     Collection,
     ModalContainer,
     modalContent,
@@ -33,7 +33,6 @@ import {
     ModalButton,
     topper,
 } from './ProfilePageStyles';
-
 
 function ProfilePage() {
     // Get the user ID from the URL
@@ -70,6 +69,7 @@ function ProfilePage() {
                         <OnlineStatus online={user != null} />
                     </ProfileContent>
                     <ProfileCount>CURRENT WISH COUNT: {wishlist?.length}</ProfileCount>
+
                     <ShareButton onClick={toggleModal}> <FiShare /> Share Wishlist!</ShareButton>
                     { modalOpen && (
                         <ModalContainer>
@@ -82,21 +82,21 @@ function ProfilePage() {
                             </div>
                         </ModalContainer>
                     )}
+
                 </ProfileContainer>
 
                 <BottomContainer>
                     <LeftSection>
-                    <Collection>
-                        {wishlist.map((amiibo) => (
-                            <AmiiboItem
-                                amiibo={amiibo}
-                                key={`${amiibo.gameSeries} - ${amiibo.name}`}
-                                setWishlist={setWishlist}
-                            />
-                        ))}
-                    </Collection>
+                        <Collection>
+                            {wishlist.map((amiibo) => (
+                                <AmiiboItem
+                                    amiibo={amiibo}
+                                    key={`${amiibo.gameSeries} - ${amiibo.name}`}
+                                    setWishlist={setWishlist}
+                                />
+                            ))}
+                        </Collection>
                     </LeftSection>
-                    <RightSection />  
                 </BottomContainer>
             </MainContent>
         </PageContainer>
