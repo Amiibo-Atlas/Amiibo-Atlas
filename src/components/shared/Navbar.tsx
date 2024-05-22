@@ -187,7 +187,6 @@ function Navbar() {
                 <Link to="/">Amiibo Atlas</Link>
                 <Link to="/amiibos">Amiibos</Link>
                 <Link to="/aboutamiibo">What are Amiibo?</Link>
-                <Link to="#">Temp page...</Link>
             </LinkContainer>
             <NavbarUserSection>
                 {userId ? (
@@ -205,14 +204,6 @@ function Navbar() {
                                     </div>
                                     <FontAwesomeIcon icon={faAngleRight} />
                                 </div>
-                                <div css={modalRow} onClick={() => navigateTo('/')}>
-                                    <div css={modalLink}>
-                                        <FontAwesomeIcon icon={faGear} css={modalIcon} />
-                                        <span css={modalSpan}>Settings</span>
-                                    </div>
-                                    <FontAwesomeIcon icon={faAngleRight} />
-                                </div>
-
                                 <div css={modalRow} onClick={handleSignOut}>
                                     <div css={modalLink}>
                                         <FontAwesomeIcon
