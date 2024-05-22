@@ -13,7 +13,7 @@ export const MainContent = styled.div`
 `;
 
 export const OnlineStatus = styled.label<{ online: boolean }>`
-    background: ${({ online }) => (online ? "#00FF40" :  "grey" )};
+    background: ${({ online }) => (online ? '#00FF40' : 'grey')};
     width: 10px;
     height: 10px;
     border: 2px solid black;
@@ -67,27 +67,31 @@ export const ProfileCount = styled.p`
 `;
 
 export const BottomContainer = styled.div`
-    display: flex; 
+    display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
-    justify-content: space-between;
+    /* justify-content: flex-start; */
     padding-bottom: 5em;
     align-items: center;
 `;
 
-export const RightSection = styled.div`
-    border: 2px solid black;
-    flex: 5;
-    display: flex;
-    height: 50px;
-`;
+// export const RightSection = styled.div`
+//     border: 2px solid black;
+//     flex: 5;
+//     display: flex;
+//     height: 50px;
+// `;
 
 export const LeftSection = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-self: flex-start;
     flex: 5;
     text-align: center;
     display: flex;
     width: 50%;
 `;
 
-export const Collection = styled.div`  
+export const Collection = styled.div`
     margin: auto;
 `;

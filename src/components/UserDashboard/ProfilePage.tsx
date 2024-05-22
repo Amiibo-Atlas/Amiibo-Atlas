@@ -21,12 +21,10 @@ import {
     ProfileContent,
     ProfileCount,
     BottomContainer,
-    RightSection,
-    LeftSection, 
+    // RightSection,
+    LeftSection,
     Collection,
 } from './ProfilePageStyles';
-
-
 
 function ProfilePage() {
     // Get the user ID from the URL
@@ -56,22 +54,24 @@ function ProfilePage() {
                         <OnlineStatus online={user != null} />
                     </ProfileContent>
                     <ProfileCount>CURRENT WISH COUNT: {wishlist?.length}</ProfileCount>
-                    <ShareButton> <FiShare /> Share Wishlist!</ShareButton>
+                    <ShareButton>
+                        {' '}
+                        <FiShare /> Share Wishlist!
+                    </ShareButton>
                 </ProfileContainer>
 
                 <BottomContainer>
                     <LeftSection>
-                    <Collection>
-                        {wishlist.map((amiibo) => (
-                            <AmiiboItem
-                                amiibo={amiibo}
-                                key={`${amiibo.gameSeries} - ${amiibo.name}`}
-                                setWishlist={setWishlist}
-                            />
-                        ))}
-                    </Collection>
+                        <Collection>
+                            {wishlist.map((amiibo) => (
+                                <AmiiboItem
+                                    amiibo={amiibo}
+                                    key={`${amiibo.gameSeries} - ${amiibo.name}`}
+                                    setWishlist={setWishlist}
+                                />
+                            ))}
+                        </Collection>
                     </LeftSection>
-                    <RightSection />  
                 </BottomContainer>
             </MainContent>
         </PageContainer>
