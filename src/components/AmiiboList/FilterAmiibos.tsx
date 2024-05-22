@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 
 // Constants
 import { filterOptions } from '../../constants/constants';
-import { INITIAL_FILTER_OPTIONS_COUNT } from '../../constants/constants';
 
 // Styles
 import {
@@ -13,11 +12,9 @@ import {
     optionContainer,
     optionLabel,
     checkbox,
-    expandButton,
 } from './AmiiboListStyles';
 
 const FilterAmiibos = ({ originalData, setAmiibos }) => {
-    const [isExpanded, setIsExpanded] = useState(false);
     const [selectedCheckbox, setSelectedCheckbox] = useState<string[]>([]);
 
     useEffect(() => {
@@ -47,7 +44,7 @@ const FilterAmiibos = ({ originalData, setAmiibos }) => {
                 <div css={filterContainer} key={filter.id}>
                     <h3 css={filterTitle}>{filter.name}</h3>
                     {filter.options
-                        .slice(0, isExpanded ? filter.options.length : INITIAL_FILTER_OPTIONS_COUNT)
+                        .slice(0, filter.options.length)
                         .map((option) => (
                             <div css={optionContainer} key={option.key}>
                                 <label css={optionLabel}>
@@ -61,9 +58,6 @@ const FilterAmiibos = ({ originalData, setAmiibos }) => {
                                 </label>
                             </div>
                         ))}
-                    <button css={expandButton} onClick={() => setIsExpanded(!isExpanded)}>
-                        {isExpanded ? '- Less' : '+ More'}
-                    </button>
                 </div>
             ))}
         </>

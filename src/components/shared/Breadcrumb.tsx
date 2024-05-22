@@ -4,7 +4,7 @@ import { AiOutlineRight } from 'react-icons/ai';
 const BreadcrumbList = styled.ol`
     display: flex;
     align-items: center;
-    margin-left: 6rem;
+    margin: 1rem 8rem;
     padding: 1rem 0;
 `;
 

@@ -1,0 +1,19 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Match any documents in the "users" collection
+    match /users/{userId} {
+      // (request.auth != null) means if the user is authenticated and the authenticated user's UID matches the userId in the doc path
+      allow read, update, delete: if request.auth != null && request.auth.uid == userId;
+      // creating a new user refers to signing up for the app
+      allow create: if request.auth != null;
+    }
+
+    // Match any documents in the "wishlist" subcollection
+    match /users/{userId}/wishlist/{wishlistId} {
+      // Only the owner of the wishlist can perform CRUD operations on their wishlist items
+      allow read, create, update, delete: if request.auth != null && request.auth.uid == userId;
+    }
+  }
+}
