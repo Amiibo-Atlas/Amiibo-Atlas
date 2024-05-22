@@ -16,6 +16,8 @@ import { useNavigate } from 'react-router-dom';
 import { setSelectedAmiibo } from '../../features/amiibo/amiiboSlice';
 import { addToWishlist } from '../../features/user/userAPI';
 import { useAppSelector } from '../../redux/hooks';
+import { getWishlist } from '../../features/user/userAPI';
+import { Amiibo } from '../../types/Amiibo';
 
 // Styles
 import nintendo from '../../assets/super_nintendo_world.png';
@@ -71,6 +73,7 @@ const AmiiboList = () => {
     const [isLoadingMore, setIsLoadingMore] = useState(false);
     const [itemsToShow, setItemsToShow] = useState(CARDS_PER_LOAD);
     const [isModalOpen, setModalOpen] = useState(false);
+    const [wishlist, setWishlist] = useState<Amiibo[]>([]);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -89,6 +92,7 @@ const AmiiboList = () => {
             const response = await fetchAmiiboList(`${import.meta.env.VITE_API_URL}`);
             setAmiibos(response);
             setOriginalData(response);
+            handleLoadingWishlist();
             return response;
         },
     });
@@ -105,6 +109,8 @@ const AmiiboList = () => {
         }
         try {
             await addToWishlist(userId, amiibo);
+            const resWish = await getWishlist(userId);
+            setWishlist(resWish);
             toast.success('Added to wishlist');
         } catch (error) {
             if (error instanceof Error) {
@@ -134,6 +140,11 @@ const AmiiboList = () => {
         navigate(path);
         setModalOpen(false);
     };
+
+    const handleLoadingWishlist = async() => {
+        const res = await getWishlist(userId);
+        setWishlist(res);
+    }
 
     return (
         <PageContainer>
@@ -185,7 +196,7 @@ const AmiiboList = () => {
                                 amiibo={amiibo}
                                 onClickDetail={() => handleViewMore(amiibo)}
                                 onClickWishlist={() => handleAddWishlist(amiibo)}
-                                userId={userId}
+                                wishlist={wishlist}
                             />
                         ))}
                     </GridContainer>

@@ -2,10 +2,10 @@
 import { CardContainer, ImageContainer, CardImage, CardTitle, CardFooter, Button, WishButton } from './AmiiboListStyles';
 import {filterWishedAmiibos} from '../../features/amiibo/wishedAmiibos';
 
-const Card = ({ amiibo, onClickDetail, onClickWishlist, userId }) => {
+const Card = ({ amiibo, onClickDetail, onClickWishlist, wishlist }) => {
     // returns an array with the amiibo and a boolean determining whether or not
     // the amiibo exists in the user's wishlist
-    const item = filterWishedAmiibos(amiibo, userId);
+    const item = filterWishedAmiibos(amiibo, wishlist);
 
     return (
         <CardContainer>
