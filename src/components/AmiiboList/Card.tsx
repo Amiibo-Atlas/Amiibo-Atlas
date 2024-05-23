@@ -15,7 +15,6 @@ const Card = ({ amiibo, onClickDetail, onClickWishlist, wishlist }) => {
             <CardTitle>{amiibo.name} ({amiibo.amiiboSeries})</CardTitle>
             <CardFooter>
                 <button css={Button} onClick={onClickDetail}>View More</button>
-                {/* <button css={Button} onClick={onClickWishlist}>Wishlist</button> */}
                 <WishButton wished={item[1]} onClick={onClickWishlist}>Wishlist</WishButton>
             </CardFooter>
         </CardContainer>

@@ -1,138 +1,126 @@
-// // Dependencies
-// import { useState, ChangeEvent, useEffect } from 'react';
-// import { FiShare } from 'react-icons/fi';
-// import styled from '@emotion/styled';
-// import { FaHeart } from 'react-icons/fa';
-// import { useParams } from 'react-router-dom';
+/** @jsxImportSource @emotion/react */
+// Dependencies
+import { useState, useEffect } from 'react';
+import { FiShare } from 'react-icons/fi';
+import { RxCross2 as Icon } from 'react-icons/rx';
+import { css } from '@emotion/react';
+import styled from '@emotion/styled';
 
-// // Components
-// import AmiiboItem from './AmiiboItem';
-// import Popup from './WishlistPopup';
-// import { Amiibo } from '../../types/Amiibo';
-// import { User } from '../../types/User';
-// import { getUser } from '../../features/user/userAPI';
-// import { removeFromWishlist } from '../../features/user/updateWishlist';
+// Components
+import AmiiboItem from './AmiiboItem';
+import { Amiibo } from '../../types/Amiibo';
+import { User } from '../../types/User';
+import { getUser, getWishlist } from '../../features/user/userAPI';
+import WishlistShare from './WishlistShare';
 
+import { 
+    PageContainer,
+    Collection, 
+    ShareButton, 
+    ModalContainer, 
+    ModalButton, 
+    topper, 
+    informationBox, 
+    modalContent 
+} from './ProfilePageStyles';
+import Breadcrumb from '../shared/Breadcrumb';
 
-// const Button = styled.button`
-//     &:hover {
-//         border-color: black;
-//     }
-//     cursor: pointer;
-//     transition: border-color 0.25s;
-//     border-radius: 8px;
-//     border: 1px solid transparent;
-//     padding: 0.6em 1.2em;
-//     font-size: 1em;
-//     font-weight: 500;
-//     font-family: inherit;
-//     color: white;
-//     background-color: #646cff;
-//     font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-// `;
+import { useAppSelector } from '../../redux/hooks';
 
-// const Page = styled.div`
-//     padding: 2rem;
-//     min-width: 320px;
-//     min-height: 100vh;
-//     font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-//     margin-left: auto;
-//     margin-right: auto;
-//     width: 960px;
-// `;
+const PageTop = styled.div`
+    display: flex;
+    margin: 1rem 8rem;
+    justify-content: space-between;
+    border-bottom: 2px solid #ddd;
+`;
 
-// const Wishes = styled.div`
-//     display: list-item;
-//     list-style: none;
-//     width: 50%;
-//     margin: auto;
-// `;
+const TopLeft = styled.div`
+    display: flex;
+`;
 
-// function WishlistPage() {
-//     const { userId } = useParams();
-//     const [user, setUser] = useState<User | null>();
-//     const [defaultWish, setDefaultWishlist] = useState<Amiibo[]>([]);
+const TopRight = styled.div`
+    align-self: center;
+`;
 
-//     useEffect(() => {
-//         const fetchUser = async () => {
-//             if (userId) {
-//                 const fetchedUser = await getUser(userId);
-//                 setUser(fetchedUser || null);
-//             }
-//         };
-//         fetchUser();
-//         if (user) {
-//             setDefaultWishlist(user.wishlist);
-//         }
-//     }, [userId]);
+const headerStyle = css`
+    font-size: 2rem;
+`;
 
-//     const [popupOpen, setPopupOpen] = useState(false);
-//     const [isPublic, setIsPublic] = useState(false);
-//     const [type, setType] = useState('');
-//     const [publicCall, setPublicCall] = useState(false);
-//     const togglePopup = () => {
-//         setType('sharing');
-//         setPopupOpen(!popupOpen);
-//     };
+const countStyle = css`
+    padding-left: 2rem;
+    align-self: center;
 
-//     const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
-//         setType('public');
-//         setPublicCall(!publicCall);
-//     };
+`;
 
-//     const removeWishlistItem = (amiibo: Amiibo) => {
-//         const updatedWishlist = defaultWish.filter((item) => item.name !== amiibo.name);
-//         setDefaultWishlist(updatedWishlist);
-//         removeFromWishlist(userId, updatedWishlist, amiibo);
-//     };
+const WishlistPage = () => {
+    const userId = useAppSelector((state) => state.user.userId);
+    const [user, setUser] = useState<User | null>();
+    const [wishlist, setWishlist] = useState<Amiibo[]>([]);
+    const [modalOpen, setModalOpen] = useState(false);
 
-//     return (
-//         <Page>
-//             <label>
-//                 <input
-//                     id="checkbox"
-//                     type="checkbox"
-//                     checked={isPublic}
-//                     onChange={handleOnChange}
-//                     onClick={togglePopup}
-//                 />
-//             </label>
-//             <p className="route-directory">Home - Wishlist</p>
-//             <h3>Explore or remove items form your Wish List here. </h3>
-//             <p>Item Count: {defaultWish.length}</p>
+    useEffect(() => {
+        const fetchUser = async () => {
+            if (userId) {
+                const fetchedUser = await getUser(userId);
+                setUser(fetchedUser || null);
+                const fetchedWishlist = await getWishlist(userId);
+                setWishlist(fetchedWishlist);
+            }
+        };
+        fetchUser();
+    }, [userId]);
 
-//             <div className="wishlist-share-button">
-//                 <Button id="share-button" onClick={togglePopup}>
-//                     <FiShare /> Share Wishlist!
-//                 </Button>
-//                 {
-//                     <Popup
-//                         showPopup={popupOpen}
-//                         setShowPopup={setPopupOpen}
-//                         type={type}
-//                         publicStatus={isPublic}
-//                         setPublicStatus={setIsPublic}
-//                     />
-//                 }
-//             </div>
+    const toggleModal = () => {
+        setModalOpen(!modalOpen);
+    };
 
-//             {isPublic && (
-//                 <Wishes>
-//                     {defaultWish.map((wish) => (
-//                         <AmiiboItem
-//                         amiibo={wish}
-//                         key={`${wish.gameSeries} - ${wish.name}}`}
-//                         Icon={FaHeart}
-//                         onRemove={removeWishlistItem}
-//                     />
-//                     ))}
-//                     {defaultWish.length == 0 && 
-//                     <p>Your wishlist is currently empty...</p>
-//                     }
-//                 </Wishes>
-//             )}
-//         </Page>
-//     );
-// }
+    return (
+        <PageContainer>
+            <Breadcrumb
+                paths={[
+                    { url: '/', name: 'Home' },
+                    { url: '/account', name: 'My Account' },
+                    { url: '/wishlist', name: 'Wishlist' },
+                ]}
+                currentUrl='/wishlist'
+            />
+            <PageTop>
+                <TopLeft>
+                    <h1 css={headerStyle}>Wishlist</h1>
+                    <p css={countStyle}>{wishlist?.length} items</p>
+                </TopLeft>
+                <TopRight>
+                    <ShareButton onClick={toggleModal}> <FiShare /> Share Wishlist</ShareButton>
+                </TopRight>
+            </PageTop>
+            <Collection>
+                {wishlist?.length > 0 ? (
+                    wishlist.map(({ gameSeries, name, ...rest }) => (
+                        <AmiiboItem
+                            amiibo={{ gameSeries, name, ...rest }}
+                            key={`${gameSeries} - ${name}`}
+                            setWishlist={setWishlist}
+                        />
+                    ))
+                ) : (
+                    <>
+                        <p>You currently have no items in your wishlist.</p>
+                    </>
+                )}
+            </Collection>
+            {modalOpen && (
+                <ModalContainer>
+                    <div css={modalContent}>
+                    <ModalButton onClick={toggleModal}><Icon/></ModalButton>
+                        <div css={topper}>Share Wish List</div>
+                        <div css={informationBox}>
+                            <WishlistShare></WishlistShare>
+                        </div>
+                    </div>
+                </ModalContainer>
+            )}
+        </PageContainer>
+    );
+}
 
-// export default WishlistPage;
+export default WishlistPage;

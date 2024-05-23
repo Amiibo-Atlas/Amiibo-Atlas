@@ -2,6 +2,7 @@
 // Dependencies
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { NavLink } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 // Components
@@ -63,6 +64,7 @@ const modalButton = css`
     border-radius: 15px;
     margin: 10px;
     border: none;
+    text-decoration: none;
     cursor: pointer;
 `;
 
@@ -115,13 +117,11 @@ const AmiiboList = () => {
         } catch (error) {
             if (error instanceof Error) {
                 if (error.message === 'Amiibo already in wishlist') {
-                    toast.error('This amiibo is already in your wishlist');
+                    toast.error('This amiibo is already in your wishlist. To remove it, visit your account page');
                 } else {
-                    console.error('Failed to add to wishlist', error);
                     toast.error('Failed to add to wishlist');
                 }
             } else {
-                console.error('Unexpected error', error);
                 toast.error('An unexpected error occurred');
             }
         }
@@ -134,11 +134,6 @@ const AmiiboList = () => {
 
     const handleContentClick = (e) => {
         e.stopPropagation();
-    };
-
-    const navigateTo = (path) => {
-        navigate(path);
-        setModalOpen(false);
     };
 
     const handleLoadingWishlist = async() => {
@@ -211,13 +206,13 @@ const AmiiboList = () => {
                 <div css={modalOverlay} onClick={closeModal}>
                     <div css={modalContent} onClick={handleContentClick}>
                         <h3>Sign in to save to your wishlist</h3>
-                        <button
+                        <NavLink
+                            to="/login"
                             css={modalButton}
-                            onClick={() => navigateTo('/login')}
                             style={{ backgroundColor: 'red', color: 'white' }}
                         >
                             SIGN IN
-                        </button>
+                        </NavLink>
                         <button css={modalButton} onClick={closeModal}>
                             CLOSE
                         </button>

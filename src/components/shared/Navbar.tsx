@@ -15,9 +15,11 @@ import { User } from '../../types/User';
 import myImage from '../../assets/amiibo.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
-import { faGear } from '@fortawesome/free-solid-svg-icons';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faGamepad } from '@fortawesome/free-solid-svg-icons';
+
 
 const NavContainer = styled.header`
     width: 100%;
@@ -25,9 +27,11 @@ const NavContainer = styled.header`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0.25rem 1.5rem;
+    box-sizing: border-box;
+    padding: 0.3rem 0;
     @media (min-width: 1024px) {
         max-width: 1280px;
+        padding: 0.3rem 1rem;
     }
 `;
 
@@ -184,8 +188,7 @@ function Navbar() {
                 <img src={myImage} alt="amiibo" />
             </Logo>
             <LinkContainer>
-                <Link to="/">Amiibo Atlas</Link>
-                <Link to="/amiibos">Amiibos</Link>
+                <Link to="/amiibos">See amiibos</Link>
                 <Link to="/aboutamiibo">What are Amiibo?</Link>
             </LinkContainer>
             <NavbarUserSection>
@@ -197,10 +200,24 @@ function Navbar() {
                         />
                         {modalOpen && (
                             <div css={modalContent}>
-                                <div css={modalRow} onClick={() => navigateTo(`/users/${userId}`)}>
+                                <div css={modalRow} onClick={() => navigateTo('/account')}>
                                     <div css={modalLink}>
                                         <FontAwesomeIcon icon={faUser} css={modalIcon} />
                                         <span css={modalSpan}>Account</span>
+                                    </div>
+                                    <FontAwesomeIcon icon={faAngleRight} />
+                                </div>
+                                <div css={modalRow} onClick={() => navigateTo('/wishlist')}>
+                                    <div css={modalLink}>
+                                        <FontAwesomeIcon icon={faHeart} css={modalIcon} />
+                                        <span css={modalSpan}>Wishlist</span>
+                                    </div>
+                                    <FontAwesomeIcon icon={faAngleRight} />
+                                </div>
+                                <div css={modalRow} onClick={() => navigateTo('/')}>
+                                    <div css={modalLink}>
+                                        <FontAwesomeIcon icon={faGamepad} css={modalIcon} />
+                                        <span css={modalSpan}>My Amiibos</span>
                                     </div>
                                     <FontAwesomeIcon icon={faAngleRight} />
                                 </div>

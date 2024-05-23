@@ -3,15 +3,6 @@ import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 import { Button } from '../AmiiboList/AmiiboListStyles';
 
-export const PageContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    margin: 2rem;
-`;
-
-export const MainContent = styled.div`
-    margin: auto;
-`;
 
 export const OnlineStatus = styled.label<{ online: boolean }>`
     background: ${({ online }) => (online ? '#00FF40' : 'grey')};
@@ -24,6 +15,12 @@ export const OnlineStatus = styled.label<{ online: boolean }>`
     min-height: 10px;
 `;
 
+export const PageContainer = styled.div`
+    max-width: 1920px;
+    padding: 0 24px;
+    margin-bottom: 2rem;
+`;
+
 export const ImageBox = styled.img`
     border: 1px solid #ddd;
     border-radius: 50%;
@@ -32,15 +29,16 @@ export const ImageBox = styled.img`
 `;
 
 export const ProfileContainer = styled.div`
-    background-color: white;
+    display: flex;
+    align-items: center;
+    text-align: left;
     border: 1px solid #ddd;
-    border-radius: 15px;
-    width: 90vw;
-    height: 200px;
-    margin: auto;
-    padding: 50px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
-    display: inline-block;
+    border-radius: 20px;
+    overflow: hidden;
+    background-color: white;
+    padding: 1rem 3rem;
+    margin: 2rem 8rem;
+    min-height: 150px;
 `;
 
 export const ShareButton = styled.button`
@@ -69,32 +67,24 @@ export const ProfileCount = styled.p`
 
 export const BottomContainer = styled.div`
     display: flex;
-    flex-direction: column;
     flex-wrap: wrap;
-    /* justify-content: flex-start; */
-    padding-bottom: 5em;
-    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    margin: 0 8rem;
 `;
 
-// export const RightSection = styled.div`
-//     border: 2px solid black;
-//     flex: 5;
-//     display: flex;
-//     height: 50px;
-// `;
-
-export const LeftSection = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-self: flex-start;
-    flex: 5;
-    text-align: center;
-    display: flex;
-    width: 50%;
+export const ProfileCards = styled.div`
+    flex: 1;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    padding: 0.8rem 2rem;
+    max-width: 49%;
+    min-height: 200px;
+    background-color: white;
 `;
 
 export const Collection = styled.div`
-    margin: auto;
+    margin: 2rem 8rem;
 `;
 
 export const ModalContainer = styled.div`

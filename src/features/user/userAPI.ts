@@ -14,7 +14,6 @@ import {
 import { firebaseApp } from '../../firebase/firebaseConfig';
 import { User, UserRef } from '../../types/User';
 import { Amiibo } from '../../types/Amiibo';
-import { useId } from 'react';
 
 const db = getFirestore(firebaseApp);
 

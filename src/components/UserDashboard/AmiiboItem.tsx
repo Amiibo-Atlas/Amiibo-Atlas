@@ -14,89 +14,44 @@ import { setSelectedAmiibo } from '../../features/amiibo/amiiboSlice';
 import { removeFromWishlist } from '../../features/user/userAPI';
 import DetermineModal from '../DetermineModal';
 
+// Styles
+import { Button } from '../AmiiboList/AmiiboListStyles';
+
 const WrapperItemBox = styled.div`
     display: flex;
     flex-direction: column;
 `;
 
 const ItemBox = styled.div`
-    /* display: flex; */
-    /* overflow: hidden; */
-    /* border: 1px solid #ddd;
-    border-radius: 20px;
-    position: relative;
-    gap: 10px;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
-    &:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
-    }
-    margin: 15px;
-    padding: 1rem;
-    height: 55px;
-    width: 600px;
-    font-size: 15px;
-    background-color: white; */
     display: flex;
     overflow: hidden;
     border: 1px solid #ddd;
     border-radius: 20px;
     position: relative;
-    gap: 10px;
-    transition: all 0.3s ease;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    padding: 1rem;
+    background-color: white;
+    font-size: 15px;
+    transition: all 0.3s ease;
     &:hover {
         transform: translateY(-10px);
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
     }
-    margin: 15px;
-    padding: 1rem;
-    height: 100px;
-    width: 600px;
-    font-size: 15px;
-    background-color: white;
+    margin-top: 1rem;
 `;
 
 const AmiiboImg = styled.img`
-    /* width: auto;
-    height: auto; */
     width: 80px;
     height: 80px;
     object-fit: contain;
 `;
 
 const ButtonBox = styled.div`
-    /* display: flex;
-    justify-content: space-evenly;
-    align-items: stretch;
-    padding: 0.3rem 1rem 0.5rem;
-    min-height: 70px; */
-
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex: 1;
     padding: 0.3rem 1rem 0.5rem;
-`;
-
-const Button = css`
-    padding: 10px;
-    background-color: white;
-    text-align: center;
-    text-decoration: none;
-    font-size: 12px;
-    cursor: pointer;
-    border-radius: 999px;
-    text-transform: uppercase;
-    font-size: 0.8125rem;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    line-height: 19px;
-    &:hover {
-        border-color: #f80001;
-    }
-    margin-bottom: auto;
 `;
 
 const IconDesign = css`
@@ -111,14 +66,6 @@ const IconDesign = css`
 `;
 
 const BoxTitle = styled.h3`
-    /* display: flex;
-    flex-direction: column;
-    padding: 1rem 2rem;
-    font-size: 1.2rem;
-    font-weight: bold;
-    min-height: 80px;
-    margin: auto; */
-
     display: flex;
     flex-direction: column;
     flex: 1;
@@ -146,13 +93,6 @@ const AmiiboItem = ({ amiibo, setWishlist }) => {
         dispatch(setSelectedAmiibo(amiibo));
         navigate(`/amiibos/${amiibo.tail}-${amiibo.head}`);
     };
-
-    // const handleRemove = async () => {
-    //     if (window.confirm(' you want to remove this item from your wishlist?')) {
-    //         await removeFromWishlist(userId, amiibo.wishlistId);
-    //         setWishlist((prev) => prev.filter((item) => item.wishlistId !== amiibo.wishlistId));
-    //     }
-    // };
 
     const handleRemove = () => {
         setDetermineModalStatus(true);

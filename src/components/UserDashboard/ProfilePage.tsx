@@ -1,51 +1,119 @@
-// Dependencies
 /** @jsxImportSource @emotion/react */
+// Dependencies
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { FiShare } from 'react-icons/fi';
-import { RxCross2 as Icon, RxCross2 } from 'react-icons/rx';
+import { useAppSelector } from '../../redux/hooks';
+import { css } from '@emotion/react';
+import { NavLink } from 'react-router-dom';
+import styled from '@emotion/styled';
+import { format } from 'date-fns';
 
 // Components
-import { getUser, getWishlist } from '../../features/user/userAPI';
-import { Amiibo } from '../../types/Amiibo';
+import { getUser } from '../../features/user/userAPI';
 import { User } from '../../types/User';
-import AmiiboItem from './AmiiboItem';
-import WishlistShare from './WishlistShare';
+import Breadcrumb from '../shared/Breadcrumb';
+import { getWishlist } from '../../features/user/userAPI';
+import { Amiibo } from '../../types/Amiibo';
 
 // Styles
 import {
     PageContainer,
-    MainContent,
     OnlineStatus,
     ImageBox,
     ProfileContainer,
-    ShareButton,
     ProfileName,
     ProfileContent,
-    ProfileCount,
     BottomContainer,
-    // RightSection,
-    LeftSection,
-    Collection,
-    ModalContainer,
-    modalContent,
-    informationBox,
-    ModalButton,
-    topper,
+    ProfileCards
 } from './ProfilePageStyles';
 
-function ProfilePage() {
-    // Get the user ID from the URL
-    const { userId } = useParams();
+const WishlistItem = styled.div`
+    display: flex;
+    align-items: center;
+    margin: 1rem 0;
+`;
+
+const ImgWrapper = styled.div`
+    width: 73px;
+    height: 73px;
+    border: 1px solid #d5d5d5;
+    border-radius: 10px;
+    margin-right: 1rem;
+`;
+
+const headerStyle = css`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+`;
+
+const bodyStyle = css`
+    padding-top: 1rem;
+`;
+
+const textStyle = css`
+    padding-bottom: 0.5rem;
+`;
+
+const link = css`
+    color: black;
+    font-size: 0.875rem;
+    font-weight: bold;
+    &:hover {
+        color: #E60711;
+    }
+`;
+
+const imgStyle = css`
+    inset: 0px;
+    box-sizing: border-box;
+    padding: 0px;
+    border: none;
+    margin: auto;
+    display: block;
+    width: 0px;
+    height: 0px;
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 100%;
+    max-height: 100%;
+`;
+
+const button = css`
+    color:  white;
+    padding: 10px 20px;
+    background-color: #e60012;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 999px;
+    text-transform: uppercase;
+    font-size: 0.8125rem;
+    letter-spacing: 0.5px;
+    font-weight: bold;
+    line-height: 19px;
+    &:hover {
+        background: #f80001;
+        box-shadow: 0 5px 5px 0 rgba(248, 0, 1, .25);
+        transition: box-shadow .2s ease-in-out;
+    }
+`;
+
+const ItemContainer = styled.div`
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+`;
+
+const TimestampText = styled.div`
+    font-size: 0.7rem;
+    color: #666;
+`;
+
+const ProfilePage = () => {
+    const userId = useAppSelector((state) => state.user.userId);
     const [user, setUser] = useState<User | null>(null);
     const [wishlist, setWishlist] = useState<Amiibo[]>([]);
-    const [modalOpen, setModalOpen] = useState(false);
-
-
-    const toggleModal = () => {
-        console.log(modalOpen);
-        setModalOpen(!modalOpen);
-    };
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -59,46 +127,64 @@ function ProfilePage() {
         fetchUser();
     }, [userId]);
 
+    console.log(wishlist);
+
     return (
         <PageContainer>
-            <MainContent>
-                <ProfileContainer>
-                    <ProfileContent>
-                        <ImageBox src={user?.profile_picture} />
-                        <ProfileName>{user?.displayName}</ProfileName>
-                        <OnlineStatus online={user != null} />
-                    </ProfileContent>
-                    <ProfileCount>CURRENT WISH COUNT: {wishlist?.length}</ProfileCount>
+            <Breadcrumb
+                paths={[
+                    { url: '/', name: 'Home' },
+                    { url: '/account', name: 'My Account' },
+                ]}
+                currentUrl='/account'
+            />
+            <ProfileContainer>
+                <ProfileContent>
+                    <ImageBox src={user?.profile_picture} />
+                    <ProfileName>{user?.displayName}</ProfileName>
+                    <OnlineStatus online={user != null} />
+                </ProfileContent>
+            </ProfileContainer>
 
-                    <ShareButton onClick={toggleModal}> <FiShare /> Share Wishlist!</ShareButton>
-                    { modalOpen && (
-                        <ModalContainer>
-                            <div css={modalContent}>
-                            <ModalButton onClick={toggleModal}><Icon/></ModalButton>
-                                <div css={topper}>Share Wish List</div>
-                                <div css={informationBox}>
-                                    <WishlistShare></WishlistShare>
-                                </div>
+            <BottomContainer>
+                <ProfileCards>
+                    <div>
+                        <div css={headerStyle}>
+                            <h2>Wishlists</h2>
+                            {wishlist?.length > 0 ? <NavLink to="/wishlist" css={link}>VIEW ALL</NavLink> : null}
+                        </div>
+                        {wishlist?.length > 0 ? (
+                            wishlist.slice(0, 3).map((item) => (
+                                <WishlistItem>
+                                    <ImgWrapper>
+                                        <img src={item.image} css={imgStyle} alt={item.name} />
+                                    </ImgWrapper>
+                                    <ItemContainer>
+                                        <div>{item.name}</div>
+                                        <TimestampText>Added: {format(item.addedAt.toDate(), 'PP')}</TimestampText>
+                                    </ItemContainer>
+                                </WishlistItem>
+                            ))
+                        ) : (
+                            <div css={bodyStyle}>
+                                <p css={textStyle}>You currently have no wishlists.</p>
+                                <NavLink to="/amiibos" css={button}>ADD WISHLIST</NavLink>
                             </div>
-                        </ModalContainer>
-                    )}
-
-                </ProfileContainer>
-
-                <BottomContainer>
-                    <LeftSection>
-                        <Collection>
-                            {wishlist.map((amiibo) => (
-                                <AmiiboItem
-                                    amiibo={amiibo}
-                                    key={`${amiibo.gameSeries} - ${amiibo.name}`}
-                                    setWishlist={setWishlist}
-                                />
-                            ))}
-                        </Collection>
-                    </LeftSection>
-                </BottomContainer>
-            </MainContent>
+                        )}
+                    </div>
+                </ProfileCards>
+                <ProfileCards>
+                    <div>
+                        <div css={headerStyle}>
+                            <h2>My Amiibos</h2>
+                        </div>
+                        <div css={bodyStyle}>
+                            <p css={textStyle}>You currently have no amiibos.</p>
+                            <NavLink to="/wishlist" css={button}>ADD AMIIBOS</NavLink>
+                        </div>
+                    </div>
+                </ProfileCards>
+            </BottomContainer>
         </PageContainer>
     );
 }

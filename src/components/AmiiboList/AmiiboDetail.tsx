@@ -1,10 +1,10 @@
+// Dependencies
 import { useSelector } from 'react-redux';
 import { useAppSelector } from '../../redux/hooks';
 import { AmiiboState } from '../../types/Amiibo';
 import Breadcrumb from '../shared/Breadcrumb';
 import { Amiibo } from '../../types/Amiibo';
 import AmiiboCard from '../AmiiboCard';
-import { Link } from 'react-router-dom';
 
 // Styles
 import { BannerHero, ColMd8, ColMd4 } from './AmiiboListStyles';
@@ -14,7 +14,6 @@ const AmiiboDetail = () => {
 
     // Access redux store for particular amiibo.
     const amiiboDataRedux: Amiibo[] = useAppSelector((state) => state.allAmiiboSlice.amiibos);
-    console.log('Test...: ', amiiboDataRedux);
 
     // Filter the amiibo objects, find those that have same series as the selected Amiibo from the Redux store.
     const sameSeries = amiiboDataRedux.filter(
