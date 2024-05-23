@@ -12,7 +12,7 @@ import { Global } from '@emotion/react';
 import Theme from './assets/theme.ts';
 import Root from './components/root.tsx';
 import App from './App.tsx';
-import ErrorPage from './components/shared/ErroPage.tsx';
+import ErrorPage from './components/shared/ErrorPage.tsx';
 import ScrollToTop from './components/ScrollToTop.tsx';
 import Login from './components/Login.tsx';
 import AmiiboList from './components/AmiiboList/AmiiboList.tsx';

@@ -1,8 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import styled from '@emotion/styled';
 import { AiOutlineRight } from 'react-icons/ai';
-import { useNavigate } from 'react-router-dom';
-import { css } from '@emotion/react';
+import { NavLink } from 'react-router-dom';
 
 const BreadcrumbList = styled.ol`
     display: flex;
@@ -16,11 +15,10 @@ const BreadcrumbItem = styled.li`
     align-items: center;
 `;
 
-const linkStyle = css`
-    margin: 0 0.25rem;
-    font-weight: bold;
+const Link = styled(NavLink)`
     text-decoration: none;
     color: black;
+    font-weight: bold;
     cursor: pointer;
     &:hover {
         color: #E60711;
@@ -28,16 +26,10 @@ const linkStyle = css`
 `;
 
 const Text = styled.span`
-    margin-left: 0.25rem;
+    margin: 0 0.25rem;
 `;
 
 const Breadcrumb = ({ paths, currentUrl }) => {
-    const navigate = useNavigate();
-
-    const navigateTo = (path) => {
-        navigate(path);
-    }
-
     return (
         <BreadcrumbList>
             {paths.map((path, index) => (
@@ -46,7 +38,9 @@ const Breadcrumb = ({ paths, currentUrl }) => {
                     {path.url === currentUrl ? (
                         <Text>{path.name}</Text>
                     ) : (
-                        <div css={linkStyle} onClick={() => navigateTo(path.url)}>{path.name}</div>
+                        <Link to={path.url}>
+                            <Text>{path.name}</Text>
+                        </Link>
                     )}
                 </BreadcrumbItem>
             ))}

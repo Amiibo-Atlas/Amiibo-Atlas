@@ -14,6 +14,9 @@ import { setSelectedAmiibo } from '../../features/amiibo/amiiboSlice';
 import { removeFromWishlist } from '../../features/user/userAPI';
 import DetermineModal from '../DetermineModal';
 
+// Styles
+import { Button } from '../AmiiboList/AmiiboListStyles';
+
 const WrapperItemBox = styled.div`
     display: flex;
     flex-direction: column;
@@ -49,25 +52,6 @@ const ButtonBox = styled.div`
     align-items: center;
     flex: 1;
     padding: 0.3rem 1rem 0.5rem;
-`;
-
-const Button = css`
-    padding: 10px;
-    background-color: white;
-    text-align: center;
-    text-decoration: none;
-    font-size: 12px;
-    cursor: pointer;
-    border-radius: 999px;
-    text-transform: uppercase;
-    font-size: 0.8125rem;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    line-height: 19px;
-    &:hover {
-        border-color: #f80001;
-    }
-    margin-bottom: auto;
 `;
 
 const IconDesign = css`

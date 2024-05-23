@@ -8,6 +8,7 @@ export interface Amiibo {
     amiiboSeries: string;
     tail: string;
     head: string;
+    addedAt: any;
 }
 
 export interface AmiiboState {

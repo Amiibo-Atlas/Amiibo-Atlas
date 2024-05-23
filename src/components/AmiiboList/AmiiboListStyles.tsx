@@ -201,6 +201,7 @@ export const Button = css`
     text-decoration: none;
     font-size: 12px;
     cursor: pointer;
+    border: 2px solid #d5d5d5;
     border-radius: 999px;
     text-transform: uppercase;
     font-size: 0.8125rem;
@@ -215,7 +216,7 @@ export const Button = css`
 
 export const WishButton = styled.button<{ wished: boolean }>`
     color:  ${({ wished }) => (wished ? "white" :  "black" )};
-    border: ${({ wished }) => (wished ? "2px solid #f80001" :  "2px solid black" )};
+    border: ${({ wished }) => (wished ? "2px solid #f80001" :  "2px solid #d5d5d5" )};
     padding: 10px;
     background-color: ${({ wished }) => (wished ? "#f80001" :  "white" )};
     text-align: center;

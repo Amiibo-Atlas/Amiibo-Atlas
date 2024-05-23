@@ -27,9 +27,11 @@ const NavContainer = styled.header`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0.25rem 1.5rem;
+    box-sizing: border-box;
+    padding: 0.3rem 0;
     @media (min-width: 1024px) {
         max-width: 1280px;
+        padding: 0.3rem 1rem;
     }
 `;
 
