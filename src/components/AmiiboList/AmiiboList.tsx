@@ -115,7 +115,7 @@ const AmiiboList = () => {
         } catch (error) {
             if (error instanceof Error) {
                 if (error.message === 'Amiibo already in wishlist') {
-                    toast.error('This amiibo is already in your wishlist');
+                    toast.error('This amiibo is already in your wishlist. To remove it, visit your account page');
                 } else {
                     console.error('Failed to add to wishlist', error);
                     toast.error('Failed to add to wishlist');

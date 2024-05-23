@@ -86,7 +86,7 @@ const Login = () => {
             (userId) => {
                 if(userId) {
                     dispatch(login(userId));
-                    navigate(`/users/${userId}`);
+                    navigate('/account');
                 }
             }
         )
