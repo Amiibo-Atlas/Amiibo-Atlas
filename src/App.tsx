@@ -17,6 +17,22 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { faMinus } from '@fortawesome/free-solid-svg-icons';
 import useAuthState from './features/auth/useAuthState';
 
+const PaginateButton = styled.button`
+    background-color: red;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    padding: 0.5rem 1rem;
+    margin-top: 1rem;
+    font-size: 1.2em;
+    cursor: pointer;
+    margin-bottom: 2rem;
+
+    :hover {
+        background-color: #a01414;
+    }
+`;
+
 const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
@@ -44,29 +60,27 @@ const Container = styled.div`
     flex-direction: row;
 `;
 
-const UserInfoContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    border: 2px solid black;
-    border-radius: 7px;
-    margin: 2rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
-`;
-
-const UserInfo = styled.div`
-    margin-top: 2rem;
-`;
-
 const ExpandButton = styled.button`
     background: transparent;
     border: none;
-    :hover {
-        cursor: pointer;
-    }
+    cursor: pointer;
     font-size: 1.2em;
     padding-left: 1rem;
+    padding-right: 1rem;
     margin-top: 1rem;
+    margin-left: 1rem;
+    border-radius: 10px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    background-color: rgb(211, 82, 82);
+
+    :hover {
+        background-color: rgb(235, 117, 117);
+        transform: scale(1.2);
+    }
+
+    :active {
+        transform: scale(0.9);
+    }
 `;
 
 // Deconstruct data from TanStack function 'GetAmiibo', utilize its state management for checking for data (isLoading, data, error), render conditionally.
@@ -76,9 +90,11 @@ export default function App() {
     const [allAmiibo, setAllAmiibo] = useState(false);
     const [toggle, setToggle] = useState(false);
     const { isLoading, error } = GetAmiibo();
+    const [pageScroll, setPageScroll] = useState(1); // Pagination on homepage.
+    const itemsPerPage = 50;
 
     const { userId } = useParams();
-    const [user, setUser] = useState<User | null>(null);
+    const [, setUser] = useState<User | null>(null);
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -102,6 +118,13 @@ export default function App() {
     const filterAmiiboAllOrRecent = allAmiibo
         ? amiiboDataRedux
         : filterRecentReleases(amiiboDataRedux);
+
+    // utilize for pagination.
+    const amiiboPaginationHP = filterAmiiboAllOrRecent.slice(0, pageScroll * itemsPerPage);
+
+    const handleLoadMore = () => {
+        setPageScroll((prevPage) => prevPage + 1);
+    };
 
     if (isLoading) return <p>Loading...</p>;
     if (error) return <p>{error.message}</p>;
@@ -137,35 +160,23 @@ export default function App() {
                 </SplashInfo>
             </Wrapper>
 
-            <h1>Amiibo Atlas</h1>
-
             <Container>
-                {/* <UserInfoContainer>
-                    <UserInfo>
-                        <h2>{user?.displayName}</h2>
-                        <h3>{user?.email}</h3>
-
-                        <h4>Select User Session</h4>
-                        <h4>Display User options</h4>
-                    </UserInfo>
-                    <UserInfo>
-                        <h3>User Wishlist</h3>
-                        <p>TO DO: Hook into Redux store</p>
-                        <p>Select User Session</p>
-                        <p>Display Current User Wishlist here from global state</p>
-                    </UserInfo>
-                </UserInfoContainer> */}
-                <h2>
-                    {toggle ? 'Every Amiibo' : 'Recently Released Amiibo'} |
-                    <ExpandButton onClick={handleExpansion}>
-                        {toggle ? (
-                            <FontAwesomeIcon icon={faMinus} />
-                        ) : (
-                            <FontAwesomeIcon icon={faPlus} />
-                        )}
-                    </ExpandButton>
-                </h2>
-                <AmiiboCard amiiboProps={filterAmiiboAllOrRecent} />
+                <CenterContent>
+                    <h2>
+                        {toggle ? 'Every Amiibo' : 'Recently Released Amiibo'}
+                        <ExpandButton onClick={handleExpansion}>
+                            {toggle ? (
+                                <FontAwesomeIcon icon={faMinus} />
+                            ) : (
+                                <FontAwesomeIcon icon={faPlus} />
+                            )}
+                        </ExpandButton>
+                    </h2>
+                    <AmiiboCard amiiboProps={amiiboPaginationHP} />
+                    {amiiboPaginationHP.length < filterAmiiboAllOrRecent.length && (
+                        <PaginateButton onClick={handleLoadMore}>Load more Amiibo!</PaginateButton>
+                    )}
+                </CenterContent>
             </Container>
         </>
     );
