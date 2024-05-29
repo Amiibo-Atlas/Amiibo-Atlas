@@ -49,8 +49,8 @@ const Container = styled.div`
   text-align: center;
 `;
 
-const WishlistShare = () => {
-  const wishlistUrl = window.location.href;
+const WishlistShare = ({ userId }) => {
+  const wishlistUrl = window.location.origin + '/' + userId + '/wishlist';
   const text = 'Check out my Amiibo Atlas Wishlist!';
   const title = "User's Amiibo Atlas Wishlist";
 
