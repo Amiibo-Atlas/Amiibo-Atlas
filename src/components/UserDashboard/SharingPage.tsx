@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 // Dependencies
 import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { FiShare } from 'react-icons/fi';
 import { RxCross2 as Icon } from 'react-icons/rx';
 import { css } from '@emotion/react';
@@ -9,9 +10,9 @@ import styled from '@emotion/styled';
 // Components
 import AmiiboItem from './AmiiboItem';
 import { Amiibo } from '../../types/Amiibo';
-import { User } from '../../types/User';
-import { getShareId, getUser, getWishlist } from '../../features/user/userAPI';
+import { getUserFromShareId, getUserIdFromShareId, getWishlistFromShareId } from '../../features/user/userAPI';
 import WishlistShare from './WishlistShare';
+import { User } from '../../types/User';
 
 import { 
     PageContainer,
@@ -25,7 +26,6 @@ import {
 } from './ProfilePageStyles';
 import Breadcrumb from '../shared/Breadcrumb';
 
-import { useAppSelector } from '../../redux/hooks';
 
 const PageTop = styled.div`
     display: flex;
@@ -52,26 +52,24 @@ const countStyle = css`
 
 `;
 
-const WishlistPage = () => {
-    const userId = useAppSelector((state) => state.user.userId);
+const SharingPage = () => {
+    const { shareId } = useParams();
     const [user, setUser] = useState<User | null>();
-    const [shareId, setShareId] = useState('');
     const [wishlist, setWishlist] = useState<Amiibo[]>([]);
     const [modalOpen, setModalOpen] = useState(false);
 
+    
+    
     useEffect(() => {
         const fetchUser = async () => {
-            if (userId) {
-                const fetchedUser = await getUser(userId);
-                setUser(fetchedUser || null);
-                const fetchedWishlist = await getWishlist(userId);
+            if (shareId) {
+                const fetchedWishlist = await getWishlistFromShareId(shareId);
                 setWishlist(fetchedWishlist);
-                const fetchedShareId = await getShareId(userId);
-                setShareId(fetchedShareId || null);
             }
         };
         fetchUser();
-    }, [userId]);
+    }, [shareId]);
+
 
     const toggleModal = () => {
         setModalOpen(!modalOpen);
@@ -82,7 +80,6 @@ const WishlistPage = () => {
             <Breadcrumb
                 paths={[
                     { url: '/', name: 'Home' },
-                    { url: '/account', name: 'My Account' },
                     { url: '/wishlist', name: 'Wishlist' },
                 ]}
                 currentUrl='/wishlist'
@@ -107,7 +104,7 @@ const WishlistPage = () => {
                     ))
                 ) : (
                     <>
-                        <p>You currently have no items in your wishlist.</p>
+                        <p>User currently has no items in their wishlist.</p>
                     </>
                 )}
             </Collection>
@@ -126,4 +123,4 @@ const WishlistPage = () => {
     );
 }
 
-export default WishlistPage;
+export default SharingPage;

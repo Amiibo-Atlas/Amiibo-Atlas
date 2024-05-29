@@ -21,6 +21,7 @@ import ProfilePage from './components/UserDashboard/ProfilePage.tsx';
 import AboutAmiibo from './components/AmiiboAbout.tsx';
 import store from './redux/store.ts';
 import WishlistPage from './components/UserDashboard/WishlistPage.tsx';
+import SharingPage from './components/UserDashboard/SharingPage.tsx';
 
 const queryClient = new QueryClient();
 
@@ -42,6 +43,7 @@ const router = createBrowserRouter([
             { path: '/account', element: <ProfilePage /> },
             { path: '/wishlist', element: <WishlistPage /> },
             { path: `/aboutamiibo`, element: <AboutAmiibo /> },
+            { path: `/wishlist/:shareId`, element: <SharingPage /> },
         ],
     },
 ]);

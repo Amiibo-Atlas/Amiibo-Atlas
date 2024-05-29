@@ -10,10 +10,12 @@ import {
     deleteDoc,
     query,
     Timestamp,
+    updateDoc,
 } from 'firebase/firestore';
 import { firebaseApp } from '../../firebase/firebaseConfig';
 import { User, UserRef } from '../../types/User';
 import { Amiibo } from '../../types/Amiibo';
+import { v4 as uuidv4 } from 'uuid';
 
 const db = getFirestore(firebaseApp);
 
@@ -37,6 +39,7 @@ export const postUser = async (userRef: UserRef): Promise<void> => {
 
 export const addToWishlist = async (userId: string, amiibo: Amiibo): Promise<void> => {
     const wishlistRef = collection(db, 'users', userId, 'wishlist');
+    console.log('wishlistRef: ', wishlistRef);
 
     // Identify if the amiibo already exists within the wishlist for the user...
     const findWishlist = query(wishlistRef, where('name', '==', amiibo.name));
@@ -71,3 +74,52 @@ export const removeFromWishlist = async (useId: string, wishlistId: string) => {
     const wishlistRef = doc(db, 'users', useId, 'wishlist', wishlistId);
     await deleteDoc(wishlistRef);
 };
+
+export const getShareId = async (user_uid: string) => {
+    const usersRef = doc(db, 'users', user_uid);
+    const docSnap = await getDoc(usersRef);
+    if (docSnap.exists()) {
+        if (!docSnap.data().shareId) {
+            const shareID = uuidv4();
+            await updateDoc(usersRef, {
+                shareId: shareID
+            });
+            return shareID;
+        }
+        return docSnap.data().shareId;
+    }
+};
+
+export const getUserFromShareId = async (share_id: string) => {
+    const q = query(collection(db, 'users'), where('shareId', '==', share_id));
+    const querySnapshot = await getDocs(q);
+    return querySnapshot.docs.map((doc) => ({
+        userId: doc.id,
+        ...(doc.data() as User),
+    }));
+};
+
+export const getWishlistFromShareId = async(share_id: string) => {
+    const q = query(collection(db, 'users'), where('shareId', '==', share_id));
+    const querySnapshot = await getDocs(q);
+    // get the user's id
+    const userRef = querySnapshot.docs.map(docs => docs.id);
+    console.log(userRef);
+
+    const wishlistRef = collection(db, 'users', userRef[0], 'wishlist');
+    const q2 = query(wishlistRef);
+    const querySnapshot2 = await getDocs(q2);
+    return querySnapshot2.docs.map((doc) => ({
+        
+        wishlistId: doc.id,
+        ...(doc.data() as Amiibo),
+    }));
+};
+
+export const getUserIdFromShareId = async(share_id) => {
+    const q = query(collection(db, 'users'), where('shareId', '==', share_id));
+    const querySnapshot = await getDocs(q);
+    // get the user's id
+    const userRef = querySnapshot.docs.map(docs => docs.id);
+    return userRef;
+}

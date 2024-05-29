@@ -89,6 +89,8 @@ const AmiiboItem = ({ amiibo, setWishlist }) => {
     const addedAtFormatted = format(amiibo.addedAt.toDate(), 'PPpp');
     const [determineModalStatus, setDetermineModalStatus] = useState(false);
 
+    console.log('USER: ', userId);
+
     const handleDetails = () => {
         dispatch(setSelectedAmiibo(amiibo));
         navigate(`/amiibos/${amiibo.tail}-${amiibo.head}`);
@@ -128,7 +130,7 @@ const AmiiboItem = ({ amiibo, setWishlist }) => {
                         <button css={Button} onClick={handleDetails}>
                             Details
                         </button>
-                        <Icon css={IconDesign} onClick={handleRemove} />
+                        {userId && <Icon css={IconDesign} onClick={handleRemove} />}
                     </ButtonBox>
                 </ItemBox>
             </WrapperItemBox>
