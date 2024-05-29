@@ -127,8 +127,6 @@ const ProfilePage = () => {
         fetchUser();
     }, [userId]);
 
-    console.log(wishlist);
-
     return (
         <PageContainer>
             <Breadcrumb

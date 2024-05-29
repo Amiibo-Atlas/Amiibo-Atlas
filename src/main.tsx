@@ -43,7 +43,7 @@ const router = createBrowserRouter([
             { path: '/account', element: <ProfilePage /> },
             { path: '/wishlist', element: <WishlistPage /> },
             { path: `/aboutamiibo`, element: <AboutAmiibo /> },
-            { path: `/:userId/wishlist`, element: <SharingPage /> },
+            { path: `/wishlist/:shareId`, element: <SharingPage /> },
         ],
     },
 ]);

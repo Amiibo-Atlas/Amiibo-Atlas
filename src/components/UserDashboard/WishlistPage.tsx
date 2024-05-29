@@ -10,7 +10,7 @@ import styled from '@emotion/styled';
 import AmiiboItem from './AmiiboItem';
 import { Amiibo } from '../../types/Amiibo';
 import { User } from '../../types/User';
-import { getUser, getWishlist } from '../../features/user/userAPI';
+import { getShareId, getUser, getWishlist } from '../../features/user/userAPI';
 import WishlistShare from './WishlistShare';
 
 import { 
@@ -55,6 +55,7 @@ const countStyle = css`
 const WishlistPage = () => {
     const userId = useAppSelector((state) => state.user.userId);
     const [user, setUser] = useState<User | null>();
+    const [shareId, setShareId] = useState('');
     const [wishlist, setWishlist] = useState<Amiibo[]>([]);
     const [modalOpen, setModalOpen] = useState(false);
 
@@ -65,6 +66,8 @@ const WishlistPage = () => {
                 setUser(fetchedUser || null);
                 const fetchedWishlist = await getWishlist(userId);
                 setWishlist(fetchedWishlist);
+                const fetchedShareId = await getShareId(userId);
+                setShareId(fetchedShareId || null);
             }
         };
         fetchUser();
@@ -114,7 +117,7 @@ const WishlistPage = () => {
                     <ModalButton onClick={toggleModal}><Icon/></ModalButton>
                         <div css={topper}>Share Wish List</div>
                         <div css={informationBox}>
-                            <WishlistShare userId={userId}></WishlistShare>
+                            <WishlistShare shareId={shareId}></WishlistShare>
                         </div>
                     </div>
                 </ModalContainer>

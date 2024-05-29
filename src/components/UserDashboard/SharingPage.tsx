@@ -10,8 +10,9 @@ import styled from '@emotion/styled';
 // Components
 import AmiiboItem from './AmiiboItem';
 import { Amiibo } from '../../types/Amiibo';
-import { getWishlist } from '../../features/user/userAPI';
+import { getUserFromShareId, getUserIdFromShareId, getWishlistFromShareId } from '../../features/user/userAPI';
 import WishlistShare from './WishlistShare';
+import { User } from '../../types/User';
 
 import { 
     PageContainer,
@@ -52,19 +53,22 @@ const countStyle = css`
 `;
 
 const SharingPage = () => {
-    const { userId } = useParams();
+    const { shareId } = useParams();
+    const [user, setUser] = useState<User | null>();
     const [wishlist, setWishlist] = useState<Amiibo[]>([]);
     const [modalOpen, setModalOpen] = useState(false);
 
+    
+    
     useEffect(() => {
-        const fetchWishlist = async () => {
-            if (userId) {
-                const fetchedWishlist = await getWishlist(userId);
+        const fetchUser = async () => {
+            if (shareId) {
+                const fetchedWishlist = await getWishlistFromShareId(shareId);
                 setWishlist(fetchedWishlist);
             }
         };
-        fetchWishlist();
-    }, [userId]);
+        fetchUser();
+    }, [shareId]);
 
 
     const toggleModal = () => {
@@ -110,7 +114,7 @@ const SharingPage = () => {
                     <ModalButton onClick={toggleModal}><Icon/></ModalButton>
                         <div css={topper}>Share Wish List</div>
                         <div css={informationBox}>
-                            <WishlistShare userId={userId}></WishlistShare>
+                            <WishlistShare shareId={shareId}></WishlistShare>
                         </div>
                     </div>
                 </ModalContainer>
