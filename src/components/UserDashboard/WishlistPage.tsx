@@ -59,6 +59,8 @@ const WishlistPage = () => {
     const [wishlist, setWishlist] = useState<Amiibo[]>([]);
     const [modalOpen, setModalOpen] = useState(false);
 
+    console.log(user);
+
     useEffect(() => {
         const fetchUser = async () => {
             if (userId) {

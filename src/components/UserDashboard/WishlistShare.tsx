@@ -1,5 +1,3 @@
-import { useAppSelector } from '../../redux/hooks';
-
 import styled from '@emotion/styled';
 import { FaCopy } from "react-icons/fa";
 import { FacebookShare, TwitterShare, EmailShare, RedditShare } from 'react-share-kit';
@@ -52,7 +50,6 @@ const Container = styled.div`
 `;
 
 const WishlistShare = ({ shareId }) => {
-  const userId = useAppSelector((state) => state.user.userId);
   const wishlistUrl = window.location.origin + '/wishlist' + '/' + shareId;
   const text = 'Check out my Amiibo Atlas Wishlist!';
   const title = "User's Amiibo Atlas Wishlist";

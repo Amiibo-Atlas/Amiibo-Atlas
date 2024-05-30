@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { FaWindowClose } from 'react-icons/fa';
-import Share from './WishlistShare';
+// import Share from './WishlistShare';
 import ConfirmPublic from './WishlistConfirm';
 
 const PopupWindow = styled.div`
@@ -65,7 +65,7 @@ const Popup = ({ showPopup, setShowPopup, type, publicStatus, setPublicStatus }:
         <PopupWindow>
             <PopupContent>
                 <div className="content">
-                    {type === 'sharing' && <Share></Share>}
+                    {/* {type === 'sharing' && <Share shareId={shareId} />} */}
                     {type === 'public' && (
                         <ConfirmPublic
                             publicStatus={publicStatus}

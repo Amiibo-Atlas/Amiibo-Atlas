@@ -10,9 +10,8 @@ import styled from '@emotion/styled';
 // Components
 import AmiiboItem from './AmiiboItem';
 import { Amiibo } from '../../types/Amiibo';
-import { getUserFromShareId, getUserIdFromShareId, getWishlistFromShareId } from '../../features/user/userAPI';
+import { getWishlistFromShareId } from '../../features/user/userAPI';
 import WishlistShare from './WishlistShare';
-import { User } from '../../types/User';
 
 import { 
     PageContainer,
@@ -54,7 +53,6 @@ const countStyle = css`
 
 const SharingPage = () => {
     const { shareId } = useParams();
-    const [user, setUser] = useState<User | null>();
     const [wishlist, setWishlist] = useState<Amiibo[]>([]);
     const [modalOpen, setModalOpen] = useState(false);
 

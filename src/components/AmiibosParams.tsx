@@ -4,7 +4,6 @@ import { useAppSelector } from '../redux/hooks';
 import { AmiiboState } from '../types/Amiibo';
 
 import { Amiibo } from '../types/Amiibo';
-import { Link } from 'react-router-dom';
 
 import styled from '@emotion/styled';
 
@@ -68,7 +67,6 @@ export default function AmiibosParams() {
             <ul>
                 {sameSeries.map((amiibo) => (
                     <li key={amiibo.id}>
-                        {/* <Link to={`/amiibos/${amiibo.id}`}>{amiibo.name}</Link> */}
                         navigate(`/amiibos/${amiibo.tail}-${amiibo.head}`);
                     </li>
                 ))}

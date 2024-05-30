@@ -10,7 +10,6 @@ import { useAppSelector } from '../redux/hooks';
 import { AmiiboState } from '../types/Amiibo';
 
 import { Amiibo } from '../types/Amiibo';
-import { Link } from 'react-router-dom';
 
 import styled from '@emotion/styled';
 
