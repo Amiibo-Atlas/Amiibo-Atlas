@@ -138,24 +138,26 @@ export default function App() {
                         <h2>Featured Amiibo</h2>
                         <Scroll />
                     </CenterContent>
-
                     <p>
                         Amiibo Atlas is a modern, easy to use, modern web application designed for
-                        collectors, enthusiasts, or those that are interested in the current state
-                        of Nintendo’s Amiibo figurines. These figurines have been in production for
-                        ten years now, and have varied use cases amongst Nintendo’s catalog of
-                        games.
+                        collectors, enthusiasts, or those who are interested in the current state of
+                        Nintendo’s Amiibo figurines. These figurines have been in production for ten
+                        years now, and have varied use cases amongst Nintendo’s catalog of games.
                     </p>
-
                     <p>
                         Core functionality includes authentication, parameterized pages, and various
-                        the ability to wishlist particular amiibos, etc. The frontend was built
+                        abilities, such as to wishlisting particular Amiibo. The frontend was built
                         using the React framework for building the user interface based on its
-                        component like implementation. Given how React handles state management, and
+                        component-like implementation. Given how React handles state management, and
                         the scope of our web app, we have integrated Redux Toolkit for global state
-                        management. Thus far, we have created a global state for the currently
-                        logged in User (and their settings), and Amiibos. The backend includes
-                        firestore integration.
+                        management. Additionally, we are utilizing a various set of modern libraries
+                        that have optimized our development of this web app. As for the backend,
+                        there is Google Firebase integration - which handles various functionality
+                        including seamless authentication, cookies, etc.
+                    </p>
+                    <p>
+                        The team that developed this web application is proud of our accomplishment,
+                        and have made great progress within the capstone progress.
                     </p>
                 </SplashInfo>
             </Wrapper>
