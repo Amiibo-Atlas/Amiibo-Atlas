@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import { useAppDispatch } from '../redux/hooks';
 import { login, googleSignInAndUserSetup } from '../features/user/userSlice';
 import { useNavigate } from 'react-router-dom';
+import amiiboLogo from '../assets/amiibo.png';
 
 const Container = styled.div`
     position: fixed;
@@ -96,7 +97,7 @@ const Login = () => {
         <Container>
             <InnerContainer>
                 <Card>
-                    <Logo src="/src/assets/amiibo.png" />
+                    <Logo src={amiiboLogo} />
                     <Title>Amiibo Atlas</Title>
                     <ButtonContainer>
                         <Button onClick={loginWithGoogle}>Sign in with Google</Button>
