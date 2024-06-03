@@ -1,2 +1,5 @@
-/* /index.html 200
-/*  https://amiibo-atlas.netlify.app/:splat  301!
+# Redirect API requests
+/api/*  https://www.amiiboapi.com/api/amiibo/:splat  200
+
+# Handle SPA routing
+/*      /index.html  200
