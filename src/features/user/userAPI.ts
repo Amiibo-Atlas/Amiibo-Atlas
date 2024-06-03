@@ -12,7 +12,7 @@ import {
     Timestamp,
     updateDoc,
 } from 'firebase/firestore';
-import { firebaseApp } from '../../firebase/firebaseConfig';
+import firebaseApp from '../../firebase/firebaseConfig';
 import { User, UserRef } from '../../types/User';
 import { Amiibo } from '../../types/Amiibo';
 import { v4 as uuidv4 } from 'uuid';
